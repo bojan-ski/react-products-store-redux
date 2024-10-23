@@ -5,8 +5,17 @@ import { useGlobalContext } from "../../context"
 // toastify
 import { toast } from "react-toastify"
 
+// redux
+import { useDispatch, useSelector } from "react-redux"
+import { addProductInCart } from "../../features/cart/cartSlice"
 
 const ProductDataBox = () => {
+    const cart = useSelector(store => store.cart)
+    console.log(cart);
+    const dispatch = useDispatch()
+    
+
+
     const { id, availabilityStatus, brand, category, description, dimensions, discountPercentage, images, minimumOrderQuantity, price, rating, returnPolicy, reviews, shippingInformation, stock, tags, thumbnail, title, warrantyInformation, weight } = useLoaderData()
 
     const { cartItems, setCartItems } = useGlobalContext()
@@ -43,6 +52,8 @@ const ProductDataBox = () => {
             toast.warning('Product is already in the cart')
             return 
         }
+
+        dispatch(addProductInCart(cartItem))
 
         setCartItems((prevState) => {
             const updatedCartItems = [...prevState.cartItemsList, cartItem];

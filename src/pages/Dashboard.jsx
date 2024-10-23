@@ -7,7 +7,6 @@ import PageHeader from "../components/PageHeader"
 import ProductsList from "../components/dashboardPage/ProductsList"
 import NoProductsAvailable from "../components/dashboardPage/NoProductsAvailable"
 
-
 // LOADER
 export const loader = async () => {
   // dummyjson func
@@ -15,7 +14,7 @@ export const loader = async () => {
   const categories = await fetchDataFromDummyJSON('', '/category-list')
 
   // firebase func
-  const bookmarkedProducts = await fetchBookmarkedProductsToFirebase() 
+  const bookmarkedProducts = await fetchBookmarkedProductsToFirebase()
 
   return { listOfProductsFromDB, categories, bookmarkedProducts }
 }
