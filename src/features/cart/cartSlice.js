@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit"
-// toast
-import { toast } from "react-toastify";
+
 
 const initialCartState = {
     cartItemsList: [],
     totalQuantity: 0,
     shipping: 10,
     orderCost: 0,
-    gradTotal: 0
+    gradTotal: 0,
+    isLoading: false
 }
 
 const cartSlice = createSlice({
@@ -15,64 +15,75 @@ const cartSlice = createSlice({
     initialState: initialCartState,
     reducers: {
         addProductToCart: (state, { payload }) => {
-            // console.log(state);
-            // console.log(payload);
-            // state.cartItemsList.push(payload)
+            // loading true
+            state.isLoading = true
 
-            // const updatedCartItems = [...state.cartItemsList, payload];
-            // const updatedTotalQuantity = updatedCartItems.reduce((acc, item) => acc + item.quantity, 0);
-            // const updatedOrderCost = updatedCartItems.reduce((acc, item) => acc + item.totalPrice, 0);
-            // const updatedGradTotal = updatedOrderCost + (updatedOrderCost / state.shipping)
-
-            // state.cartItemsList = updatedCartItems
-            // state.totalQuantity = updatedTotalQuantity
-            // state.orderCost = +updatedOrderCost.toFixed(2)
-            // state.gradTotal = +updatedGradTotal.toFixed(2)  
-
+            // update state
             state.cartItemsList = [...state.cartItemsList, payload];
             state.totalQuantity = state.cartItemsList.reduce((acc, item) => acc + item.quantity, 0);
             state.orderCost = +(state.cartItemsList.reduce((acc, item) => acc + item.totalPrice, 0)).toFixed(2);
             state.gradTotal = +(state.orderCost + (state.orderCost / state.shipping)).toFixed(2);
+
+            // loading false
+            state.isLoading = false
         },
         updateCart: (state, { payload: { productID, updatedQuantity } }) => {
+            // loading true
+            state.isLoading = true
+
+            // update state
             const newCartItemsList = state.cartItemsList.map(cartItem => {
                 if (cartItem.id === productID) {
                     return { ...cartItem, quantity: updatedQuantity, totalPrice: cartItem.price * updatedQuantity };
                 }
                 return cartItem;
             });
+            state = updateState(state, newCartItemsList)
 
-            state.cartItemsList = newCartItemsList;
-            state.totalQuantity = newCartItemsList.reduce((acc, item) => acc + item.quantity, 0);
-            state.orderCost = +(newCartItemsList.reduce((acc, item) => acc + item.totalPrice, 0)).toFixed(2);
-            state.gradTotal = +(state.orderCost + (state.orderCost / state.shipping)).toFixed(2);
+            // loading false
+            state.isLoading = false
         },
         removeProductFromCart: (state, { payload: { productID } }) => {
-            const newCartItemsList = state.cartItemsList.filter(cartItem => cartItem.id !== productID);
+            // loading true
+            state.isLoading = true
 
-            state.cartItemsList = newCartItemsList;
-            state.totalQuantity = newCartItemsList.reduce((acc, item) => acc + item.quantity, 0);
-            state.orderCost = +(newCartItemsList.reduce((acc, item) => acc + item.totalPrice, 0)).toFixed(2);
-            state.gradTotal = +(state.orderCost + (state.orderCost / state.shipping)).toFixed(2);
+            // update state
+            const newCartItemsList = state.cartItemsList.filter(cartItem => cartItem.id !== productID);
+            state = updateState(state, newCartItemsList)
+
+            // loading false
+            state.isLoading = false
+        },
+        updateGrandTotal: (state, { payload: { newGradTotal } }) => {
+            // loading true
+            state.isLoading = true
+
+            // update state
+            state.gradTotal = newGradTotal
+
+            // loading false
+            state.isLoading = false
         },
         clearCart: () => {
-            if (window.confirm('Are you sure you want to clear the Cart?')) {
-                toast.success('Cart has been emptied.')
-
-                if (window.location.pathname == '/checkout') navigate('/')
-
-                return initialCartState
-            }
+            return initialCartState
         }
     }
-
 })
 
+const updateState = (state, updatedCartItemsList) => {
+    state.cartItemsList = updatedCartItemsList;
+    state.totalQuantity = updatedCartItemsList.reduce((acc, item) => acc + item.quantity, 0);
+    state.orderCost = +(updatedCartItemsList.reduce((acc, item) => acc + item.totalPrice, 0)).toFixed(2);
+    state.gradTotal = +(state.orderCost + (state.orderCost / state.shipping)).toFixed(2);
+
+    return state
+}
 
 export const {
     addProductToCart,
     updateCart,
     removeProductFromCart,
-    clearCart,
+    updateGrandTotal,
+    clearCart
 } = cartSlice.actions
 export default cartSlice.reducer

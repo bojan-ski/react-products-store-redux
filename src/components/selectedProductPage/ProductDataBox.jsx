@@ -1,23 +1,17 @@
 import { useState } from "react"
 import { useLoaderData } from "react-router-dom"
-// context
-import { useGlobalContext } from "../../context"
-// toastify
-import { toast } from "react-toastify"
-
 // redux
 import { useDispatch, useSelector } from "react-redux"
 import { addProductToCart } from "../../features/cart/cartSlice"
+// toastify
+import { toast } from "react-toastify"
+
 
 const ProductDataBox = () => {
-    const cart = useSelector(store => store.cart)
-    console.log(cart);
-    const dispatch = useDispatch()
-    
-
     const { id, availabilityStatus, brand, category, description, dimensions, discountPercentage, images, minimumOrderQuantity, price, rating, returnPolicy, reviews, shippingInformation, stock, tags, thumbnail, title, warrantyInformation, weight } = useLoaderData()
 
-    const { cartItems, setCartItems } = useGlobalContext()
+    const {cartItemsList, isLoading} = useSelector(store => store.cart)
+    const dispatch = useDispatch()   
 
     const [cartItem, setCartItem] = useState({
         id,
@@ -39,47 +33,16 @@ const ProductDataBox = () => {
         }));
     }
 
-    // console.log(cartItem);
-    // console.log(cartItems);    
-
-    const addProduct = () => {
-        // console.log(cartItem);
-        // const exists = cartItems.cartItemsList.some(item => item.id === cartItem.id);
-        // console.log(exists);        
-
-        if(cartItems.cartItemsList.some(product => product.id === cartItem.id)){
-            toast.warning('Product is already in the cart')
-            return 
-        }
-
-        if(cart.cartItemsList.some(product => product.id === cartItem.id)){
-            toast.warning('Product is already in the cart')
-            return 
+    const addProduct = () => {    
+        if(cartItemsList.some(product => product.id === cartItem.id)){
+            return toast.warning('Product is already in the cart')
         }
 
         dispatch(addProductToCart(cartItem))
 
-        setCartItems((prevState) => {
-            const updatedCartItems = [...prevState.cartItemsList, cartItem];
-            const updatedTotalQuantity = updatedCartItems.reduce((acc, item) => acc + item.quantity, 0);
-            const updatedOrderCost = updatedCartItems.reduce((acc, item) => acc + item.totalPrice, 0);
-            const updatedGradTotal = updatedOrderCost + (updatedOrderCost / prevState.shipping)
-
-            return {
-                ...prevState,
-                cartItemsList: updatedCartItems,
-                totalQuantity: updatedTotalQuantity,
-                orderCost: +updatedOrderCost.toFixed(2),
-                gradTotal: +updatedGradTotal.toFixed(2)
-            };
-        })
-
-        
-        // console.log(cartItem);
+        // success message
         toast.success('product added to cart')
-    }
-    
-    // console.log(cartItems);     
+    }  
        
     return (
         <>
@@ -138,7 +101,7 @@ const ProductDataBox = () => {
                         })}
                     </select>
 
-                    <button className="btn btn-success" onClick={addProduct}>
+                    <button className="btn btn-success" onClick={addProduct} disabled={isLoading}>
                         Add to Cart
                     </button>
                 </div>

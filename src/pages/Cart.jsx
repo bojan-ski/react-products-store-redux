@@ -1,14 +1,12 @@
-// context
-import { useGlobalContext } from "../context"
+// redux
+import { useSelector } from "react-redux"
 // components
 import PageHeader from "../components/PageHeader"
 import CartItemsList from "../components/cartPage/CartItemsList"
 import CartCostDetails from "../components/cartPage/CartCostDetails"
 
-
 const Cart = () => {
-    const { cartItems } = useGlobalContext()
-    // console.log(cartItems);
+    const { cartItemsList } = useSelector(state => state.cart)
 
     return (
         <div className="cart-page">
@@ -16,7 +14,7 @@ const Cart = () => {
 
             <div className="container">
 
-                {cartItems.cartItemsList && cartItems.cartItemsList.length > 0 ? (
+                {cartItemsList && cartItemsList.length > 0 ? (
                     <div className="row">
                         {/* row item 1 */}
                         <section className="cart-items-details col-12 col-lg-8 ">

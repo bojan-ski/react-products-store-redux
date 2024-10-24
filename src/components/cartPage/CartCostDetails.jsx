@@ -1,20 +1,31 @@
-import { Link } from 'react-router-dom'
-// context
-import { useGlobalContext } from '../../context'
-
+import { Link, useNavigate } from 'react-router-dom'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
 import { clearCart } from '../../features/cart/cartSlice'
+// toastify
+import { toast } from 'react-toastify'
+// context
+import { useGlobalContext } from '../../context'
 
 
 const CartCostDetails = () => {
-    const { cartItems, handleClearCart, userProfileDetails } = useGlobalContext()
-
-    const { cartItemsList, totalQuantity, shipping, orderCost, gradTotal } = cartItems
-
-    const cart = useSelector(store => store.cart)
-    console.log(cart);
+    const navigate = useNavigate()
+    const { isLoading, cartItemsList, totalQuantity, shipping, orderCost, gradTotal } = useSelector(store => store.cart)
     const dispatch = useDispatch()
+
+    const { userProfileDetails } = useGlobalContext()
+
+    const handleClearCart = () => {
+        if (window.confirm('Are you sure You want to clear the cart')) {
+            dispatch(clearCart())   
+            
+            // success message
+            toast.success('Cart has been emptied.');
+
+            // redirect user
+            navigate('/')
+        }
+    }    
 
     return (
         <div className='bg-info px-4 py-3 rounded rounded-4'>
@@ -80,10 +91,7 @@ const CartCostDetails = () => {
                         Sign In
                     </Link>
                 )}
-                <button className='btn btn-danger px-3 py-2' onClick={handleClearCart}>
-                    Cancel
-                </button>
-                <button className='btn btn-warning px-3 py-2' onClick={()=>dispatch(clearCart())}>
+                <button className='btn btn-danger px-3 py-2' onClick={handleClearCart} disabled={isLoading}>
                     Cancel
                 </button>
             </div>

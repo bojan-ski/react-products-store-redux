@@ -1,15 +1,14 @@
-// context
-import { useGlobalContext } from "../../context";
+// redux
+import { useSelector } from "react-redux";
 // components
 import CartItem from "./CartItem";
 
 const CartItemsList = () => {
-    const { cartItems } = useGlobalContext()
+    const { cartItemsList } = useSelector(store => store.cart)   
 
     return (
         <div className="row">
-            {cartItems.cartItemsList?.map(cartItem => {
-                // console.log(cartItem);               
+            {cartItemsList?.map(cartItem => {              
                 return <CartItem key={cartItem.id} cartItem={cartItem} />
             })}
         </div>

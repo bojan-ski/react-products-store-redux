@@ -1,17 +1,16 @@
 import { useState } from "react"
 // components
+import BackButtons from "../components/BackButtons"
 import PageHeader from "../components/PageHeader"
 import OrderCostDetails from "../components/checkoutPage/OrderCostDetails"
 import CheckoutForm from "../components/checkoutPage/CheckoutForm"
-import BackButtons from "../components/BackButtons"
 // modal
 import PaymentModalAnimation from "../modal/PaymentModalAnimation"
 
 
 const Checkout = () => {
   const [togglePaymentModalAnimation, setTogglePaymentModalAnimation] = useState('none')
-  // console.log(togglePaymentModalAnimation);
-  
+
   return (
     <div className="checkout-page">
       <div className="container">
@@ -22,9 +21,9 @@ const Checkout = () => {
 
         <OrderCostDetails />
 
-        <CheckoutForm setTogglePaymentModalAnimation={setTogglePaymentModalAnimation}/>
+        <CheckoutForm setTogglePaymentModalAnimation={setTogglePaymentModalAnimation} />
 
-        {togglePaymentModalAnimation == 'block' && <PaymentModalAnimation/>}
+        {togglePaymentModalAnimation == 'block' && <PaymentModalAnimation />}
       </div>
     </div>
   )

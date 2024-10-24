@@ -1,51 +1,23 @@
-// context
-import { useGlobalContext } from "../../context";
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { updateCart, removeProductFromCart } from "../../features/cart/cartSlice";
 // toastify
 import { toast } from "react-toastify";
 
 
-// redux
-import { useDispatch, useSelector } from "react-redux";
-import { updateCart, removeProductFromCart } from "../../features/cart/cartSlice";
-
-
 const CartItem = ({ cartItem }) => {
-    // console.log(cartItem);
-    const { setCartItems } = useGlobalContext()
-
-    const cart = useSelector(store => store.cart)
-    console.log(cart);
-    const dispatch = useDispatch()
-
     const { id, thumbnail, title, category, price, quantity, totalPrice } = cartItem
 
-    const handleUpdatedCart = (e) => {
+    const { isLoading } = useSelector(store => store.cart)
+    const dispatch = useDispatch()
+
+    const handleUpdatedCart = e => {
         e.preventDefault()
 
         const updatedQuantity = +e.target.value
         dispatch(updateCart({ productID: id, updatedQuantity }))
 
-        setCartItems(prevState => {
-            const newCartItemsList = prevState.cartItemsList.map(cartItem => {
-                if (cartItem.id === id) {
-                    return { ...cartItem, quantity: +e.target.value, totalPrice: cartItem.price * +e.target.value };
-                }
-                return cartItem;
-            });
-
-            const newTotalQuantity = newCartItemsList.reduce((acc, item) => acc + item.quantity, 0);
-            const newOrderCost = newCartItemsList.reduce((acc, item) => acc + item.totalPrice, 0);
-            const newGradTotal = newOrderCost + (newOrderCost / prevState.shipping)
-
-            return {
-                ...prevState,
-                cartItemsList: newCartItemsList,
-                totalQuantity: newTotalQuantity,
-                orderCost: +newOrderCost.toFixed(2),
-                gradTotal: +newGradTotal.toFixed(2)
-            };
-        });
-
+        // success message
         toast.success('Cart updated')
     }
 
@@ -54,23 +26,8 @@ const CartItem = ({ cartItem }) => {
 
             dispatch(removeProductFromCart({ productID: id }))
 
-            setCartItems(prevState => {
-                const newCartItemsList = prevState.cartItemsList.filter(cartItem => cartItem.id !== id);
-
-                const newTotalQuantity = newCartItemsList.reduce((acc, item) => acc + item.quantity, 0);
-                const newOrderCost = newCartItemsList.reduce((acc, item) => acc + item.totalPrice, 0);
-                const newGradTotal = newOrderCost + (newOrderCost / prevState.shipping)
-
-                return {
-                    ...prevState,
-                    cartItemsList: newCartItemsList,
-                    totalQuantity: newTotalQuantity,
-                    orderCost: +newOrderCost.toFixed(2),
-                    gradTotal: +newGradTotal.toFixed(2)
-                };
-            });
-
-            toast.success('Product removed form cart')
+            // success message
+            toast.success('Product removed from cart')
         }
     }
 
@@ -99,7 +56,7 @@ const CartItem = ({ cartItem }) => {
 
                     {/* row item 3 */}
                     <div className="col-2">
-                        <select className="form-select" value={quantity} onChange={handleUpdatedCart}>
+                        <select className="form-select" value={quantity} onChange={handleUpdatedCart} disabled={isLoading}>
                             {Array.from({ length: 10 }, (_, idx) => {
                                 const amount = idx + 1
 
@@ -121,7 +78,7 @@ const CartItem = ({ cartItem }) => {
 
                     {/* row item 5 */}
                     <div className="col-2">
-                        <button className="btn btn-danger" onClick={handleRemoveProduct}>
+                        <button className="btn btn-danger" onClick={handleRemoveProduct} disabled={isLoading}>
                             Remove
                         </button>
                     </div>

@@ -1,5 +1,8 @@
 import { useState } from "react"
-import { useLoaderData } from "react-router-dom"
+import { useLoaderData, useNavigate } from "react-router-dom"
+// redux
+import { useDispatch, useSelector } from "react-redux"
+import { clearCart } from "../../features/cart/cartSlice"
 // context
 import { useGlobalContext } from "../../context"
 // api func
@@ -12,9 +15,12 @@ import { toast } from "react-toastify"
 
 
 const CheckoutForm = ({ setTogglePaymentModalAnimation }) => {
+    const navigate = useNavigate()
     const userShippingDetails = useLoaderData()
-    const { userProfileDetails, cartItems, clearCart, handleClearCart, navigate } = useGlobalContext()
-    // console.log(userShippingDetails);  
+    const cart = useSelector(state => state.cart)
+    const dispatch = useDispatch()
+
+    const { userProfileDetails } = useGlobalContext()
 
     const [cardDetails, setCardDetails] = useState({
         nameOnCard: '',
@@ -61,16 +67,13 @@ const CheckoutForm = ({ setTogglePaymentModalAnimation }) => {
         e.preventDefault()
 
         if (window.confirm('Place Order?')) {
-            // console.log('handleSubmitOrderDetails');
-
             const orderFormsData = {
-                orderDetails: cartItems,
-                grandTotal: cartItems.gradTotal,
+                orderDetails: cart,
+                grandTotal: cart.gradTotal,
                 orderStatus: 'pending',
                 cardDetails,
                 shippingDetails
             }
-            // console.log(orderFormsData);
 
             const response = await submitOrder(userProfileDetails, orderFormsData)
 
@@ -78,16 +81,28 @@ const CheckoutForm = ({ setTogglePaymentModalAnimation }) => {
                 setTogglePaymentModalAnimation('block')
 
                 setTimeout(() => {
-                    clearCart()
+                    dispatch(clearCart())
                     setTogglePaymentModalAnimation('none')
 
                     //success message
                     toast.success('Your order has been submitted');
 
-                    // navigate user 
+                    // redirect user 
                     navigate('/profile')
                 }, 5000)
             }
+        }
+    }
+
+    const handleCancelOrder = () => {
+        if (window.confirm('Are you sure You want to cancel the order')) {
+            dispatch(clearCart())  
+            
+            // success message
+            toast.success('Your order has been canceled');
+
+            // redirect user
+            navigate('/')
         }
     }
 
@@ -122,8 +137,8 @@ const CheckoutForm = ({ setTogglePaymentModalAnimation }) => {
                         Proceed
                     </button>
 
-                    <button type="button" className='btn btn-danger px-3 py-2' onClick={handleClearCart}>
-                        Cancel
+                    <button type="button" className='btn btn-danger px-3 py-2' onClick={handleCancelOrder}>
+                        Cancel Order
                     </button>
                 </div>
             </div>

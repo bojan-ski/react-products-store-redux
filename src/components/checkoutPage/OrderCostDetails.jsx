@@ -1,67 +1,35 @@
+// redux
+import { useDispatch, useSelector } from "react-redux"
+import { updateGrandTotal } from "../../features/cart/cartSlice"
 // context
 import { useGlobalContext } from "../../context"
+// toast
+import { toast } from "react-toastify"
 
 
 const OrderCostDetails = () => {
-    const { cartItems, setCartItems, userProfileDetails, setUserProfileDetails } = useGlobalContext()
-    // console.log(cartItems);
-    // console.log(userProfileDetails);    
+    const { cartItemsList, totalQuantity, shipping, orderCost, gradTotal } = useSelector(state => state.cart)
+    const dispatch = useDispatch()
 
-    const { cartItemsList, totalQuantity, shipping, orderCost, gradTotal } = cartItems
+    const { userProfileDetails, setUserProfileDetails } = useGlobalContext()    
 
     const handleApplyStoreCredit = () => {
         if (!window.confirm('Are you sure you want to apply your Store credits?')) return;
-    
-        const result = (cartItems.gradTotal - userProfileDetails.userStoreCredit).toFixed(2);
+
+        const result = (gradTotal - userProfileDetails.userStoreCredit).toFixed(2);
         const newUserStoreCredit = result < 0 ? Math.abs(result) : 0;
         const newGradTotal = result < 0 ? 0 : result;
-    
+
         setUserProfileDetails(prevState => ({
             ...prevState,
             userStoreCredit: newUserStoreCredit,
         }));
-    
-        setCartItems(prevState => ({
-            ...prevState,
-            gradTotal: newGradTotal,
-        }));
+
+        dispatch(updateGrandTotal({ newGradTotal }))
+
+        // success message
+        toast.success('Store credit used')
     };
-
-    // const handleApplyStoreCredit = () => {
-    //     if (window.confirm('Are you sure you want to apply your Store credits?')) {
-    //         const result = (cartItems.gradTotal - userProfileDetails.userStoreCredit).toFixed(2)
-
-    //         if (result < 0) {
-    //             setUserProfileDetails(prevState => {
-    //                 return {
-    //                     ...prevState,
-    //                     userStoreCredit: Math.abs(result)
-    //                 }
-    //             })
-
-    //             setCartItems((prevState) => {
-    //                 return {
-    //                     ...prevState,
-    //                     gradTotal: 0
-    //                 };
-    //             })
-    //         } else {
-    //             setUserProfileDetails(prevState => {
-    //                 return {
-    //                     ...prevState,
-    //                     userStoreCredit: 0
-    //                 }
-    //             })
-
-    //             setCartItems((prevState) => {
-    //                 return {
-    //                     ...prevState,
-    //                     gradTotal: result
-    //                 };
-    //             })
-    //         }
-    //     }
-    // }
 
     return (
         <section className="bg-warning p-3 mb-5 rounded-4">
@@ -123,39 +91,6 @@ const OrderCostDetails = () => {
                         </button>
                     </div>
                 </div>
-
-
-                {/* row item 1 */}
-                {/* <div className="col-6">
-                    <p className='mb-0'>
-                        Number of products:
-                    </p>
-                    <p className='fw-bold'>
-                        {cartItemsList.length}
-                    </p>
-                    <p className='mb-0'>
-                        Total Quantity:
-                    </p>
-                    <p className='fw-bold mb-0'>
-                        {totalQuantity}
-                    </p>
-                </div> */}
-
-                {/* row item 2 */}
-                {/* <div className="col-6">
-                    <p className='mb-0'>
-                        Shipping Cost:
-                    </p>
-                    <p className='fw-bold'>
-                        + {shipping} %
-                    </p>
-                    <h5 className='mb-0'>
-                        Grand Total:
-                    </h5>
-                    <p className='fw-bold mb-0'>
-                        $ {gradTotal}
-                    </p>
-                </div> */}
             </div>
         </section>
     )

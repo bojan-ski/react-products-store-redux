@@ -78,31 +78,7 @@ export const AppProvider = ({ children }) => {
                 console.log(error);
             }
         }
-    }
-
-    // cart features
-    const initCartState = {
-        cartItemsList: [],
-        totalQuantity: 0,
-        shipping: 10,
-        orderCost: 0,
-        gradTotal: 0
-    }
-
-    const [cartItems, setCartItems] = useState(initCartState)
-
-    const clearCart = () => setCartItems(initCartState);
-
-    const handleClearCart = () => {
-        if (window.confirm('Are you sure you want to clear the Cart?')) {
-            clearCart();
-            
-            toast.success('Cart has been emptied.')
-
-            if(window.location.pathname == '/checkout') navigate('/')           
-        }
-    }
-    
+    }  
 
     return <AppContext.Provider value={{
         availableProducts, // ProductsList, Pagination
@@ -119,10 +95,6 @@ export const AppProvider = ({ children }) => {
         setUserProfileDetails, // OrderCostDetails
         logOutUser, // Profile, Onboarding
         navigate, // ForgotPassword
-        cartItems, // ProductDataBox, Cart, CartItem, CartCostDetails, Checkout
-        setCartItems, // ProductDataBox, OrderCostDetails
-        clearCart, // CheckoutForm
-        handleClearCart, // CheckoutForm, CartCostDetails
     }}>
         {children}
     </AppContext.Provider>
