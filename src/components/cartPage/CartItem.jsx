@@ -4,14 +4,26 @@ import { useGlobalContext } from "../../context";
 import { toast } from "react-toastify";
 
 
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { updateCart } from "../../features/cart/cartSlice";
+
+
 const CartItem = ({ cartItem }) => {
     // console.log(cartItem);
     const { setCartItems } = useGlobalContext()
+
+    const cart = useSelector(store => store.cart)
+    console.log(cart);
+    const dispatch = useDispatch()
 
     const { id, thumbnail, title, category, price, quantity, totalPrice } = cartItem
 
     const handleUpdatedCart = (e) => {
         e.preventDefault()
+
+        const updatedQuantity = +e.target.value
+        dispatch(updateCart({ productID: id, updatedQuantity }))
 
         setCartItems(prevState => {
             const newCartItemsList = prevState.cartItemsList.map(cartItem => {

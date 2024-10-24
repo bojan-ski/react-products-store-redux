@@ -12,7 +12,7 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState: initialCartState,
     reducers: {
-        addProductInCart: (state, { payload }) => {
+        addProductToCart: (state, { payload }) => {
             // console.log(state);
             // console.log(payload);
             // state.cartItemsList.push(payload)
@@ -27,10 +27,23 @@ const cartSlice = createSlice({
             // state.orderCost = +updatedOrderCost.toFixed(2)
             // state.gradTotal = +updatedGradTotal.toFixed(2)  
 
-            state.cartItemsList = [...state.cartItemsList, payload]
-            state.totalQuantity = state.cartItemsList.reduce((acc, item) => acc + item.quantity, 0)
-            state.orderCost = +(state.cartItemsList.reduce((acc, item) => acc + item.totalPrice, 0)).toFixed(2)
-            state.gradTotal = +(state.orderCost + (state.orderCost / state.shipping)).toFixed(2)
+            state.cartItemsList = [...state.cartItemsList, payload];
+            state.totalQuantity = state.cartItemsList.reduce((acc, item) => acc + item.quantity, 0);
+            state.orderCost = +(state.cartItemsList.reduce((acc, item) => acc + item.totalPrice, 0)).toFixed(2);
+            state.gradTotal = +(state.orderCost + (state.orderCost / state.shipping)).toFixed(2);
+        },
+        updateCart: (state, { payload: { productID, updatedQuantity } }) => {
+            const newCartItemsList = state.cartItemsList.map(cartItem => {
+                if (cartItem.id === productID) {
+                    return { ...cartItem, quantity: updatedQuantity, totalPrice: cartItem.price * updatedQuantity };
+                }
+                return cartItem;
+            });
+
+            state.cartItemsList = newCartItemsList;
+            state.totalQuantity = newCartItemsList.reduce((acc, item) => acc + item.quantity, 0);
+            state.orderCost = +(newCartItemsList.reduce((acc, item) => acc + item.totalPrice, 0)).toFixed(2);
+            state.gradTotal = +(state.orderCost + (state.orderCost / state.shipping)).toFixed(2);            
         },
         clearCart: (state) => {
             state.initialCartState = initialCartState
@@ -41,7 +54,8 @@ const cartSlice = createSlice({
 
 
 export const {
-    addProductInCart,
+    addProductToCart,
+    updateCart,
     clearCart,
 } = cartSlice.actions
 export default cartSlice.reducer

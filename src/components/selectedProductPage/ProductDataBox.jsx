@@ -7,14 +7,13 @@ import { toast } from "react-toastify"
 
 // redux
 import { useDispatch, useSelector } from "react-redux"
-import { addProductInCart } from "../../features/cart/cartSlice"
+import { addProductToCart } from "../../features/cart/cartSlice"
 
 const ProductDataBox = () => {
     const cart = useSelector(store => store.cart)
     console.log(cart);
     const dispatch = useDispatch()
     
-
 
     const { id, availabilityStatus, brand, category, description, dimensions, discountPercentage, images, minimumOrderQuantity, price, rating, returnPolicy, reviews, shippingInformation, stock, tags, thumbnail, title, warrantyInformation, weight } = useLoaderData()
 
@@ -43,7 +42,7 @@ const ProductDataBox = () => {
     // console.log(cartItem);
     // console.log(cartItems);    
 
-    const addProductToCart = () => {
+    const addProduct = () => {
         // console.log(cartItem);
         // const exists = cartItems.cartItemsList.some(item => item.id === cartItem.id);
         // console.log(exists);        
@@ -53,7 +52,12 @@ const ProductDataBox = () => {
             return 
         }
 
-        dispatch(addProductInCart(cartItem))
+        if(cart.cartItemsList.some(product => product.id === cartItem.id)){
+            toast.warning('Product is already in the cart')
+            return 
+        }
+
+        dispatch(addProductToCart(cartItem))
 
         setCartItems((prevState) => {
             const updatedCartItems = [...prevState.cartItemsList, cartItem];
@@ -134,7 +138,7 @@ const ProductDataBox = () => {
                         })}
                     </select>
 
-                    <button className="btn btn-success" onClick={addProductToCart}>
+                    <button className="btn btn-success" onClick={addProduct}>
                         Add to Cart
                     </button>
                 </div>
