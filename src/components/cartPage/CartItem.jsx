@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import { updateCart } from "../../features/cart/cartSlice";
+import { updateCart, removeProductFromCart } from "../../features/cart/cartSlice";
 
 
 const CartItem = ({ cartItem }) => {
@@ -51,6 +51,9 @@ const CartItem = ({ cartItem }) => {
 
     const handleRemoveProduct = () => {
         if (window.confirm('Are you sure you want to remove product?')) {
+
+            dispatch(removeProductFromCart({ productID: id }))
+
             setCartItems(prevState => {
                 const newCartItemsList = prevState.cartItemsList.filter(cartItem => cartItem.id !== id);
 

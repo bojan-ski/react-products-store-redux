@@ -2,10 +2,19 @@ import { Link } from 'react-router-dom'
 // context
 import { useGlobalContext } from '../../context'
 
+// redux
+import { useDispatch, useSelector } from 'react-redux'
+import { clearCart } from '../../features/cart/cartSlice'
+
+
 const CartCostDetails = () => {
     const { cartItems, handleClearCart, userProfileDetails } = useGlobalContext()
 
     const { cartItemsList, totalQuantity, shipping, orderCost, gradTotal } = cartItems
+
+    const cart = useSelector(store => store.cart)
+    console.log(cart);
+    const dispatch = useDispatch()
 
     return (
         <div className='bg-info px-4 py-3 rounded rounded-4'>
@@ -72,6 +81,9 @@ const CartCostDetails = () => {
                     </Link>
                 )}
                 <button className='btn btn-danger px-3 py-2' onClick={handleClearCart}>
+                    Cancel
+                </button>
+                <button className='btn btn-warning px-3 py-2' onClick={()=>dispatch(clearCart())}>
                     Cancel
                 </button>
             </div>

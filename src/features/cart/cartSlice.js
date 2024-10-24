@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
+// toast
+import { toast } from "react-toastify";
 
 const initialCartState = {
     cartItemsList: [],
@@ -43,10 +45,24 @@ const cartSlice = createSlice({
             state.cartItemsList = newCartItemsList;
             state.totalQuantity = newCartItemsList.reduce((acc, item) => acc + item.quantity, 0);
             state.orderCost = +(newCartItemsList.reduce((acc, item) => acc + item.totalPrice, 0)).toFixed(2);
-            state.gradTotal = +(state.orderCost + (state.orderCost / state.shipping)).toFixed(2);            
+            state.gradTotal = +(state.orderCost + (state.orderCost / state.shipping)).toFixed(2);
         },
-        clearCart: (state) => {
-            state.initialCartState = initialCartState
+        removeProductFromCart: (state, { payload: { productID } }) => {
+            const newCartItemsList = state.cartItemsList.filter(cartItem => cartItem.id !== productID);
+
+            state.cartItemsList = newCartItemsList;
+            state.totalQuantity = newCartItemsList.reduce((acc, item) => acc + item.quantity, 0);
+            state.orderCost = +(newCartItemsList.reduce((acc, item) => acc + item.totalPrice, 0)).toFixed(2);
+            state.gradTotal = +(state.orderCost + (state.orderCost / state.shipping)).toFixed(2);
+        },
+        clearCart: () => {
+            if (window.confirm('Are you sure you want to clear the Cart?')) {
+                toast.success('Cart has been emptied.')
+
+                if (window.location.pathname == '/checkout') navigate('/')
+
+                return initialCartState
+            }
         }
     }
 
@@ -56,6 +72,7 @@ const cartSlice = createSlice({
 export const {
     addProductToCart,
     updateCart,
+    removeProductFromCart,
     clearCart,
 } = cartSlice.actions
 export default cartSlice.reducer
