@@ -1,13 +1,12 @@
-// context
-import { useGlobalContext } from "../context"
+// redux
+import { useSelector } from "react-redux"
 // components
 import PageHeader from "../components/PageHeader"
 import CompareProductCard from "../components/compareProductsPage/CompareProductCard"
 
 
 const CompareProducts = () => {
-    const { compareProductsList } = useGlobalContext()
-    // console.log(compareProductsList);
+    const { compareProductsList } = useSelector(store => store.compareProducts)
 
     return (
         <div className="compare-products-page">
@@ -18,11 +17,7 @@ const CompareProducts = () => {
                     {!compareProductsList || compareProductsList.length == 0 ? (
                         <h1 className="text-center">No products were selected for comparison</h1>
                     ) : (
-                        compareProductsList?.map(product => {
-                            // console.log(product)
-
-                            return <CompareProductCard key={product.id} product={product}/>
-                        })
+                        compareProductsList?.map(product => <CompareProductCard key={product.id} product={product} />)
                     )}
                 </div>
             </div>

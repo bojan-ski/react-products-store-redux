@@ -1,42 +1,42 @@
 import { useState } from "react";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
+// redux
+import { useDispatch, useSelector } from 'react-redux'
+import { addProductToCompareProductsList, removeProductFromCompareProductsList } from '../features/products/productsSlice'
 // context
 import { useGlobalContext } from "../context";
 // api func
 import saveBookmarkProductToFirebase from "../api/saveBookmarkProductToFirebase";
 import removeBookmarkProductFromFirebase from "../api/removeBookmarkProductFromFirebase";
 import fetchBookmarkedProductsToFirebase from "../api/fetchBookmarkedProductsToFirebase";
+// toastify
+import { toast } from "react-toastify";
 
 
 const GridViewListCard = ({ product }) => {
-    // console.log(product);
     const { id, brand, category, price, rating, thumbnail, title } = product
 
-    const { compareProductsList, setCompareProductsList, userProfileDetails } = useGlobalContext()
+    const { isLoading, compareProductsList } = useSelector(store => store.compareProducts)
+    const dispatch = useDispatch()
+
+    const { userProfileDetails } = useGlobalContext()
 
     const handleAddProductToCompareProductsList = () => {
         if (compareProductsList.length > 1) {
-            alert('only two products can be compared')
+            return toast.warning('Only two products can be compared')
         } else {
-            setCompareProductsList(currState => [...currState, product])
+            dispatch(addProductToCompareProductsList(product))
+
+            // success message
+            toast.success('Product added to compare list')
         }
-        // console.log(compareProducts);
-
-        // let existingData = localStorage.getItem('compare');
-        // let itemsArray = existingData ? JSON.parse(existingData) : [];
-
-        // if (itemsArray.length > 2) {
-        //     console.log(3);
-        // } else {           
-        //     itemsArray.push(product);
-
-        //     localStorage.setItem('compare', JSON.stringify(itemsArray));
-        // }
     }
 
     const handleRemoveProductFromCompareProductsList = (id) => {
-        const updatedCompareProductsList = compareProductsList.filter(product => product.id !== id);
-        setCompareProductsList(updatedCompareProductsList);
+        dispatch(removeProductFromCompareProductsList({ productID: id }))
+
+        // success message
+        toast.success('Product removed from compare list')
     }
 
     const isProductInCompareList = compareProductsList && compareProductsList.some(product => product.id === id);
@@ -78,11 +78,11 @@ const GridViewListCard = ({ product }) => {
 
                 <div className="card-details-btn-container mb-3 pb-2 border-bottom d-flex align-items-center justify-content-between">
                     {isProductInCompareList ? (
-                        <button className="btn btn-danger" onClick={() => handleRemoveProductFromCompareProductsList(id)}>
+                        <button className="btn btn-danger" onClick={() => handleRemoveProductFromCompareProductsList(id)} disabled={isLoading}>
                             Remove
                         </button>
                     ) : (
-                        <button className="btn btn-warning" onClick={handleAddProductToCompareProductsList}>
+                        <button className="btn btn-warning" onClick={handleAddProductToCompareProductsList} disabled={isLoading}>
                             Compare
                         </button>
                     )}
