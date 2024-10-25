@@ -7,19 +7,24 @@ import Pagination from "../Pagination";
 import SearchAndFilter from "./SearchAndFilter";
 import GridViewListCard from "../GridViewListCard";
 
+// redux
+import { useSelector } from "react-redux";
+
 
 const ProductsList = () => {
-    const { listOfProductsFromDB } = useLoaderData()
-    const { products, total } = listOfProductsFromDB
+    // const { listOfProductsFromDB } = useLoaderData()
+    // const { products, total } = listOfProductsFromDB
 
-    const { availableProducts, setAvailableProducts, productsList, setProductsList, setUpdatedURL, setCurrentPageNumber } = useGlobalContext()
+    // const { availableProducts, setAvailableProducts, productsList, setProductsList, setUpdatedURL, setCurrentPageNumber } = useGlobalContext()
 
-    useEffect(() => {
-        setAvailableProducts(total)
-        setProductsList(products)
-        setUpdatedURL('')
-        setCurrentPageNumber(1)
-    }, [])
+    // useEffect(() => {
+    //     setAvailableProducts(total)
+    //     setProductsList(products)
+    //     setUpdatedURL('')
+    //     setCurrentPageNumber(1)
+    // }, [])
+
+    const { productsList, availableProducts } = useSelector(state => state.products)    
 
     return (
         <>

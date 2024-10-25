@@ -6,22 +6,41 @@ import { useGlobalContext } from "../../context"
 import SearchFeature from "./SearchFeature"
 import FilterFeature from "./FilterFeature"
 
+// redux
+import { useDispatch } from "react-redux"
+import { getListOfProducts } from "../../features/products/productsSlice"
+
 
 const SearchAndFilter = () => {
-    const { listOfProductsFromDB } = useLoaderData()
-    const { setAvailableProducts, setProductsList, setUpdatedURL, setCurrentPageNumber } = useGlobalContext()
-
     const [disabledOption, setDisabledOption] = useState(false)
-    const [searchTerm, setSearchTerm] = useState('')    
+    const [searchTerm, setSearchTerm] = useState('')
+
+    // const { listOfProductsFromDB } = useLoaderData()
+    // const { setAvailableProducts, setProductsList, setUpdatedURL, setCurrentPageNumber } = useGlobalContext()
+
+    // const handleResetFilterOption = () => {
+    //     setDisabledOption(false)
+    //     setSearchTerm('')
+    //     setAvailableProducts(listOfProductsFromDB.total)
+    //     setProductsList(listOfProductsFromDB.products)
+    //     setUpdatedURL('')
+    //     setCurrentPageNumber(1)
+    // }  
+
+    const dispatch = useDispatch()
 
     const handleResetFilterOption = () => {
         setDisabledOption(false)
         setSearchTerm('')
-        setAvailableProducts(listOfProductsFromDB.total)
-        setProductsList(listOfProductsFromDB.products)
-        setUpdatedURL('')
-        setCurrentPageNumber(1)
-    }  
+
+        // dummyjson funcs - products
+        const productsListParameters = {
+            updatedUrlOne: '',
+            updatedUrlTwo: '?limit=12&skip=0'
+        }
+
+        dispatch(getListOfProducts(productsListParameters));
+    }
 
     return (
         <section className="search-filter-option mb-5">

@@ -5,27 +5,53 @@ import { useGlobalContext } from "../../context"
 // api func
 import fetchDataFromDummyJSON from "../../api/fetchDataFromDummyJSON"
 
+// redux
+import { useDispatch } from "react-redux"
+import { getListOfProducts, updateProductsURL } from "../../features/products/productsSlice"
+
 
 const FilterFeature = ({ disabledOption, setDisabledOption, handleResetFilterOption }) => {
     const { categories } = useLoaderData()
+    // const { setAvailableProducts, setUpdatedURL, setProductsList, setCurrentPageNumber} = useGlobalContext()
+
+    // const [selectedCategory, setSelectedCategory] = useState('beauty')
+
+    // const handleApplySelectedFilterOption = async (e) => {
+    //     e.preventDefault()
+
+    //     setDisabledOption(true)
+    //     setUpdatedURL(`/category/${selectedCategory}`)
+
+        // const filteredProducts = await fetchDataFromDummyJSON(`/category/${selectedCategory}`, '?limit=12&skip=0')
+
+    //     setAvailableProducts(filteredProducts.total)
+    //     setProductsList(filteredProducts.products)
+    //     setCurrentPageNumber(1)
+    // }
+
+
     const { setAvailableProducts, setUpdatedURL, setProductsList, setCurrentPageNumber} = useGlobalContext()
 
     const [selectedCategory, setSelectedCategory] = useState('beauty')
+
+    const dispatch = useDispatch()
 
     const handleApplySelectedFilterOption = async (e) => {
         e.preventDefault()
 
         setDisabledOption(true)
-        setUpdatedURL(`/category/${selectedCategory}`)
 
-        const filteredProducts = await fetchDataFromDummyJSON(`/category/${selectedCategory}`, '?limit=12&skip=0')
+        dispatch(updateProductsURL(`/category/${selectedCategory}`))
 
-        setAvailableProducts(filteredProducts.total)
-        setProductsList(filteredProducts.products)
-        setCurrentPageNumber(1)
+        // dummyjson funcs - products
+        const filterProductsListParameters = {
+            updatedUrlOne: `/category/${selectedCategory}`,
+            updatedUrlTwo: '?limit=12&skip=0'
+        }
+
+        dispatch(getListOfProducts(filterProductsListParameters))
     }
 
-    // console.log(selectedCategory);    
 
     return (
         <>

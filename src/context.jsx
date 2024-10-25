@@ -19,9 +19,6 @@ export const AppProvider = ({ children }) => {
     // pagination
     const [currentPageNumber, setCurrentPageNumber] = useState(1)
 
-    // compare products
-    const [compareProductsList, setCompareProductsList] = useState([])
-
     // user details
     const auth = getAuth()
     const navigate = useNavigate()
@@ -85,12 +82,19 @@ export const AppProvider = ({ children }) => {
         setAvailableProducts, // ProductsList, SearchFeature, FilterFeature
         updatedURL, // Pagination
         setUpdatedURL, // FilterFeature
+
+
         productsList, // ProductsList, 
         setProductsList, // ProductsList, SearchFeature, FilterFeature, Pagination
+
+
         currentPageNumber, // Pagination, CustomPagination
         setCurrentPageNumber, // Pagination, CustomPagination, SearchFeature, FilterFeature, SearchAndFilter, ProductsList
-        compareProductsList, // ProductsListCard, CompareProducts
-        setCompareProductsList, // ProductsListCard
+
+
+
+
+        
         userProfileDetails, // Profile, Onboarding, PrivateRoute, ProductsListCard, CartCostDetails, CheckoutForm, SelectedOrder, OrderCostDetails
         setUserProfileDetails, // OrderCostDetails
         logOutUser, // Profile, Onboarding

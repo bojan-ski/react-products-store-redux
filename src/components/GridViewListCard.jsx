@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 // redux
 import { useDispatch, useSelector } from 'react-redux'
-import { addProductToCompareProductsList, removeProductFromCompareProductsList } from '../features/products/productsSlice'
+import { addProductToCompareProductsList, removeProductFromCompareProductsList } from '../features/products/compareProductsSlice'
 // context
 import { useGlobalContext } from "../context";
 // api func
