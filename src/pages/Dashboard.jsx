@@ -1,16 +1,15 @@
 import { useEffect } from "react"
-// import { useLoaderData } from "react-router-dom"
 // api func
 import fetchBookmarkedProductsToFirebase from "../api/fetchBookmarkedProductsToFirebase"
 import fetchDataFromDummyJSON from "../api/fetchDataFromDummyJSON"
-// components
-import PageHeader from "../components/PageHeader"
-import ProductsList from "../components/dashboardPage/ProductsList"
-import NoProductsAvailable from "../components/dashboardPage/NoProductsAvailable"
-
 // redux
 import { useSelector, useDispatch } from "react-redux"
 import { getListOfProducts } from "../features/products/productsSlice"
+// components
+import PageHeader from "../components/PageHeader"
+import SearchAndFilter from "../components/dashboardPage/SearchAndFilter"
+import ProductsList from "../components/dashboardPage/ProductsList"
+import NoProductsAvailable from "../components/dashboardPage/NoProductsAvailable"
 
 
 // LOADER
@@ -36,12 +35,9 @@ export const loader = async () => {
 }
 
 const Dashboard = () => {
-  // const { listOfProductsFromDB } = useLoaderData()
-
   const products = useSelector(state => state.products)
   const dispatch = useDispatch()
 
-  // dummyjson funcs - products
   const productsListParameters = {
     updatedUrlOne: '',
     updatedUrlTwo: '?limit=12&skip=0'
@@ -49,7 +45,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(getListOfProducts(productsListParameters));
-  },[])
+  }, [])
   console.log(products);
 
   return (
@@ -57,17 +53,13 @@ const Dashboard = () => {
       <div className="container">
         <PageHeader page='Dashboard' />
 
+        <SearchAndFilter/>
+        
         {products && products?.productsList.length > 0 ? (
           <ProductsList />
         ) : (
           <NoProductsAvailable />
         )}
-
-        {/* {listOfProductsFromDB && listOfProductsFromDB.products.length > 0 ? (
-          <ProductsList />
-        ) : (
-          <NoProductsAvailable />
-        )} */}
       </div>
     </div>
   )

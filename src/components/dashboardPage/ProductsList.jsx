@@ -1,35 +1,15 @@
-import { useEffect } from "react";
-import { useLoaderData } from "react-router-dom";
-// context
-import { useGlobalContext } from "../../context";
-// component
-import Pagination from "../Pagination";
-import SearchAndFilter from "./SearchAndFilter";
-import GridViewListCard from "../GridViewListCard";
-
 // redux
 import { useSelector } from "react-redux";
+// component
+import GridViewListCard from "../GridViewListCard";
+import Pagination from "../Pagination";
 
 
 const ProductsList = () => {
-    // const { listOfProductsFromDB } = useLoaderData()
-    // const { products, total } = listOfProductsFromDB
-
-    // const { availableProducts, setAvailableProducts, productsList, setProductsList, setUpdatedURL, setCurrentPageNumber } = useGlobalContext()
-
-    // useEffect(() => {
-    //     setAvailableProducts(total)
-    //     setProductsList(products)
-    //     setUpdatedURL('')
-    //     setCurrentPageNumber(1)
-    // }, [])
-
     const { productsList, availableProducts } = useSelector(state => state.products)    
 
     return (
         <>
-            <SearchAndFilter />
-
             <section className="products-list mb-3">
                 <h2 className="text-center mb-4">
                     {availableProducts} products available

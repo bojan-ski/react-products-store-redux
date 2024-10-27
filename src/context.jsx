@@ -11,14 +11,6 @@ import { toast } from "react-toastify";
 const AppContext = createContext()
 
 export const AppProvider = ({ children }) => {
-    // search and filter options
-    const [availableProducts, setAvailableProducts] = useState(0)
-    const [updatedURL, setUpdatedURL] = useState('')
-    const [productsList, setProductsList] = useState([])
-
-    // pagination
-    const [currentPageNumber, setCurrentPageNumber] = useState(1)
-
     // user details
     const auth = getAuth()
     const navigate = useNavigate()
@@ -77,24 +69,7 @@ export const AppProvider = ({ children }) => {
         }
     }  
 
-    return <AppContext.Provider value={{
-        availableProducts, // ProductsList, Pagination
-        setAvailableProducts, // ProductsList, SearchFeature, FilterFeature
-        updatedURL, // Pagination
-        setUpdatedURL, // FilterFeature
-
-
-        productsList, // ProductsList, 
-        setProductsList, // ProductsList, SearchFeature, FilterFeature, Pagination
-
-
-        currentPageNumber, // Pagination, CustomPagination
-        setCurrentPageNumber, // Pagination, CustomPagination, SearchFeature, FilterFeature, SearchAndFilter, ProductsList
-
-
-
-
-        
+    return <AppContext.Provider value={{       
         userProfileDetails, // Profile, Onboarding, PrivateRoute, ProductsListCard, CartCostDetails, CheckoutForm, SelectedOrder, OrderCostDetails
         setUserProfileDetails, // OrderCostDetails
         logOutUser, // Profile, Onboarding

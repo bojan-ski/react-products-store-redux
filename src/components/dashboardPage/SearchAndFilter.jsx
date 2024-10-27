@@ -1,45 +1,25 @@
 import { useState } from "react"
-import { useLoaderData } from "react-router-dom"
-// context
-import { useGlobalContext } from "../../context"
+// redux
+import { useDispatch } from "react-redux"
+import { resetListOfProducts } from "../../features/products/productsSlice"
 // components
 import SearchFeature from "./SearchFeature"
 import FilterFeature from "./FilterFeature"
 
-// redux
-import { useDispatch } from "react-redux"
-import { getListOfProducts } from "../../features/products/productsSlice"
-
 
 const SearchAndFilter = () => {
     const [disabledOption, setDisabledOption] = useState(false)
-    const [searchTerm, setSearchTerm] = useState('')
-
-    // const { listOfProductsFromDB } = useLoaderData()
-    // const { setAvailableProducts, setProductsList, setUpdatedURL, setCurrentPageNumber } = useGlobalContext()
-
-    // const handleResetFilterOption = () => {
-    //     setDisabledOption(false)
-    //     setSearchTerm('')
-    //     setAvailableProducts(listOfProductsFromDB.total)
-    //     setProductsList(listOfProductsFromDB.products)
-    //     setUpdatedURL('')
-    //     setCurrentPageNumber(1)
-    // }  
+    const [searchTerm, setSearchTerm] = useState('') 
+    const [selectedCategory, setSelectedCategory] = useState('beauty')
 
     const dispatch = useDispatch()
 
     const handleResetFilterOption = () => {
         setDisabledOption(false)
         setSearchTerm('')
+        setSelectedCategory('beauty')
 
-        // dummyjson funcs - products
-        const productsListParameters = {
-            updatedUrlOne: '',
-            updatedUrlTwo: '?limit=12&skip=0'
-        }
-
-        dispatch(getListOfProducts(productsListParameters));
+        dispatch(resetListOfProducts('?limit=12&skip=0'));
     }
 
     return (
@@ -63,6 +43,8 @@ const SearchAndFilter = () => {
                         disabledOption={disabledOption}
                         setDisabledOption={setDisabledOption}
                         handleResetFilterOption={handleResetFilterOption}
+                        selectedCategory={selectedCategory} 
+                        setSelectedCategory={setSelectedCategory}
                     />
                 </div>
             </div>

@@ -1,38 +1,12 @@
 import { useState } from "react"
 import { useLoaderData } from "react-router-dom"
-// context
-import { useGlobalContext } from "../../context"
-// api func
-import fetchDataFromDummyJSON from "../../api/fetchDataFromDummyJSON"
-
 // redux
 import { useDispatch } from "react-redux"
 import { getListOfProducts, updateProductsURL } from "../../features/products/productsSlice"
 
 
-const FilterFeature = ({ disabledOption, setDisabledOption, handleResetFilterOption }) => {
-    const { categories } = useLoaderData()
-    // const { setAvailableProducts, setUpdatedURL, setProductsList, setCurrentPageNumber} = useGlobalContext()
-
-    // const [selectedCategory, setSelectedCategory] = useState('beauty')
-
-    // const handleApplySelectedFilterOption = async (e) => {
-    //     e.preventDefault()
-
-    //     setDisabledOption(true)
-    //     setUpdatedURL(`/category/${selectedCategory}`)
-
-        // const filteredProducts = await fetchDataFromDummyJSON(`/category/${selectedCategory}`, '?limit=12&skip=0')
-
-    //     setAvailableProducts(filteredProducts.total)
-    //     setProductsList(filteredProducts.products)
-    //     setCurrentPageNumber(1)
-    // }
-
-
-    const { setAvailableProducts, setUpdatedURL, setProductsList, setCurrentPageNumber} = useGlobalContext()
-
-    const [selectedCategory, setSelectedCategory] = useState('beauty')
+const FilterFeature = ({ disabledOption, setDisabledOption, handleResetFilterOption, selectedCategory, setSelectedCategory }) => {
+    const { categories } = useLoaderData()    
 
     const dispatch = useDispatch()
 
@@ -43,12 +17,10 @@ const FilterFeature = ({ disabledOption, setDisabledOption, handleResetFilterOpt
 
         dispatch(updateProductsURL(`/category/${selectedCategory}`))
 
-        // dummyjson funcs - products
         const filterProductsListParameters = {
             updatedUrlOne: `/category/${selectedCategory}`,
             updatedUrlTwo: '?limit=12&skip=0'
         }
-
         dispatch(getListOfProducts(filterProductsListParameters))
     }
 
@@ -56,7 +28,7 @@ const FilterFeature = ({ disabledOption, setDisabledOption, handleResetFilterOpt
     return (
         <>
             <form onSubmit={handleApplySelectedFilterOption}>
-                <select className="form-select mb-3" onChange={(e)=>setSelectedCategory(e.target.value)} disabled={disabledOption}>
+                <select className="form-select mb-3" onChange={(e) => setSelectedCategory(e.target.value)} disabled={disabledOption}>
                     {categories.map(category => {
                         // console.log(category);
                         return <option key={category} value={category} className="capitalize">

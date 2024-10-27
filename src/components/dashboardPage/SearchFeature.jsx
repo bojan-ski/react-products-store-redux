@@ -1,47 +1,26 @@
-// context
-import { useGlobalContext } from "../../context"
-// api func
-import fetchDataFromDummyJSON from "../../api/fetchDataFromDummyJSON"
-
 // redux
 import { useDispatch } from "react-redux"
-import { getListOfProducts } from "../../features/products/productsSlice"
+import { getListOfProducts, updateSearchTerm } from "../../features/products/productsSlice"
 // toastify
 import { toast } from "react-toastify"
 
 
 const SearchFeature = ({ searchTerm, setSearchTerm, disabledOption, setDisabledOption, handleResetFilterOption }) => {
-    // const { setAvailableProducts, setProductsList, setCurrentPageNumber } = useGlobalContext()
-
-    // const handleSearchProduct = async e => {
-    //     e.preventDefault()
-
-    //     if (!searchTerm) return alert('please enter search term')
-
-    //     setDisabledOption(true)
-
-    //     const searchResults = await fetchDataFromDummyJSON(`/search`, `?q=${searchTerm}`)
-
-    //     setAvailableProducts(searchResults.total)
-    //     setProductsList(searchResults.products)
-    //     setCurrentPageNumber(1)
-    // }
-
     const dispatch = useDispatch()
 
     const handleSearchProduct = async e => {
         e.preventDefault()
 
-        if (!searchTerm) return toast.error('please enter search term')
+        if (!searchTerm) return toast.error('Please enter search term')
 
         setDisabledOption(true)
 
-        // dummyjson funcs - products
+        dispatch(updateSearchTerm(searchTerm));
+
         const searchProductsListParameters = {
             updatedUrlOne: `/search`,
             updatedUrlTwo: `?q=${searchTerm}`
         }
-
         dispatch(getListOfProducts(searchProductsListParameters));
     }
 

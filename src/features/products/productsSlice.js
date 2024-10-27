@@ -11,14 +11,13 @@ const initialProductsState = {
     availableProducts: 0,
     skip: 0,
     limit: 0,
-    currentPageNumber: 1,
-    searchTerm: '', // ?????
-    updatedURL: '' // ?????
+    searchTerm: '',
+    updatedURL: ''
 }
 
-// used in : Dashboard, ProductsList
+// used in : Dashboard, SearchFeature, FilterFeature, Pagination
 export const getListOfProducts = createAsyncThunk('products/getListOfProducts', async (parameters) => {
-    console.log(parameters);
+    // console.log(parameters);
 
     try {
         let response
@@ -37,10 +36,35 @@ export const getListOfProducts = createAsyncThunk('products/getListOfProducts', 
     }
 })
 
+// used in : SearchAndFilter
+export const resetListOfProducts = createAsyncThunk('products/resetListOfProducts', async (parameters) => {
+    // console.log(parameters);
+
+    try {
+        const response = await axios.get(`${url}${parameters}`)
+        const data = await response.data
+
+        return data
+    } catch (error) {
+        console.error(error);
+    }
+})
+
+// used in : Dashboard, ProductsList, Pagination
 const productsSlice = createSlice({
     name: 'products',
     initialState: initialProductsState,
     reducers: {
+        updateSearchTerm: (state, { payload }) => {
+            // loading true
+            state.isLoading = true
+
+            // update state
+            state.searchTerm = payload 
+
+            // loading false
+            state.isLoading = false                       
+        },
         updateProductsURL: (state, { payload }) => {
             // loading true
             state.isLoading = true
@@ -50,7 +74,7 @@ const productsSlice = createSlice({
 
             // loading false
             state.isLoading = false                       
-        }
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -70,10 +94,30 @@ const productsSlice = createSlice({
                 console.log(action);
                 state.isLoading = false;
             })
+            .addCase(resetListOfProducts.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(resetListOfProducts.fulfilled, (state, { payload }) => {
+                // console.log(payload);
+
+                state.isLoading = false;
+                state.productsList = payload.products;
+                state.availableProducts = payload.total;
+                state.skip = payload.skip;
+                state.limit = payload.limit;
+                state.searchTerm = '';
+                state.updatedURL = '';
+            })
+            .addCase(resetListOfProducts.rejected, (state, action) => {
+                console.log(action);
+                state.isLoading = false;
+            })
     }
 })
 
 export const {
+    updateSearchTerm, // SearchFeature
     updateProductsURL, // FilterFeature
 } = productsSlice.actions
+
 export default productsSlice.reducer
