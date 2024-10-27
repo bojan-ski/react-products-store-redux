@@ -5,8 +5,8 @@ import GridViewListCard from "../GridViewListCard";
 import Pagination from "../Pagination";
 
 
-const ProductsList = () => {
-    const { productsList, availableProducts } = useSelector(state => state.products)    
+const ProductsList = ({ currentPageNumber, setCurrentPageNumber }) => {
+    const { productsList, availableProducts } = useSelector(state => state.products)
 
     return (
         <>
@@ -24,7 +24,7 @@ const ProductsList = () => {
                 </div>
             </section>
 
-            {availableProducts > 12 && <Pagination />}
+            {availableProducts > 12 && <Pagination currentPageNumber={currentPageNumber} setCurrentPageNumber={setCurrentPageNumber} />}
         </>
     )
 }

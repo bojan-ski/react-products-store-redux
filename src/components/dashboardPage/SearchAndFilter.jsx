@@ -1,15 +1,15 @@
 import { useState } from "react"
 // redux
 import { useDispatch } from "react-redux"
-import { resetListOfProducts } from "../../features/products/productsSlice"
+import { getListOfProducts, updateProductsURL } from "../../features/products/productsSlice"
 // components
 import SearchFeature from "./SearchFeature"
 import FilterFeature from "./FilterFeature"
 
 
-const SearchAndFilter = () => {
+const SearchAndFilter = ({ setCurrentPageNumber }) => {
     const [disabledOption, setDisabledOption] = useState(false)
-    const [searchTerm, setSearchTerm] = useState('') 
+    const [searchTerm, setSearchTerm] = useState('')
     const [selectedCategory, setSelectedCategory] = useState('beauty')
 
     const dispatch = useDispatch()
@@ -18,8 +18,14 @@ const SearchAndFilter = () => {
         setDisabledOption(false)
         setSearchTerm('')
         setSelectedCategory('beauty')
+        setCurrentPageNumber(1)
 
-        dispatch(resetListOfProducts('?limit=12&skip=0'));
+        const resetProductsListParameters = {
+            updatedUrlOne: '',
+            updatedUrlTwo: `?limit=${import.meta.env.VITE_DUMMYJSON_PRODUCTS_SKIP}&skip=0`
+        }
+        dispatch(getListOfProducts(resetProductsListParameters))
+        dispatch(updateProductsURL(''))
     }
 
     return (
@@ -43,8 +49,9 @@ const SearchAndFilter = () => {
                         disabledOption={disabledOption}
                         setDisabledOption={setDisabledOption}
                         handleResetFilterOption={handleResetFilterOption}
-                        selectedCategory={selectedCategory} 
+                        selectedCategory={selectedCategory}
                         setSelectedCategory={setSelectedCategory}
+                        setCurrentPageNumber={setCurrentPageNumber}
                     />
                 </div>
             </div>

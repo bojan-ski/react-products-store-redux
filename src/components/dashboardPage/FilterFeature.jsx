@@ -1,11 +1,10 @@
-import { useState } from "react"
 import { useLoaderData } from "react-router-dom"
 // redux
 import { useDispatch } from "react-redux"
 import { getListOfProducts, updateProductsURL } from "../../features/products/productsSlice"
 
 
-const FilterFeature = ({ disabledOption, setDisabledOption, handleResetFilterOption, selectedCategory, setSelectedCategory }) => {
+const FilterFeature = ({ disabledOption, setDisabledOption, handleResetFilterOption, selectedCategory, setSelectedCategory, setCurrentPageNumber }) => {
     const { categories } = useLoaderData()    
 
     const dispatch = useDispatch()
@@ -14,21 +13,21 @@ const FilterFeature = ({ disabledOption, setDisabledOption, handleResetFilterOpt
         e.preventDefault()
 
         setDisabledOption(true)
+        setCurrentPageNumber(1)
 
         dispatch(updateProductsURL(`/category/${selectedCategory}`))
 
         const filterProductsListParameters = {
             updatedUrlOne: `/category/${selectedCategory}`,
-            updatedUrlTwo: '?limit=12&skip=0'
+            updatedUrlTwo: `?limit=${import.meta.env.VITE_DUMMYJSON_PRODUCTS_SKIP}&skip=0`
         }
-        dispatch(getListOfProducts(filterProductsListParameters))
+        dispatch(getListOfProducts(filterProductsListParameters))        
     }
-
 
     return (
         <>
             <form onSubmit={handleApplySelectedFilterOption}>
-                <select className="form-select mb-3" onChange={(e) => setSelectedCategory(e.target.value)} disabled={disabledOption}>
+                <select className="form-select mb-3" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} disabled={disabledOption}>
                     {categories.map(category => {
                         // console.log(category);
                         return <option key={category} value={category} className="capitalize">

@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 // api func
 import fetchBookmarkedProductsToFirebase from "../api/fetchBookmarkedProductsToFirebase"
 import fetchDataFromDummyJSON from "../api/fetchDataFromDummyJSON"
@@ -37,26 +37,26 @@ export const loader = async () => {
 const Dashboard = () => {
   const products = useSelector(state => state.products)
   const dispatch = useDispatch()
-
-  const productsListParameters = {
-    updatedUrlOne: '',
-    updatedUrlTwo: '?limit=12&skip=0'
-  }
+  const [currentPageNumber, setCurrentPageNumber] = useState(1)
 
   useEffect(() => {
+    const productsListParameters = {
+      updatedUrlOne: '',
+      updatedUrlTwo: `?limit=${import.meta.env.VITE_DUMMYJSON_PRODUCTS_SKIP}&skip=0`
+    }
     dispatch(getListOfProducts(productsListParameters));
   }, [])
-  console.log(products);
+  // console.log(products);
 
   return (
     <div className="dashboard-page">
       <div className="container">
         <PageHeader page='Dashboard' />
 
-        <SearchAndFilter/>
-        
+        <SearchAndFilter setCurrentPageNumber={setCurrentPageNumber} />
+
         {products && products?.productsList.length > 0 ? (
-          <ProductsList />
+          <ProductsList currentPageNumber={currentPageNumber} setCurrentPageNumber={setCurrentPageNumber} />
         ) : (
           <NoProductsAvailable />
         )}

@@ -9,16 +9,11 @@ const initialProductsState = {
     isLoading: false,
     productsList: {},
     availableProducts: 0,
-    skip: 0,
-    limit: 0,
-    searchTerm: '',
     updatedURL: ''
 }
 
-// used in : Dashboard, SearchFeature, FilterFeature, Pagination
+// used in: Dashboard, FilterFeature, Pagination
 export const getListOfProducts = createAsyncThunk('products/getListOfProducts', async (parameters) => {
-    // console.log(parameters);
-
     try {
         let response
 
@@ -36,12 +31,10 @@ export const getListOfProducts = createAsyncThunk('products/getListOfProducts', 
     }
 })
 
-// used in : SearchAndFilter
-export const resetListOfProducts = createAsyncThunk('products/resetListOfProducts', async (parameters) => {
-    // console.log(parameters);
-
+// used in: SearchFeature
+export const searchForProducts = createAsyncThunk('products/searchForProducts', async (parameters) => {
     try {
-        const response = await axios.get(`${url}${parameters}`)
+        const response = await axios.get(`${url}/search${parameters}`)
         const data = await response.data
 
         return data
@@ -50,65 +43,47 @@ export const resetListOfProducts = createAsyncThunk('products/resetListOfProduct
     }
 })
 
-// used in : Dashboard, ProductsList, Pagination
+// used in: Dashboard, ProductsList, Pagination
 const productsSlice = createSlice({
     name: 'products',
     initialState: initialProductsState,
     reducers: {
-        updateSearchTerm: (state, { payload }) => {
-            // loading true
-            state.isLoading = true
-
-            // update state
-            state.searchTerm = payload 
-
-            // loading false
-            state.isLoading = false                       
-        },
         updateProductsURL: (state, { payload }) => {
             // loading true
             state.isLoading = true
 
             // update state
-            state.updatedURL = payload 
+            state.updatedURL = payload
 
             // loading false
-            state.isLoading = false                       
+            state.isLoading = false
         },
     },
     extraReducers: (builder) => {
         builder
+            // getListOfProducts
             .addCase(getListOfProducts.pending, (state) => {
                 state.isLoading = true;
             })
             .addCase(getListOfProducts.fulfilled, (state, { payload }) => {
-                // console.log(payload);
-
                 state.isLoading = false;
                 state.productsList = payload.products;
                 state.availableProducts = payload.total;
-                state.skip = payload.skip;
-                state.limit = payload.limit;
             })
             .addCase(getListOfProducts.rejected, (state, action) => {
                 console.log(action);
                 state.isLoading = false;
             })
-            .addCase(resetListOfProducts.pending, (state) => {
+            // searchForProducts
+            .addCase(searchForProducts.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(resetListOfProducts.fulfilled, (state, { payload }) => {
-                // console.log(payload);
-
+            .addCase(searchForProducts.fulfilled, (state, { payload }) => {
                 state.isLoading = false;
-                state.productsList = payload.products;
-                state.availableProducts = payload.total;
-                state.skip = payload.skip;
-                state.limit = payload.limit;
-                state.searchTerm = '';
-                state.updatedURL = '';
+                payload.products.length > 12 ? state.productsList = payload.products.slice(0, 12) : state.productsList = payload.products;
+                payload.products.length > 12 ? state.availableProducts = 12 : state.availableProducts = payload.total;
             })
-            .addCase(resetListOfProducts.rejected, (state, action) => {
+            .addCase(searchForProducts.rejected, (state, action) => {
                 console.log(action);
                 state.isLoading = false;
             })
@@ -116,7 +91,6 @@ const productsSlice = createSlice({
 })
 
 export const {
-    updateSearchTerm, // SearchFeature
     updateProductsURL, // FilterFeature
 } = productsSlice.actions
 

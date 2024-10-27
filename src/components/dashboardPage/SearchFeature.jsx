@@ -1,6 +1,6 @@
 // redux
 import { useDispatch } from "react-redux"
-import { getListOfProducts, updateSearchTerm } from "../../features/products/productsSlice"
+import { searchForProducts } from "../../features/products/productsSlice"
 // toastify
 import { toast } from "react-toastify"
 
@@ -15,13 +15,7 @@ const SearchFeature = ({ searchTerm, setSearchTerm, disabledOption, setDisabledO
 
         setDisabledOption(true)
 
-        dispatch(updateSearchTerm(searchTerm));
-
-        const searchProductsListParameters = {
-            updatedUrlOne: `/search`,
-            updatedUrlTwo: `?q=${searchTerm}`
-        }
-        dispatch(getListOfProducts(searchProductsListParameters));
+        dispatch(searchForProducts(`?q=${searchTerm}`));
     }
 
     return (
