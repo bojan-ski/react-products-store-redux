@@ -3,8 +3,6 @@ import { Link, useLoaderData, useNavigate } from "react-router-dom";
 // redux
 import { useDispatch, useSelector } from 'react-redux'
 import { addProductToCompareProductsList, removeProductFromCompareProductsList } from '../features/products/compareProductsSlice'
-// context
-import { useGlobalContext } from "../context";
 // api func
 import saveBookmarkProductToFirebase from "../api/saveBookmarkProductToFirebase";
 import removeBookmarkProductFromFirebase from "../api/removeBookmarkProductFromFirebase";
@@ -17,9 +15,8 @@ const GridViewListCard = ({ product }) => {
     const { id, brand, category, price, rating, thumbnail, title } = product
 
     const { isLoading, compareProductsList } = useSelector(store => store.compareProducts)
+    const { userID } = useSelector(store => store.user)
     const dispatch = useDispatch()
-
-    const { userProfileDetails } = useGlobalContext()
 
     const handleAddProductToCompareProductsList = () => {
         if (compareProductsList.length > 1) {
@@ -51,9 +48,9 @@ const GridViewListCard = ({ product }) => {
     const handleSaveBookmarkProduct = async () => {
         // console.log('handleSaveBookmarkProduct');
 
-        if (!userProfileDetails.userID) return navigate('/login')
+        if (!userID) return navigate('/login')
 
-        await saveBookmarkProductToFirebase(userProfileDetails.userID, product)
+        await saveBookmarkProductToFirebase(userID, product)
 
         const updatedBookmarkedProductsList = await fetchBookmarkedProductsToFirebase()
         setBookmarkedProductsList(updatedBookmarkedProductsList)
@@ -64,7 +61,7 @@ const GridViewListCard = ({ product }) => {
 
         const bookmarkedProduct = bookmarkedProductsList.filter(product => product.productData.id == id)
 
-        await removeBookmarkProductFromFirebase(userProfileDetails.userID, bookmarkedProduct[0].docID)
+        await removeBookmarkProductFromFirebase(userID, bookmarkedProduct[0].docID)
 
         const updatedBookmarkedProductsList = await fetchBookmarkedProductsToFirebase()
         setBookmarkedProductsList(updatedBookmarkedProductsList)

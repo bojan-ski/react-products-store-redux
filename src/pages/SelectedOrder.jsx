@@ -1,8 +1,8 @@
 import { redirect, useLoaderData } from "react-router-dom";
 // firebase api func
 import fetchSelectedOrderDetailsFromFirebase from "../api/fetchSelectedOrderDetailsFromFirebase";
-// context
-import { useGlobalContext } from "../context";
+// redux
+import { useSelector } from "react-redux";
 // components
 import BackButtons from "../components/BackButtons";
 import PageHeader from "../components/PageHeader";
@@ -21,9 +21,10 @@ export const loader = async ({ params }) => {
 
 const SelectedOrder = () => {
     const selectedOrderDetails = useLoaderData()
-    const { userProfileDetails } = useGlobalContext()
 
-    if (selectedOrderDetails.userID !== userProfileDetails.userID) {
+    const { userID } = useSelector(state => state.user)
+
+    if (selectedOrderDetails.userID !== userID) {
         redirect('/')
     }
 

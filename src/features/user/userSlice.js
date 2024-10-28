@@ -67,6 +67,8 @@ const userSlice = createSlice({
     initialState: initialUserState,
     reducers:{
         updateUserStoreCredit: (state, { payload }) => {
+            // console.log(payload);
+            
             // loading true
             state.isLoading = true
 

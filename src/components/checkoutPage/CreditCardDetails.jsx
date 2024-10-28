@@ -2,14 +2,8 @@
 import FormInput from "../FormInput"
 import CheckoutSubheader from "./CheckoutSubheader"
 
-const CreditCardDetails = ({ cardDetails, setCardDetails }) => {
-    // const handleInputDataCardDetails = (e) => {
-    //     setCardDetails(prevState => ({
-    //         ...prevState,
-    //         [e.target.id]: e.target.value
-    //     }))
-    // }
 
+const CreditCardDetails = ({ cardDetails, setCardDetails }) => {
     const handleInputDataCardDetails = (e) => {
         const { id, value } = e.target;
 

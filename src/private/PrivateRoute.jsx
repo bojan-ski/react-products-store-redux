@@ -1,11 +1,11 @@
 import { Navigate } from "react-router-dom"
-// context
-import { useGlobalContext } from "../context"
+// redux
+import { useSelector } from "react-redux"
 
 const PrivateRoute = ({ children }) => {
-    const { userProfileDetails } = useGlobalContext()
+    const { userName, userID } = useSelector(state => state.user)
 
-    return userProfileDetails.userName ? children : <Navigate to='/login' />
+    return (userName && userID) ? children : <Navigate to='/login' />
 }
 
 export default PrivateRoute

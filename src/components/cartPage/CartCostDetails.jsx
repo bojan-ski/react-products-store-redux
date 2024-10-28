@@ -4,16 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { clearCart } from '../../features/cart/cartSlice'
 // toastify
 import { toast } from 'react-toastify'
-// context
-import { useGlobalContext } from '../../context'
 
 
 const CartCostDetails = () => {
     const navigate = useNavigate()
-    const { isLoading, cartItemsList, totalQuantity, shipping, orderCost, gradTotal } = useSelector(store => store.cart)
-    const dispatch = useDispatch()
 
-    const { userProfileDetails } = useGlobalContext()
+    const { isLoading, cartItemsList, totalQuantity, shipping, orderCost, gradTotal } = useSelector(store => store.cart)
+    const { userName } = useSelector(store => store.user)
+    const dispatch = useDispatch()
 
     const handleClearCart = () => {
         if (window.confirm('Are you sure You want to clear the cart')) {
@@ -82,7 +80,7 @@ const CartCostDetails = () => {
             </div>
 
             <div className="cart-cost-btn-container d-flex justify-content-between">
-                {userProfileDetails.userName ? (
+                {userName ? (
                     <Link to='/checkout' className='btn btn-success px-3 py-2'>
                         Checkout
                     </Link>

@@ -3,8 +3,6 @@ import { useLoaderData, useNavigate } from "react-router-dom"
 // redux
 import { useDispatch, useSelector } from "react-redux"
 import { clearCart } from "../../features/cart/cartSlice"
-// context
-import { useGlobalContext } from "../../context"
 // api func
 import submitOrder from "../../api/submitOrder"
 // components
@@ -17,10 +15,10 @@ import { toast } from "react-toastify"
 const CheckoutForm = ({ setTogglePaymentModalAnimation }) => {
     const navigate = useNavigate()
     const userShippingDetails = useLoaderData()
-    const cart = useSelector(state => state.cart)
-    const dispatch = useDispatch()
 
-    const { userProfileDetails } = useGlobalContext()
+    const cart = useSelector(state => state.cart)
+    const user = useSelector(state => state.user)
+    const dispatch = useDispatch()
 
     const [cardDetails, setCardDetails] = useState({
         nameOnCard: '',
@@ -75,7 +73,7 @@ const CheckoutForm = ({ setTogglePaymentModalAnimation }) => {
                 shippingDetails
             }
 
-            const response = await submitOrder(userProfileDetails, orderFormsData)
+            const response = await submitOrder(user, orderFormsData)
 
             if (response) {
                 setTogglePaymentModalAnimation('block')

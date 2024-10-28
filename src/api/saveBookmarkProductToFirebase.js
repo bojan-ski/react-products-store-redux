@@ -1,11 +1,10 @@
 // firebase/firestore funcs
 import { addDoc, doc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase.config";
+// toastify
+import { toast } from "react-toastify";
 
-const saveBookmarkProductToFirebase = async (userID, product) => {
-    // console.log(product);
-    // console.log(userID);
-    
+const saveBookmarkProductToFirebase = async (userID, product) => {   
     try {
         const productData = {
             ...product,
@@ -21,9 +20,11 @@ const saveBookmarkProductToFirebase = async (userID, product) => {
        await addDoc(bookmarkedProductsCollectionRef, productData);
 
        // success message
-       alert('Product has been bookmarked')
+       toast.success('Product has been bookmarked')
     } catch (error) {
-        console.log(error);        
+        // success message
+        toast.error('There was a problem with the bookmark feature')
+        console.error(error);        
     }  
 }
 

@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom"
-// context
-import { useGlobalContext } from "../context"
+import { Link, useNavigate } from "react-router-dom"
 // api func
 import userLogin from "../api/userLogin"
 // components
@@ -8,7 +6,7 @@ import FormInput from "../components/FormInput"
 
 
 const Login = () => {
-    const {navigate} = useGlobalContext()
+    const navigate = useNavigate()
 
     const handleLoginUserSubmit = async e => {
         e.preventDefault()
@@ -16,7 +14,6 @@ const Login = () => {
         const enteredEmail = e.target.elements[0].value.trim()
         const enteredPassword = e.target.elements[1].value
 
-        // const response = loginUser(enteredEmail, enteredPassword)
         const response = await userLogin(enteredEmail, enteredPassword)      
 
         if(response){
@@ -24,8 +21,8 @@ const Login = () => {
             e.target.elements[1].value = ''
 
             // navigate user
-            setTimeout(() => navigate('/profile'), 1500)
-            // window.location.href = '/profile'           
+            // setTimeout(() => navigate('/profile'), 1500)
+            setTimeout(() => window.location.href = '/profile', 1500)           
         }
     }
 

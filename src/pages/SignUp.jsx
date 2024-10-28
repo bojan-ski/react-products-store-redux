@@ -4,6 +4,7 @@ import userCreateAccount from "../api/userCreateAccount"
 import FormInput from "../components/FormInput"
 import FormInputCheckbox from "../components/FormInputCheckbox"
 
+
 const SignUp = () => {
     const handleSignUpUserSubmit = async e => {
         e.preventDefault()        
