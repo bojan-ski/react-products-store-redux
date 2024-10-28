@@ -10,9 +10,20 @@ import Footer from "../components/appLayout/footer/Footer"
 import { ToastContainer } from 'react-toastify';
 
 
+import { useDispatch } from "react-redux"
+import { useEffect } from "react"
+import { fetchUserDetails } from "../features/user/userSlice"
+
+
 const AppLayout = () => {
-    const navigation = useNavigation()
+    const navigation = useNavigation()    
     const isPageLoading = navigation.state === 'loading'
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchUserDetails())
+    },[])
 
     return (
         <AppProvider>

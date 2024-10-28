@@ -12,8 +12,7 @@ const AppContext = createContext()
 
 export const AppProvider = ({ children }) => {
     // user details
-    const auth = getAuth()
-    const navigate = useNavigate()
+    const auth = getAuth()    
 
     const [userProfileDetails, setUserProfileDetails] = useState({
         userID: '',
@@ -22,6 +21,8 @@ export const AppProvider = ({ children }) => {
     })
 
     const fetchUserDetails = async () => {
+        // console.log('context - fetchUserDetails');
+        
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const storeCredit = await fetchUserStoreCreditFromFirebase(user.email);
@@ -41,10 +42,14 @@ export const AppProvider = ({ children }) => {
     };
 
     useEffect(()=>{
+        // console.log('context - user');
+        
         fetchUserDetails()
     },[])
 
     // log out user
+    const navigate = useNavigate()
+
     const logOutUser = async () => {
         if (window.confirm('Are you sure you want to log out')) {
             try {
@@ -70,10 +75,7 @@ export const AppProvider = ({ children }) => {
     }  
 
     return <AppContext.Provider value={{       
-        userProfileDetails, // Profile, Onboarding, PrivateRoute, ProductsListCard, CartCostDetails, CheckoutForm, SelectedOrder, OrderCostDetails
-        setUserProfileDetails, // OrderCostDetails
-        logOutUser, // Profile, Onboarding
-        navigate, // ForgotPassword
+        userProfileDetails, // PrivateRoute, ProductsListCard, CartCostDetails, CheckoutForm, SelectedOrder
     }}>
         {children}
     </AppContext.Provider>

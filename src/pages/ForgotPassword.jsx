@@ -1,6 +1,4 @@
-import { Link } from "react-router-dom"
-// context
-import { useGlobalContext } from "../context"
+import { Link, useNavigate } from "react-router-dom"
 // api func
 import userResetPassword from "../api/userResetPassword"
 // components
@@ -8,7 +6,7 @@ import FormInput from "../components/FormInput"
 
 
 const ForgotPassword = () => {
-    const { navigate } = useGlobalContext()
+    const navigate = useNavigate()
 
     const handleResetPassword = async e => {
         e.preventDefault()

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
-// context
-import { useGlobalContext } from "../context"
+// redux
+import { useDispatch, useSelector } from "react-redux"
+import { logOutUser } from '../features/user/userSlice'
 // api func
 import fetchUserShippingDetailsFromFirebase from "../api/fetchUserShippingDetailsFromFirebase"
 // components
@@ -11,12 +12,13 @@ import UserShippingDetails from "../components/profilePage/UserShippingDetails"
 // LOADER
 export const loader = async () => {
   const userShippingDetails = await fetchUserShippingDetailsFromFirebase()
-  // console.log(userShippingDetails);
+
   return userShippingDetails
 }
 
 const Profile = () => {
-  const { userProfileDetails, logOutUser } = useGlobalContext()
+  const { userName } = useSelector(state => state.user)
+  const dispatch = useDispatch()
 
   return (
     <div className="profile-page">
@@ -24,7 +26,7 @@ const Profile = () => {
 
         <PageHeader page="Profile" />
 
-        {userProfileDetails.userName ? (
+        {userName ? (
           <>
             <div className="profile-btn-container d-flex align-items-center justify-content-between">
               <div>
@@ -35,7 +37,7 @@ const Profile = () => {
                   Bookmarked Products
                 </Link>
               </div>
-              <button className='btn btn-danger' onClick={logOutUser}>
+              <button className='btn btn-danger' onClick={() => dispatch(logOutUser())}>
                 log out
               </button>
             </div>

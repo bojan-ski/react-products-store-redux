@@ -1,6 +1,7 @@
 // redux
 import { useDispatch, useSelector } from "react-redux"
 import { updateGrandTotal } from "../../features/cart/cartSlice"
+import { updateUserStoreCredit } from "../../features/user/userSlice"
 // context
 import { useGlobalContext } from "../../context"
 // toast
@@ -9,6 +10,7 @@ import { toast } from "react-toastify"
 
 const OrderCostDetails = () => {
     const { cartItemsList, totalQuantity, shipping, orderCost, gradTotal } = useSelector(state => state.cart)
+    const { userStoreCredit } = useSelector(state => state.user)
     const dispatch = useDispatch()
 
     const { userProfileDetails, setUserProfileDetails } = useGlobalContext()    
@@ -16,15 +18,17 @@ const OrderCostDetails = () => {
     const handleApplyStoreCredit = () => {
         if (!window.confirm('Are you sure you want to apply your Store credits?')) return;
 
-        const result = (gradTotal - userProfileDetails.userStoreCredit).toFixed(2);
+        // const result = (gradTotal - userProfileDetails.userStoreCredit).toFixed(2);
+        const result = (gradTotal - userStoreCredit).toFixed(2);
         const newUserStoreCredit = result < 0 ? Math.abs(result) : 0;
         const newGradTotal = result < 0 ? 0 : result;
 
-        setUserProfileDetails(prevState => ({
-            ...prevState,
-            userStoreCredit: newUserStoreCredit,
-        }));
+        // setUserProfileDetails(prevState => ({
+        //     ...prevState,
+        //     userStoreCredit: newUserStoreCredit,
+        // }));
 
+        dispatch(updateUserStoreCredit({ newUserStoreCredit }))
         dispatch(updateGrandTotal({ newGradTotal }))
 
         // success message
@@ -86,9 +90,13 @@ const OrderCostDetails = () => {
                             $ {gradTotal}
                         </p>
 
-                        <button className="btn btn-success mt-3" onClick={handleApplyStoreCredit} disabled={userProfileDetails.userStoreCredit <= 0 || gradTotal <= 0}>
+                        <button className="btn btn-success mt-3" onClick={handleApplyStoreCredit} disabled={userStoreCredit <= 0 || gradTotal <= 0}>
                             Use credits
                         </button>
+
+                        {/* <button className="btn btn-success mt-3" onClick={handleApplyStoreCredit} disabled={userProfileDetails.userStoreCredit <= 0 || gradTotal <= 0}>
+                            Use credits
+                        </button> */}
                     </div>
                 </div>
             </div>

@@ -1,29 +1,31 @@
 import { Link } from "react-router-dom"
-// context
-import { useGlobalContext } from "../../../context"
+// redux
+import { useDispatch, useSelector } from "react-redux"
+import { logOutUser } from "../../../features/user/userSlice"
+
 
 const Onboarding = () => {
-  const { userProfileDetails, logOutUser } = useGlobalContext()
-  // console.log(userProfileDetails);
+  const { userName, userStoreCredit } = useSelector(state => state.user)
+  const dispatch = useDispatch()
 
   return (
-    <div className={`onboarding px-3 mb-3 ${userProfileDetails.userName ? 'd-flex align-items-center justify-content-between' : 'text-end'}`}>
-      {userProfileDetails.userName ? (
+    <div className={`onboarding px-3 mb-3 ${userName ? 'd-flex align-items-center justify-content-between' : 'text-end'}`}>
+      {userName ? (
         <>
           <div className="d-flex align-items-center fw-bold">
             <p className="text-muted mb-0">
               Store credit:
             </p>
             <span className="ms-1">
-              {userProfileDetails.userStoreCredit}
+              {userStoreCredit}
             </span>
           </div>
 
           <div className="d-flex align-items-center justify-content-end">
             <h6 className="capitalize mb-0 me-3">
-              Welcome {userProfileDetails.userName}
+              Welcome {userName}
             </h6>
-            <button className='btn btn-danger' onClick={logOutUser}>
+            <button className='btn btn-danger' onClick={() => dispatch(logOutUser())}>
               log out
             </button>
           </div>
