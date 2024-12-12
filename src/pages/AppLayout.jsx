@@ -1,6 +1,8 @@
+import { useEffect } from "react"
 import { Outlet, useNavigation } from "react-router-dom"
-//context
-import { AppProvider } from "../context"
+// redux
+import { useDispatch } from "react-redux"
+import { fetchUserDetails } from "../features/user/userSlice"
 // pages
 import Loading from "./Loading"
 // components
@@ -10,38 +12,33 @@ import Footer from "../components/appLayout/footer/Footer"
 import { ToastContainer } from 'react-toastify';
 
 
-import { useDispatch } from "react-redux"
-import { useEffect } from "react"
-import { fetchUserDetails } from "../features/user/userSlice"
-
-
 const AppLayout = () => {
-    const navigation = useNavigation()    
+    const navigation = useNavigation()
     const isPageLoading = navigation.state === 'loading'
 
     const dispatch = useDispatch()
 
     useEffect(() => {
+        console.log('useEffect - fetchUserDetails()');
+
         dispatch(fetchUserDetails())
-    },[])
+    }, [])
 
     return (
-        <AppProvider>
-            <>
-                <Header />
+        <>
+            <Header />
 
-                <main className="my-5">
-                    {isPageLoading ? <Loading /> : <Outlet />}
-                </main>
+            <main className="my-5">
+                {isPageLoading ? <Loading /> : <Outlet />}
+            </main>
 
-                <Footer />
-            </>
+            <Footer />
             <ToastContainer
                 position="top-center"
                 autoClose={2500}
                 pauseOnFocusLoss={false}
             />
-        </AppProvider>
+        </>
     )
 }
 

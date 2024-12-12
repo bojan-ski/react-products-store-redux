@@ -3,6 +3,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom"
 // PAGES
 import AppLayout from "./pages/AppLayout"
 import Dashboard from "./pages/Dashboard"
+import Products from "./pages/Products"
 import SelectedProduct from "./pages/SelectedProduct"
 import SignUp from "./pages/SignUp"
 import TermsAndConditions from "./pages/TermsAndConditions"
@@ -44,6 +45,16 @@ const router = createBrowserRouter([
       },
       {
         path: '/:id',
+        element: <SelectedProduct />,
+        loader: selectedProductLoader
+      },
+      {
+        path: '/products',
+        element: <Products />,
+        loader: listOfProductsLoader
+      },
+      {
+        path: '/products/:id',
         element: <SelectedProduct />,
         loader: selectedProductLoader
       },

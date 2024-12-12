@@ -7,23 +7,9 @@ import { useSelector, useDispatch } from "react-redux"
 import { getListOfProducts } from "../features/products/productsSlice"
 // components
 import PageHeader from "../components/PageHeader"
-import SearchAndFilter from "../components/dashboardPage/SearchAndFilter"
-import ProductsList from "../components/dashboardPage/ProductsList"
-import NoProductsAvailable from "../components/dashboardPage/NoProductsAvailable"
 
 
 // LOADER
-// export const loader = async () => {
-//   // dummyjson func
-//   const listOfProductsFromDB = await fetchDataFromDummyJSON('', '?limit=12&skip=0')
-//   const categories = await fetchDataFromDummyJSON('', '/category-list')
-
-//   // firebase func
-//   const bookmarkedProducts = await fetchBookmarkedProductsToFirebase()
-
-//   return { listOfProductsFromDB, categories, bookmarkedProducts }
-// }
-
 export const loader = async () => {
   // dummyjson func
   const categories = await fetchDataFromDummyJSON('', '/category-list')
@@ -37,7 +23,6 @@ export const loader = async () => {
 const Dashboard = () => {
   const products = useSelector(state => state.products)
   const dispatch = useDispatch()
-  const [currentPageNumber, setCurrentPageNumber] = useState(1)
 
   useEffect(() => {
     const productsListParameters = {
@@ -46,20 +31,13 @@ const Dashboard = () => {
     }
     dispatch(getListOfProducts(productsListParameters));
   }, [])
-  // console.log(products);
+  console.log(products); // 194 products
 
   return (
     <div className="dashboard-page">
       <div className="container">
         <PageHeader page='Dashboard' />
 
-        <SearchAndFilter setCurrentPageNumber={setCurrentPageNumber} />
-
-        {products && products?.productsList.length > 0 ? (
-          <ProductsList currentPageNumber={currentPageNumber} setCurrentPageNumber={setCurrentPageNumber} />
-        ) : (
-          <NoProductsAvailable />
-        )}
       </div>
     </div>
   )

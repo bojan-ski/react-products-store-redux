@@ -1,16 +1,17 @@
 import { useState } from "react"
 import { useLoaderData } from "react-router-dom"
-// context
-import { useGlobalContext } from "../../context"
+// redux
+import { useSelector } from "react-redux"
 // api func
 import saveUserShippingDetailsToFirebase from "../../api/saveUserShippingDetailsToFirebase"
 import editUserShippingDetailsFromFirebase from "../../api/editUserShippingDetailsFromFirebase"
 // components
 import FormInput from "../FormInput"
 
+
 const UserShippingDetails = () => {
+  const { userID } = useSelector(state => state.user)
   const userShippingDetails = useLoaderData()
-  const { userProfileDetails } = useGlobalContext()
 
   const [userShippingDetailsFormData, setUserShippingDetailsFormData] = useState({
     streetAddress: userShippingDetails ? userShippingDetails.ShippingDetailsData.streetAddress : '',
@@ -31,11 +32,11 @@ const UserShippingDetails = () => {
     e.preventDefault()
 
     if (userShippingDetails) {
-      await editUserShippingDetailsFromFirebase(userProfileDetails.userID, userShippingDetails.ShippingDetailsDocID, userShippingDetailsFormData)
+      await editUserShippingDetailsFromFirebase(userID, userShippingDetails.ShippingDetailsDocID, userShippingDetailsFormData)
 
       setIsEdit(false)
     }else{      
-      await saveUserShippingDetailsToFirebase(userProfileDetails.userID, userShippingDetailsFormData)   
+      await saveUserShippingDetailsToFirebase(userID, userShippingDetailsFormData)   
       
       setIsEdit(false)
     }
