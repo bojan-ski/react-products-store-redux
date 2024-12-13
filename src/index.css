@@ -144,6 +144,20 @@ table td{
   height: 50px;
 }
 
+/* Contact Us page */
+.contact-us-page .company-details,
+.contact-us-page .contact-us-form{
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px 30px;
+  border-radius: 20px;
+  box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.1);
+}
+
+.contact-us-page .contact-us-form textarea{
+  resize: none;
+}
+
 /* ---------- FOOTER ---------- */
 .footer a:hover{
   color: #e6e6e6 !important;

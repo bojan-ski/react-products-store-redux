@@ -17,7 +17,6 @@ import Profile from "./pages/Profile"
 import OrderHistory from "./pages/OrderHistory"
 import SelectedOrder from "./pages/SelectedOrder"
 import BookmarkedProducts from "./pages/BookmarkedProducts"
-import About from "./pages/About"
 import ContactUs from "./pages/ContactUs"
 import ErrorPage from "./pages/ErrorPage"
 
@@ -125,10 +124,6 @@ const router = createBrowserRouter([
             loader: selectedProductLoader
           },
         ]
-      },
-      {
-        path: '/about',
-        element: <About />,
       },
       {
         path: '/contact',

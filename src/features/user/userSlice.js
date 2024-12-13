@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// firebase/firestore funcs
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+// firebase
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../../firebase.config";
 // api func
 import fetchUserStoreCreditFromFirebase from "../../api/fetchUserStoreCreditFromFirebase";
 // toastify
@@ -9,8 +10,6 @@ import { toast } from "react-toastify";
 
 // used in: AppLayout
 export const fetchUserDetails = createAsyncThunk("user/fetchUserDetails", async (_, { rejectWithValue }) => {
-    const auth = getAuth(); 
-
     return new Promise((resolve) => {
         onAuthStateChanged(auth, async (user) => {
             if (user) {
@@ -34,8 +33,6 @@ export const fetchUserDetails = createAsyncThunk("user/fetchUserDetails", async 
 
 // used in: Profile
 export const logOutUser = createAsyncThunk("user/logOutUser", async (_, { rejectWithValue }) => {
-    const auth = getAuth();
-
     if (window.confirm("Are you sure you want to log out")) {
         try {
             await signOut(auth);
@@ -50,7 +47,6 @@ export const logOutUser = createAsyncThunk("user/logOutUser", async (_, { reject
         } catch (error) {
             // error message
             toast.error("There was an error, please try again");
-            console.log(error);
 
             return rejectWithValue(error.message);
         }
