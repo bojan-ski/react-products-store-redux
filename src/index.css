@@ -142,6 +142,6 @@ table td{
 }
 
 /* ---------- FOOTER ---------- */
-.footer {
-  font-weight: 600;
+.footer a:hover{
+  color: #e6e6e6 !important;
 }
