@@ -1,3 +1,4 @@
+import React from "react"
 import { Link } from "react-router-dom"
 // redux
 import { useDispatch, useSelector } from "react-redux"
@@ -9,33 +10,33 @@ const Onboarding = () => {
   const dispatch = useDispatch()
 
   return (
-    <div className={`onboarding px-3 mb-3 ${userName ? 'd-flex align-items-center justify-content-between' : 'text-end'}`}>
+    <div className={`onboarding container-fluid text-white bg-dark py-3 ${userName ? 'd-flex align-items-center justify-content-between' : 'text-end'}`}>
       {userName ? (
         <>
           <div className="d-flex align-items-center fw-bold">
-            <p className="text-muted mb-0">
+            <p className="mb-0">
               Store credit:
             </p>
-            <span className="ms-1">
+            <span className="ms-2">
               {userStoreCredit}
             </span>
           </div>
 
           <div className="d-flex align-items-center justify-content-end">
-            <h6 className="capitalize mb-0 me-3">
+            <h6 className="text-capitalize mb-0 me-3">
               Welcome {userName}
             </h6>
-            <button className='btn btn-danger' onClick={() => dispatch(logOutUser())}>
-              log out
+            <button className='btn btn-danger fw-bold' onClick={() => dispatch(logOutUser())}>
+              Log out
             </button>
           </div>
         </>
       ) : (
         <>
-          <Link to='/sign-up' className='btn-info onboarding-btn btn me-3'>
+          <Link to='/sign-up' className='btn fw-bold onboarding-btn me-3'>
             Create an account
           </Link>
-          <Link to='/login' className='btn-info onboarding-btn btn me-3'>
+          <Link to='/login' className='btn fw-bold onboarding-btn me-3'>
             Sign In
           </Link>
         </>

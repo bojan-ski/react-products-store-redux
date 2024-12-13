@@ -25,21 +25,41 @@ a{
   text-decoration: none;
 }
 
-.capitalize{
-  text-transform: capitalize;
-}
-
 .btn:active{
   transform: scale(0.95);
 }
 
 /* ---------- HEADER ---------- */
 header{
-  background-color: #eee;
+  background-color: orangered;
 }
 
 .onboarding .btn{
   font-size: 0.8rem;
+}
+
+.onboarding .onboarding-btn{
+  background-color: #eee;
+}
+
+.onboarding .onboarding-btn:hover{
+  background-color: orangered;
+}
+
+.navbar .navbar-nav .nav-item .nav-link{
+  border-top: 1px solid #fff;
+  font-size: 18px;
+}
+
+.navbar .navbar-nav .nav-item .nav-link:hover,
+.navbar .navbar-nav .nav-item .nav-link.active{
+  color: #e6e6e6 !important;
+}
+
+@media (min-width: 992px) {
+  .navbar .navbar-nav .nav-item .nav-link {
+     border: none;
+  }
 }
 
 /* ---------- MAIN ---------- */
