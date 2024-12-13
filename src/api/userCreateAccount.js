@@ -1,14 +1,13 @@
-// firebase/firestore funcs
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
+// firebase
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { doc, setDoc, serverTimestamp } from "firebase/firestore"
-import { db } from "../firebase.config"
-// toastify
-import { toast } from "react-toastify"
+import { auth, db } from "../firebase.config"
+// utils
+import getCurrentTimeAndDate from "../utils/getCurrentTimeAndDate"
 
 
 const userCreateAccount = async (username, email, password) => {
     try {
-        const auth = getAuth()
         const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
         const newUser = userCredentials.user
 
@@ -19,21 +18,15 @@ const userCreateAccount = async (username, email, password) => {
         const userCredentialsCopy = {
             username, 
             email,
-            storeCredit: 300, // store credit
-            timestamp: serverTimestamp()
+            storeCredit: 300, // store credit - default
+            timestamp: serverTimestamp(),
+            accountCreated: getCurrentTimeAndDate()
         }
 
         await setDoc(doc(db, 'users', newUser.uid), userCredentialsCopy)
 
-        //success message
-        toast.success('account created');
-
         return true
     } catch (error) {
-        //error message
-        toast.error('There was an error, please try again')
-        console.log(error);
-
         return false
     }
 }

@@ -29,6 +29,16 @@ a{
   transform: scale(0.95);
 }
 
+.submit-btn{
+  background-color: orangered;
+  color: #fff;
+}
+
+.submit-btn:hover{
+  background-color: rgb(255, 84, 21);
+  color: black;
+}
+
 /* ---------- HEADER ---------- */
 header{
   background-color: orangered;
@@ -67,13 +77,7 @@ main{
   flex: 1;
 }
 
-/* Login page / Sign Up page */
-.sing-up-page,
-.login-page,
-.forgot-password-page{
-  margin-top: 100px;
-}
-
+/* Login page / Sign Up page / Forgot password page */
 .login-page .login-page-content,
 .sing-up-page form,
 .forgot-password-page .forgot-password-content{
@@ -128,7 +132,6 @@ main{
 .animation-modal-content .animation-modal-img img{
   width: 100%;
 }
-
 
 /* OrderHistory page */
 /* OrderHistoryListCard component */

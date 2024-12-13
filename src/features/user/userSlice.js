@@ -43,6 +43,9 @@ export const logOutUser = createAsyncThunk("user/logOutUser", async (_, { reject
             // success message
             toast.success("You have successfully logged out");
 
+            // navigate user
+            setTimeout(() => window.location.href = '/', 1500)
+
             return { userID: '', userName: '', userStoreCredit: 0 };
         } catch (error) {
             // error message
