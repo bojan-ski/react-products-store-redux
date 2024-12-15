@@ -29,12 +29,12 @@ a{
   transform: scale(0.95);
 }
 
-.submit-btn{
+.btn-orange-hover{
   background-color: orangered;
   color: #fff;
 }
 
-.submit-btn:hover{
+.btn-orange-hover:hover{
   background-color: rgb(255, 84, 21);
   color: black;
 }
@@ -88,11 +88,6 @@ main{
   box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.1);
 }
 
-/* Error page */
-.error{
-  flex: 1;
-}
-
 /* Dashboard page */
 .card-details{
   background-color: #eee;
@@ -101,12 +96,6 @@ main{
 /* Selected product page */
 .selected-product-page .product-details img{
   max-height: 500px;
-}
-
-/* Profile page */
-.profile-page .profile-page-shipping-details-form{
-  width: 75%;
-  margin: 0 auto;
 }
 
 /* Checkout page */
@@ -133,7 +122,13 @@ main{
   width: 100%;
 }
 
-/* OrderHistory page */
+/* PROFILE PAGE */
+.profile-page .profile-page-shipping-details-form{
+  width: 75%;
+  margin: 0 auto;
+}
+
+/* ORDER HISTORY PAGE */
 /* OrderHistoryListCard component */
 table td{
   vertical-align: middle;
@@ -156,6 +151,11 @@ table td{
 
 .contact-us-page .contact-us-form textarea{
   resize: none;
+}
+
+/* Error page */
+.error{
+  flex: 1;
 }
 
 /* ---------- FOOTER ---------- */

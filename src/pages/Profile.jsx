@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom"
+import React from "react"
 // redux
-import { useDispatch, useSelector } from "react-redux"
-import { logOutUser } from '../features/user/userSlice'
+import { useSelector } from "react-redux"
 // api func
 import fetchUserShippingDetailsFromFirebase from "../api/fetchUserShippingDetailsFromFirebase"
 // components
-import PageHeader from "../components/PageHeader"
+import NotLoggedInMsg from "../components/profilePage/NotLoggedInMsg"
+import PageNavigationOptions from "../components/profilePage/PageNavigationOptions"
 import UserShippingDetails from "../components/profilePage/UserShippingDetails"
 
 
@@ -18,34 +18,19 @@ export const loader = async () => {
 
 const Profile = () => {
   const { userName } = useSelector(state => state.user)
-  const dispatch = useDispatch()
 
   return (
     <div className="profile-page">
       <div className="container">
 
-        <PageHeader page="Profile" />
-
         {userName ? (
           <>
-            <div className="profile-btn-container d-flex align-items-center justify-content-between">
-              <div>
-                <Link to='/profile/order-history' className='btn-info btn me-3'>
-                  Order history
-                </Link>
-                <Link to='/profile/bookmarked-products' className='btn-info btn me-3'>
-                  Bookmarked Products
-                </Link>
-              </div>
-              <button className='btn btn-danger' onClick={() => dispatch(logOutUser())}>
-                log out
-              </button>
-            </div>
+            <PageNavigationOptions />
 
             <UserShippingDetails />
           </>
         ) : (
-          <h1>Please login</h1>
+          <NotLoggedInMsg />
         )}
       </div>
     </div>

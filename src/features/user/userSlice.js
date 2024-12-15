@@ -31,7 +31,7 @@ export const fetchUserDetails = createAsyncThunk("user/fetchUserDetails", async 
     });
 });
 
-// used in: Profile
+// used in: Onboarding
 export const logOutUser = createAsyncThunk("user/logOutUser", async (_, { rejectWithValue }) => {
     if (window.confirm("Are you sure you want to log out")) {
         try {
