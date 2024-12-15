@@ -132,10 +132,22 @@ main{
 }
 
 /* ORDER HISTORY PAGE */
+/* OrderHistoryList component */
+table{
+  box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.2);
+}
+
+table thead tr th{
+  background-color: orangered !important;
+  color: #eee !important;
+}
+
 /* OrderHistoryListCard component */
 table td{
   vertical-align: middle;
 }
+
+ 
 
 /* SelectedOrder component */
 .selected-order-details .ordered-product-details .ordered-product-details-1 img{

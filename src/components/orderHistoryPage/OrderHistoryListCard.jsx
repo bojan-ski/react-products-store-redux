@@ -1,30 +1,32 @@
+import React from "react";
 import { Link } from "react-router-dom";
+// icons
+import { BiDetail } from "react-icons/bi";
 
 
 const OrderHistoryListCard = ({ order }) => {
-    // console.log(order);
     const { data } = order
 
     return (
-        <tr className="table-warning">
+        <tr>
             <td>
-                {data.orderDetails.cartItemsList.length}
+                {data?.orderDetails?.cartItemsList?.length}
             </td>
             <td>
-                {data.orderDetails.totalQuantity}
+                {data?.orderDetails?.totalQuantity}
             </td>
             <td>
-                {data.grandTotal}
+                {data?.grandTotal}
             </td>
             <td>
-                {data.orderCreated}
+                {data?.orderCreated}
             </td>
             <td className="capitalize">
-                {data.orderStatus}
+                {data?.orderStatus}
             </td>
             <td className="text-center">
-                <Link to={`${order.id}`} className="btn btn-success">
-                    Order details
+                <Link to={`${order?.id}`} className="btn btn-warning">
+                    <BiDetail />
                 </Link>
             </td>
         </tr>

@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react"
 // utils func
 import scrollToTop from "../utils/scrollToTop"
+// icons
+import { GrCaretPrevious } from "react-icons/gr";
+import { GrCaretNext } from "react-icons/gr";
 
 
 let pointA = 0
@@ -67,11 +70,11 @@ const CustomPagination = ({ dataFromDB, setDisplayedContent }) => {
             </div>
 
             <div className="pagination-btn-container text-end">
-                <button className="btn btn-primary px-3 me-3 btn-prev" onClick={() => paginationOption('minus')}>
-                    Previous
+                <button className="btn btn-orange-hover px-3 me-3 btn-prev" onClick={() => paginationOption('minus')}>
+                <GrCaretPrevious />
                 </button>
-                <button className="btn btn-primary px-3 btn-next" onClick={() => paginationOption('plus')}>
-                    Next
+                <button className="btn btn-orange-hover px-3 btn-next" onClick={() => paginationOption('plus')}>
+                <GrCaretNext />
                 </button>
             </div>
         </div>

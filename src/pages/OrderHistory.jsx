@@ -1,9 +1,9 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import { useLoaderData } from "react-router-dom"
 // api func 
 import fetchUserOrderHistoryFromFirebase from '../api/fetchUserOrderHistoryFromFirebase'
 // components
-import BackButtons from "../components/BackButtons"
+import BackButton from "../components/BackButton"
 import PageHeader from "../components/PageHeader"
 import OrderHistoryList from "../components/orderHistoryPage/OrderHistoryList"
 import CustomPagination from "../components/CustomPagination"
@@ -25,13 +25,14 @@ const OrderHistory = () => {
         <div className="order-history-page">
             <div className="container">
 
-                <BackButtons backPath='/profile' />
+                <BackButton backPath='/profile' />
 
-                <PageHeader page="Order History" />
 
-                <section>
+                <section className="order-history-list">
                     {userOrderHistory && userOrderHistory.length > 0 ? (
                         <>
+                            <PageHeader page="Order History" />
+
                             <OrderHistoryList orderHistory={displayedOrderHistory} />
 
                             {userOrderHistory.length >= 10 && (
@@ -39,7 +40,7 @@ const OrderHistory = () => {
                             )}
                         </>
                     ) : (
-                        <h1 className="text-center fw-bold">
+                        <h1 className="text-center fw-bold mt-5">
                             You have no orders submitted
                         </h1>
                     )}
