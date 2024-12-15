@@ -11,7 +11,7 @@ import UserShippingDetails from "../components/profilePage/UserShippingDetails"
 
 // LOADER
 export const loader = async () => {
-  const userShippingDetails = await fetchUserShippingDetailsFromFirebase()
+  const userShippingDetails = await fetchUserShippingDetailsFromFirebase() 
 
   return userShippingDetails
 }

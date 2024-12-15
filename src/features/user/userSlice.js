@@ -60,7 +60,7 @@ const initialUserState = {
     userStoreCredit: 0,
 };
 
-// used in: Onboarding, Profile, OrderCostDetails
+// used in: Onboarding, SignUp, Login, ForgotPassword, Profile, OrderCostDetails
 const userSlice = createSlice({
     name: "user",
     initialState: initialUserState,

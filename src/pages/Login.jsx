@@ -1,5 +1,8 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+// redux
+import { useDispatch, useSelector } from "react-redux"
+import { fetchUserDetails } from "../features/user/userSlice"
 // api func
 import userLogin from "../api/userLogin"
 // components
@@ -10,6 +13,11 @@ import { toast } from "react-toastify"
 
 
 const Login = () => {
+    const { userID } = useSelector(state => state.user)
+    const dispatch = useDispatch()
+
+    const navigate = useNavigate()
+    
     const [isLoading, setIsLoading] = useState(false);
 
     const handleLoginUserSubmit = async e => {
@@ -29,8 +37,11 @@ const Login = () => {
             //success message
             toast.success('You have logged in');
 
+            // fetch user details form db
+            dispatch(fetchUserDetails())         
+
             // navigate user
-            setTimeout(() => window.location.href = '/profile', 1500)
+            setTimeout(() => navigate('/profile'), 1500)
         } else {
             //error message
             toast.error('There was an error during the login process, please try again')
@@ -57,7 +68,7 @@ const Login = () => {
                             <FormInput label='Password' name="loginPassword" placeholder='Enter password' type='password' required={true} />
 
                             {/* submit btn */}
-                            <FormSubmitBtn label="Login" isLoading={isLoading} />
+                            {!userID && <FormSubmitBtn label="Login" isLoading={isLoading} />}
                         </form>
                     </div>
 

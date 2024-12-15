@@ -124,8 +124,11 @@ main{
 
 /* PROFILE PAGE */
 .profile-page .profile-page-shipping-details-form{
-  width: 75%;
+  max-width: 900px;
   margin: 0 auto;
+  padding: 50px;
+  border-radius: 25px;
+  box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.1);
 }
 
 /* ORDER HISTORY PAGE */

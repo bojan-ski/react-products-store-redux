@@ -1,5 +1,7 @@
 import React, { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+// redux
+import { useSelector } from "react-redux"
 // api func
 import userResetPassword from "../api/userResetPassword"
 // components
@@ -10,7 +12,10 @@ import { toast } from "react-toastify"
 
 
 const ForgotPassword = () => {
-    const navigate = useNavigate()
+    const { userID } = useSelector(state => state.user)
+
+    const navigate = useNavigate()    
+
     const [isLoading, setIsLoading] = useState(false);
 
     const handleResetPassword = async e => {
@@ -55,7 +60,7 @@ const ForgotPassword = () => {
                             <FormInput label='Email address' name="loginEmail" placeholder='Enter email address' type='email' required={true} />
 
                             {/* submit btn */}
-                            <FormSubmitBtn label="Reset Password" isLoading={isLoading} />
+                            {!userID && <FormSubmitBtn label="Reset Password" isLoading={isLoading} />}
                         </form>
                     </div>
 

@@ -1,15 +1,12 @@
 // firebase/firestore funcs
-import { getAuth } from "firebase/auth";
 import { collection, doc, getDocs } from "firebase/firestore"
-import { db } from "../firebase.config";
+import { auth, db } from "../firebase.config";
 
 const fetchUserShippingDetailsFromFirebase = async () => {
-    const auth = getAuth()
-
     if (!auth.currentUser) return null
 
     try {
-        const userDocRef = doc(db, `users/${auth.currentUser.uid}`);
+        const userDocRef = doc(db, `users/${auth?.currentUser?.uid}`);
         const userShippingDetailsRef = collection(userDocRef, 'shippingDetails');
 
         const querySnapshot = await getDocs(userShippingDetailsRef);

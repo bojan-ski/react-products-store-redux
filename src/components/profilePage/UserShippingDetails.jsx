@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import { useLoaderData } from "react-router-dom"
 // redux
 import { useSelector } from "react-redux"
@@ -11,15 +11,16 @@ import FormInput from "../FormInput"
 
 const UserShippingDetails = () => {
   const { userID } = useSelector(state => state.user)
+  
   const userShippingDetails = useLoaderData()
 
+  const [isEdit, setIsEdit] = useState(userShippingDetails ? false : true)
   const [userShippingDetailsFormData, setUserShippingDetailsFormData] = useState({
     streetAddress: userShippingDetails ? userShippingDetails.ShippingDetailsData.streetAddress : '',
     city: userShippingDetails ? userShippingDetails.ShippingDetailsData.city : '',
     zip: userShippingDetails ? userShippingDetails.ShippingDetailsData.zip : '',
     state: userShippingDetails ? userShippingDetails.ShippingDetailsData.state : '',
   })
-  const [isEdit, setIsEdit] = useState(userShippingDetails ? false : true)
 
   const onInputData = (e) => {
     setUserShippingDetailsFormData(prevState => ({
@@ -33,16 +34,14 @@ const UserShippingDetails = () => {
 
     if (userShippingDetails) {
       await editUserShippingDetailsFromFirebase(userID, userShippingDetails.ShippingDetailsDocID, userShippingDetailsFormData)
-
-      setIsEdit(false)
-    }else{      
-      await saveUserShippingDetailsToFirebase(userID, userShippingDetailsFormData)   
-      
-      setIsEdit(false)
+    } else {
+      await saveUserShippingDetailsToFirebase(userID, userShippingDetailsFormData)
     }
+
+    setIsEdit(false)
   }
 
-  const handleClearUserShippingDetailsFormData = () => {   
+  const handleClearUserShippingDetailsFormData = () => {
     setUserShippingDetailsFormData(
       {
         streetAddress: userShippingDetails ? userShippingDetails.ShippingDetailsData.streetAddress : '',
@@ -53,12 +52,12 @@ const UserShippingDetails = () => {
     )
   }
 
-  const {streetAddress, city, zip, state} = userShippingDetailsFormData
+  const { streetAddress, city, zip, state } = userShippingDetailsFormData
 
   return (
-    <section className="my-5 profile-page-shipping-details-form">
-      <h2 className="text-center mb-4">
-        UserShippingDetails
+    <section className="profile-page-shipping-details-form">
+      <h2 className="text-center fw-bold mb-4">
+        User shipping details
       </h2>
 
       <h6 className="text-center mb-4">
@@ -68,18 +67,25 @@ const UserShippingDetails = () => {
       </h6>
 
       <form onSubmit={handleSetUserShippingDetails}>
+        {/* street address */}
         <FormInput label='Street address' name='streetAddress' type='text' value={streetAddress} placeholder='Enter street address' required={true} onMutate={onInputData} disabled={!isEdit} />
+
+        {/* city */}
         <FormInput label='City' name='city' type='text' value={city} placeholder='Enter city name' required={true} onMutate={onInputData} disabled={!isEdit} />
+
+        {/* zip */}
         <FormInput label='ZIP' name='zip' type='number' value={zip} placeholder='Enter ZIP code' required={true} onMutate={onInputData} disabled={!isEdit} />
+
+        {/* state */}
         <FormInput label='State' name='state' type='text' value={state} placeholder='Enter state name' required={true} onMutate={onInputData} disabled={!isEdit} />
 
         <div className="user-shipping-details-btn-container mt-4 d-flex justify-content-between">
           {isEdit && (
             <>
-              <button type="submit" className="btn btn-success">
+              <button type="submit" className="btn btn-success fw-bold px-4 py-2">
                 Save Details
               </button>
-              <button type="button" className='btn btn-danger px-3 py-2' onClick={handleClearUserShippingDetailsFormData}>
+              <button type="button" className='btn btn-danger fw-bold px-4 py-2' onClick={handleClearUserShippingDetailsFormData}>
                 Clear Form
               </button>
             </>
@@ -88,7 +94,7 @@ const UserShippingDetails = () => {
       </form>
 
       {!isEdit && (
-        <button type="button" className='btn btn-warning px-3 py-2' onClick={() => setIsEdit(!isEdit)}>
+        <button type="button" className='btn btn-warning fw-bold px-4 py-2' onClick={() => setIsEdit(!isEdit)}>
           Edit Details
         </button>
       )}

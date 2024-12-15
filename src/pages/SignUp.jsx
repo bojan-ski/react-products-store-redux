@@ -1,4 +1,6 @@
 import React, { useState } from "react"
+// redux
+import { useSelector } from "react-redux"
 // api
 import userCreateAccount from "../api/userCreateAccount"
 // components
@@ -9,7 +11,9 @@ import FormSubmitBtn from "../components/FormSubmitBtn"
 import { toast } from "react-toastify"
 
 
-const SignUp = () => {
+const SignUp = () => {    
+    const { userID } = useSelector(state => state.user)
+
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSignUpUserSubmit = async e => {
@@ -67,7 +71,7 @@ const SignUp = () => {
                     <FormInputCheckbox linkTitle='Privacy Policy' linkUrl='privacy-policy' />
 
                     {/* submit btn */}
-                    <FormSubmitBtn label="Sign Up" isLoading={isLoading} />
+                    {!userID && <FormSubmitBtn label="Sign Up" isLoading={isLoading} />}
                 </form>
             </div>
         </div>
