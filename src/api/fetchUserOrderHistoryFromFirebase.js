@@ -15,15 +15,20 @@ const fetchUserOrderHistoryFromFirebase = async () => {
         let userOrderHistory = []
 
         querySnapshot.forEach((order) => {
-            return userOrderHistory.push({
+            const data = order.data();
+
+            userOrderHistory.push({
                 id: order.id,
-                data: order.data()
-            })
+                data: {
+                    ...data,
+                    timestamp: data.timestamp.toDate().toISOString() // convert Timestamp, remove error from redux 
+                }
+            });
         })
 
         return userOrderHistory
     } catch (error) {
-        return null
+        return []
     }
 }
 

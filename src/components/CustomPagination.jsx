@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react"
+import React from "react";
+// redux
+import { useDispatch } from "react-redux";
 // utils func
 import scrollToTop from "../utils/scrollToTop"
 // icons
@@ -6,49 +8,37 @@ import { GrCaretPrevious } from "react-icons/gr";
 import { GrCaretNext } from "react-icons/gr";
 
 
-let pointA = 0
-let pointB = 9
-
-const CustomPagination = ({ dataFromDB, setDisplayedContent }) => {   
-    const [currentPageNumber, setCurrentPageNumber] = useState(1)
-
-    useEffect(() => {
-        console.log('useEffect - CustomPagination');
-        pointA = 0
-        pointB = 9
-        setCurrentPageNumber(1)
-    }, [])
+const CustomPagination = ({ dataFromDB, updatePageState, resetPage, lastItemsOnPage, turnPage, pointA, pointB, currentPage, skipAmount }) => {
+    const dispatch = useDispatch()
 
     const paginationOption = (term) => {
         if (term === 'plus') {
-            pointA += 9
-            pointB += 9
-            setCurrentPageNumber(curPageNum => curPageNum + 1)
+            pointA += skipAmount
+            pointB += skipAmount
+            currentPage += 1
+
+            dispatch(updatePageState({ pointA, pointB, currentPage }))
         }
 
         if (term === 'minus') {
-            pointA -= 9
-            pointB -= 9
-            setCurrentPageNumber(curPageNum => curPageNum - 1)
+            pointA -= skipAmount
+            pointB -= skipAmount
+            currentPage -= 1
+
+            dispatch(updatePageState({ pointA, pointB, currentPage }))
         }
 
         if (pointB == 0) {
-            setDisplayedContent(dataFromDB.slice(0, 9))
-            pointA = 0
-            pointB = 9
-            setCurrentPageNumber(1)
+            dispatch(resetPage())
         } else if (pointB > dataFromDB.length && pointA >= dataFromDB.length) {
-            setDisplayedContent(dataFromDB.slice(0, 9))
-            pointA = 0
-            pointB = 9
-            setCurrentPageNumber(1)
+            dispatch(resetPage())
         } else if (pointB > dataFromDB.length) {
-            const lastPostedListings = dataFromDB.length - pointA
+            const lastItems = dataFromDB.length - pointA
+            const lastPage = Math.ceil(dataFromDB.length / skipAmount)
 
-            setDisplayedContent(dataFromDB.slice(-lastPostedListings))
-            setCurrentPageNumber(Math.ceil(dataFromDB.length / 9))
+            dispatch(lastItemsOnPage({ lastItems, lastPage }))
         } else {
-            setDisplayedContent(dataFromDB.slice(pointA, pointB))
+            dispatch(turnPage({ pointA, pointB }))
         }
 
         scrollToTop()
@@ -60,21 +50,21 @@ const CustomPagination = ({ dataFromDB, setDisplayedContent }) => {
                 <p className="mb-0 fw-bold text-muted">
                     Page:
                     <span className="mx-1 text-dark">
-                        {currentPageNumber}
+                        {currentPage}
                     </span>
                     /
                     <span className="ms-1 text-dark">
-                        {Math.ceil(dataFromDB.length / 9)}
+                        {Math.ceil(dataFromDB.length / skipAmount)}
                     </span>
                 </p>
             </div>
 
             <div className="pagination-btn-container text-end">
                 <button className="btn btn-orange-hover px-3 me-3 btn-prev" onClick={() => paginationOption('minus')}>
-                <GrCaretPrevious />
+                    <GrCaretPrevious />
                 </button>
                 <button className="btn btn-orange-hover px-3 btn-next" onClick={() => paginationOption('plus')}>
-                <GrCaretNext />
+                    <GrCaretNext />
                 </button>
             </div>
         </div>

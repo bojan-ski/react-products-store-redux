@@ -16,7 +16,7 @@ const Footer = () => {
                 </Link>
             </div>
             <p className="pb-3 mb-0">
-                &copy; {year} BP Development. All rights reserved.
+                &copy; {year} BPdevelopment. All rights reserved.
             </p>
         </footer>
     )

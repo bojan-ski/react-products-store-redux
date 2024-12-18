@@ -1,5 +1,5 @@
 // components
-import BackButtons from "../components/BackButtons";
+import BackButton from "../components/BackButton";
 import PageHeader from "../components/PageHeader";
 import BookmarkedProductsList from "../components/bookmarkedProductsPage/BookmarkedProductsList";
 
@@ -9,7 +9,7 @@ const BookmarkedProducts = () => {
     <div className="bookmarked-products-page">
       <div className="container">
 
-        <BackButtons backPath='/profile' />
+        <BackButton backPath='/profile' />
 
         <PageHeader page="Bookmarked Products" />
 

@@ -1,25 +1,27 @@
-import React, { useState } from "react"
-import { useLoaderData } from "react-router-dom"
-// api func 
-import fetchUserOrderHistoryFromFirebase from '../api/fetchUserOrderHistoryFromFirebase'
+import React, { useEffect } from "react"
+import { Navigate } from "react-router-dom"
+// redux
+import { useDispatch, useSelector } from "react-redux"
+import { getUserOrderHistory, lastItemsOnOrderHistoryPage, resetOrderHistoryPage, turnOrderHistoryPage, updateOrderHistoryPageState, } from "../features/user/orderHistorySlice"
 // components
+import PageErrorMsg from "../components/PageErrorMsg"
 import BackButton from "../components/BackButton"
 import PageHeader from "../components/PageHeader"
 import OrderHistoryList from "../components/orderHistoryPage/OrderHistoryList"
 import CustomPagination from "../components/CustomPagination"
 
 
-// LOADER
-export const loader = async () => {
-    const userOrderHistory = await fetchUserOrderHistoryFromFirebase()
-
-    return userOrderHistory
-}
-
 const OrderHistory = () => {
-    const userOrderHistory = useLoaderData()
+    const userOrderHistory = useSelector(state => state.orderHistory)
+    const dispatch = useDispatch()
 
-    const [displayedOrderHistory, setDisplayedBookmarkedProducts] = useState(userOrderHistory?.length >= 10 ? userOrderHistory.slice(0, 9) : userOrderHistory)
+    useEffect(() => {
+        if (userOrderHistory.orderHistoryList.length == 0) dispatch(getUserOrderHistory())
+    }, [])
+
+    if(userOrderHistory.orderHistoryError){
+        return <PageErrorMsg />
+    }    
 
     return (
         <div className="order-history-page">
@@ -27,16 +29,25 @@ const OrderHistory = () => {
 
                 <BackButton backPath='/profile' />
 
-
                 <section className="order-history-list">
-                    {userOrderHistory && userOrderHistory.length > 0 ? (
+                    {userOrderHistory.orderHistoryList && userOrderHistory.orderHistoryList.length > 0 ? (
                         <>
                             <PageHeader page="Order History" />
 
-                            <OrderHistoryList orderHistory={displayedOrderHistory} />
+                            <OrderHistoryList orderHistory={userOrderHistory.displayedOrderHistory} />
 
-                            {userOrderHistory.length >= 10 && (
-                                <CustomPagination dataFromDB={userOrderHistory} setDisplayedContent={setDisplayedBookmarkedProducts} />
+                            {userOrderHistory.orderHistoryList.length > userOrderHistory.skipOrderHistoryPageAmount && (
+                                <CustomPagination
+                                    dataFromDB={userOrderHistory.orderHistoryList}
+                                    updatePageState={updateOrderHistoryPageState}
+                                    resetPage={resetOrderHistoryPage}
+                                    lastItemsOnPage={lastItemsOnOrderHistoryPage}
+                                    turnPage={turnOrderHistoryPage}
+                                    pointA={userOrderHistory.pointA}
+                                    pointB={userOrderHistory.pointB}
+                                    currentPage={userOrderHistory.currentPage}
+                                    skipAmount={userOrderHistory.skipOrderHistoryPageAmount}
+                                />
                             )}
                         </>
                     ) : (
