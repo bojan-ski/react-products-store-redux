@@ -1,6 +1,7 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import { useLoaderData } from "react-router-dom"
 // components
+import PageHeader from "../PageHeader"
 import GridViewListCard from "../GridViewListCard"
 import CustomPagination from "../CustomPagination"
 
@@ -14,6 +15,8 @@ const BookmarkedProductsList = () => {
         <section className="bookmarked-products-list">
             {bookmarkedProducts && bookmarkedProducts.length > 0 ? (
                 <>
+                    <PageHeader page="Bookmarked Products" />
+                    
                     <div className="row">
                         {displayedBookmarkedProducts.map(bookmarkedProduct => <GridViewListCard key={bookmarkedProduct.productData.id} product={bookmarkedProduct.productData} />
                         )}
@@ -24,7 +27,7 @@ const BookmarkedProductsList = () => {
                     )}
                 </>
             ) : (
-                <h1 className="text-center fw-bold">
+                <h1 className="text-center fw-bold mt-5">
                     You have no Bookmarked Products
                 </h1>
             )}

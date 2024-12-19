@@ -1,3 +1,6 @@
+import React from "react"
+
+
 const PageHeader = ({ page }) => {
     return (
         <section className="page-header mb-5">

@@ -20,7 +20,7 @@ const OrderedProducts = ({ orderDetails }) => {
                         </div>
 
                         {/* row item 2 */}
-                        <div className="col-5 col-sm-6">
+                        <div className="col-7">
                             <h6 className="fw-bold">
                                 {title}
                             </h6>
@@ -30,7 +30,7 @@ const OrderedProducts = ({ orderDetails }) => {
                         </div>
 
                         {/* row item 3 */}
-                        <div className="col-5 col-sm-4">
+                        <div className="col-3">
                             <h6 className="fw-bold">
                                 Quantity: {quantity}
                             </h6>

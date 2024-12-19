@@ -1,8 +1,6 @@
 // firebase/firestore funcs
 import { doc, deleteDoc } from "firebase/firestore"
 import { db } from "../firebase.config";
-// toastify
-import { toast } from "react-toastify";
 
 
 const removeBookmarkProductFromFirebase = async (userID, docID) => {
@@ -13,12 +11,9 @@ const removeBookmarkProductFromFirebase = async (userID, docID) => {
     // Delete the document
     await deleteDoc(bookmarkedProductsCollectionRef);
     
-    // success message
-    toast.success('Bookmark has been removed')
+    return true
   } catch (error) {
-    // success message
-    toast.error('There was a problem with removing the bookmark')
-    console.error(error);
+    return false
   }  
 }
 

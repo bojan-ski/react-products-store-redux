@@ -1,3 +1,4 @@
+import React from "react"
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
 
 // PAGES
@@ -24,7 +25,7 @@ import ErrorPage from "./pages/ErrorPage"
 import PrivateRoute from "./private/PrivateRoute"
 
 // LOADERS
-import { loader as listOfProductsLoader } from "./pages/Dashboard"
+import { loader as userBookmarkedProductsLoader } from "./pages/Dashboard"
 import { loader as selectedProductLoader } from "./pages/SelectedProduct"
 import { loader as userShippingDetailsLoader } from "./pages/Profile"
 import { loader as selectedOrderLoader } from "./pages/SelectedOrder"
@@ -34,12 +35,12 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <AppLayout />,
-    errorElement: <ErrorPage />,
+    // errorElement: <ErrorPage />,
     children: [
       {
         index: true,
         element: <Dashboard />,
-        loader: listOfProductsLoader
+        loader: userBookmarkedProductsLoader
       },
       {
         path: '/:id',
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
       {
         path: '/products',
         element: <Products />,
-        loader: listOfProductsLoader
+        loader: userBookmarkedProductsLoader
       },
       {
         path: '/products/:id',
@@ -114,7 +115,7 @@ const router = createBrowserRouter([
           {
             path: 'bookmarked-products',
             element: <PrivateRoute><BookmarkedProducts /></PrivateRoute>,
-            loader: listOfProductsLoader
+            loader: userBookmarkedProductsLoader
           },
           {
             path: 'bookmarked-products/:id',

@@ -2,6 +2,7 @@
 import { collection, getDocs, query, where, orderBy } from "firebase/firestore"
 import { auth, db } from "../firebase.config";
 
+
 const fetchUserOrderHistoryFromFirebase = async () => {
     if (!auth?.currentUser) return null
 
