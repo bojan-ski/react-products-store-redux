@@ -1,5 +1,4 @@
 import React, { useEffect } from "react"
-import { Navigate } from "react-router-dom"
 // redux
 import { useDispatch, useSelector } from "react-redux"
 import { getUserOrderHistory, lastItemsOnOrderHistoryPage, resetOrderHistoryPage, turnOrderHistoryPage, updateOrderHistoryPageState, } from "../features/user/orderHistorySlice"

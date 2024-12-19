@@ -1,38 +1,54 @@
-const OrderTotal = ({ selectedOrderDetails, orderDetails }) => {
+import React from "react"
+
+
+const OrderTotal = ({ selectedOrderDetails }) => {
+    const shippingFee = (selectedOrderDetails?.grandTotal - selectedOrderDetails?.orderDetails?.orderCost) > 0 ?  (selectedOrderDetails?.grandTotal - selectedOrderDetails?.orderDetails?.orderCost).toFixed(2) : 0
+
     return (
         <>
-            <h2 className="text-center fw-bold mb-4">TOTAL cost</h2>
+            <h4 className="text-center fw-bold mb-4">
+                Cost details
+            </h4>
 
-            <section>
-                <div className="row">
+            <div className="order-cost-details py-3 px-4 rounded rounded-4 text-start">
 
-                    {/* row item 1 */}
-                    <div className="col-6 text-center">
-                        <p className="fw-bold text-muted">
-                            Order created
-                        </p>
-                        <p className="fw-bold capitalize">
-                            {selectedOrderDetails.orderCreated}
-                        </p>
-                        <p className="fw-bold text-muted">
-                            Total Quantity
-                        </p>
-                    </div>
-
-                    {/* row item 2 */}
-                    <div className="col-6 text-center">
-                        <p className="fw-bold capitalize">
-                            {orderDetails.totalQuantity}
-                        </p>
-                        <p className="fw-bold text-muted">
-                            Grand Total
-                        </p>
-                        <p className="fw-bold capitalize">
-                            $ {selectedOrderDetails.grandTotal}
-                        </p>
-                    </div>
+                <div className="border-bottom pb-3 mb-3">
+                    <p className="fw-bold text-muted mb-1">
+                        Order created:
+                    </p>
+                    <p className="fw-bold mb-0">
+                        {selectedOrderDetails?.orderCreated}
+                    </p>
                 </div>
-            </section>
+
+                <div className="border-bottom pb-3 mb-3">
+                    <p className="fw-bold text-muted mb-1">
+                        Order cost:
+                    </p>
+                    <p className="fw-bold mb-0">
+                        $ {selectedOrderDetails?.orderDetails?.orderCost}
+                    </p>
+                </div>
+
+                <div className="border-bottom pb-3 mb-3">
+                    <p className="fw-bold text-muted mb-1">
+                        Shipping fee:
+                    </p>
+                    <p className="fw-bold mb-0">
+                        $ {shippingFee}
+                    </p>
+                </div>
+
+                <div>
+                    <p className="fw-bold mb-1">
+                        Grand Total:
+                    </p>
+                    <p className="fw-bold mb-0">
+                        $ {selectedOrderDetails?.grandTotal}
+                    </p>
+                </div>
+
+            </div>
         </>
     )
 }

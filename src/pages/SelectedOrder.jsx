@@ -1,10 +1,11 @@
+import React from "react";
 import { redirect, useLoaderData } from "react-router-dom";
 // firebase api func
 import fetchSelectedOrderDetailsFromFirebase from "../api/fetchSelectedOrderDetailsFromFirebase";
 // redux
 import { useSelector } from "react-redux";
 // components
-import BackButtons from "../components/BackButtons";
+import BackButton from "../components/BackButton";
 import PageHeader from "../components/PageHeader";
 import OrderedProducts from "../components/selectedOrderPage/OrderedProducts";
 import OrderTotal from "../components/selectedOrderPage/OrderTotal";
@@ -20,11 +21,11 @@ export const loader = async ({ params }) => {
 }
 
 const SelectedOrder = () => {
-    const selectedOrderDetails = useLoaderData()
+    const selectedOrderDetails = useLoaderData()  
 
     const { userID } = useSelector(state => state.user)
 
-    if (selectedOrderDetails.userID !== userID) {
+    if (selectedOrderDetails?.userID !== userID) {
         redirect('/')
     }
 
@@ -34,36 +35,36 @@ const SelectedOrder = () => {
         <div className="selected-order-page">
             <div className="container">
 
-                <section className="d-flex align-items-center justify-content-between mb-5">
-                    <BackButtons backPath='/profile/order-history' />
+                <section className="d-flex align-items-center justify-content-between mb-4">
+                    <BackButton backPath='/profile/order-history' />
 
-                    <h5 className={`capitalize fw-bold mb-0 ${orderStatus == 'send' ? 'text-success' : orderStatus == 'cancel' ? 'text-danger' : 'text-warning'}`}>
+                    <h3 className={`text-uppercase fw-bold mb-0 ${orderStatus == 'send' ? 'text-success' : orderStatus == 'cancel' ? 'text-danger' : 'text-warning'}`}>
                         {orderStatus}
-                    </h5>
+                    </h3>
                 </section>
 
-                <PageHeader page="Selected Order" />
+                <PageHeader page="Order Details" />
 
                 <section className="selected-order-details">
                     <div className="row">
 
                         {/* row item 1 */}
-                        <div className="col-12 col-md-7 mb-4">
+                        <div className="col-12 col-lg-8 mb-4">
                             <OrderedProducts orderDetails={orderDetails} />
                         </div>
 
                         {/* row item 2 */}
-                        <div className="col-12 col-md-5 mb-4">
-                            <OrderTotal selectedOrderDetails={selectedOrderDetails} orderDetails={orderDetails} />
+                        <div className="col-12 col-lg-4 mb-4">
+                            <OrderTotal selectedOrderDetails={selectedOrderDetails} />
                         </div>
 
                         {/* row item 3 */}
-                        <div className="col-12 col-md-6 mb-4">
+                        <div className="col-12 col-lg-6 mb-4">
                             <OrderCardDetails cardDetails={cardDetails} />
                         </div>
 
                         {/* row item 4 */}
-                        <div className="col-12 col-md-6 mb-4">
+                        <div className="col-12 col-lg-6 mb-4">
                             <OrderShippingDetails shippingDetails={shippingDetails} />
                         </div>
                     </div>

@@ -1,9 +1,11 @@
+import React from "react"
 import { useRouteError } from "react-router-dom"
 // components
 import Error from "../components/errorPage/Error"
 
+
 const ErrorPage = () => {
-    const errorType = useRouteError()
+    const errorType = useRouteError()    
 
     return (
         <div className="error d-flex align-items-center">
