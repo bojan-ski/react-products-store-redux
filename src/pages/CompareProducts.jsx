@@ -1,6 +1,8 @@
+import React from "react"
 // redux
 import { useSelector } from "react-redux"
 // components
+import PageMsg from "../components/PageMsg"
 import PageHeader from "../components/PageHeader"
 import CompareProductCard from "../components/compareProductsPage/CompareProductCard"
 
@@ -10,14 +12,17 @@ const CompareProducts = () => {
 
     return (
         <div className="compare-products-page">
-            <PageHeader page='Compare Products' />
-
             <div className="container">
                 <div className="row">
+
                     {!compareProductsList || compareProductsList.length == 0 ? (
-                        <h1 className="text-center">No products were selected for comparison</h1>
+                        <PageMsg text='No products were selected for comparison' />
                     ) : (
-                        compareProductsList?.map(product => <CompareProductCard key={product.id} product={product} />)
+                        <>
+                            <PageHeader page='Compare Products' />
+
+                            {compareProductsList?.map(product => <CompareProductCard key={product.id} product={product} />)}
+                        </>
                     )}
                 </div>
             </div>

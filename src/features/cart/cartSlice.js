@@ -80,7 +80,7 @@ const updateState = (state, updatedCartItemsList) => {
 }
 
 export const {
-    addProductToCart,
+    addProductToCart, // ProductDataBox
     updateCart,
     removeProductFromCart,
     updateGrandTotal,

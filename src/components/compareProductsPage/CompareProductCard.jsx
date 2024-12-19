@@ -1,11 +1,15 @@
+import React from "react"
 import { Link } from "react-router-dom"
+// react-icons
+import { TiStarFullOutline } from "react-icons/ti";
+
 
 const CompareProductCard = ({ product }) => {
-    const { id, availabilityStatus, brand, category, description, dimensions, discountPercentage, images, minimumOrderQuantity, price, rating, returnPolicy, reviews, shippingInformation, stock, tags, thumbnail, title, warrantyInformation, weight } = product
+    const { id, availabilityStatus, brand, category, description, price, rating, thumbnail, title } = product
 
     return (
         <div className="col-12 col-lg-6 mb-4">
-            <div className="card-details rounded rounded-4 p-3">
+            <div className="card-details rounded rounded-4 p-4">
 
                 <div className="card-details-header text-center mb-2">
                     <img src={thumbnail} alt={title} className="img-fluid" />
@@ -17,33 +21,37 @@ const CompareProductCard = ({ product }) => {
                             {category}
                         </p>
                         {brand && (
-                            <p className="mb-0">
+                            <p className="mb-0 fst-italic">
                                 {brand}
                             </p>
                         )}
                     </div>
-                    <h5 className="fw-bold">
+                    <p className="fw-bold mb-1 fs-5">
                         {title}
-                    </h5>
-                    <h5>
+                    </p>
+                    <p className="fw-bold">
                         ${price}
-                    </h5>
-                    <h6 className="text-muted">
+                    </p>
+                    <p>
                         {description}
-                    </h6>
+                    </p>
                 </div>
 
                 <div className="card-details-footer d-flex justify-content-between align-items-center">
-                    <Link to={`${id}`} className="btn btn-success fs-5">
+                    <Link to={`${id}`} className="btn btn-orange-hover fw-bold">
                         See details
                     </Link>
+
                     <h5 className={`fw-bold mb-0 ${availabilityStatus == "In Stock" ? 'text-success' : 'text-danger'}`}>
                         {availabilityStatus}
                     </h5>
-                    <h5 className="mb-0">
-                        <span className="me-1">⭐</span>
-                        {rating}
-                    </h5>
+
+                    <div className="d-flex justify-content-between align-items-center">
+                        <TiStarFullOutline size={25} fill="orangered" />
+                        <p className="mb-0 fw-bold fs-5 ms-1">
+                            {rating}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
