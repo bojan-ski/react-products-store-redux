@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getBookmarkedProductsPageState, lastItemsOnBookmarkedProductsPage, resetBookmarkedProductsPage, turnBookmarkedProductsPage, updateBookmarkedProductsPageState } from '../../features/user/bookmarkedProductsSlice'
 // components
-import PageErrorMsg from '../PageErrorMsg'
 import PageHeader from '../PageHeader'
 import BookmarkedProductsList from './BookmarkedProductsList'
 import CustomPagination from '../CustomPagination'
@@ -16,10 +15,6 @@ const BookmarkedProductsContainer = ({ bookmarkedProducts }) => {
     useEffect(() => {
         if (userBookmarkedProducts.bookmarkedProductsList.length == 0) dispatch(getBookmarkedProductsPageState(bookmarkedProducts))
     }, [])
-
-    if (userBookmarkedProducts.bookmarkedProductsError) {
-        return <PageErrorMsg />
-    }
 
     return (
         <section className="bookmarked-products-list">

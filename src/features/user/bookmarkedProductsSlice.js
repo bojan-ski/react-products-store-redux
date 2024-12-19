@@ -5,7 +5,6 @@ const skipBookmarkedProductsPageAmount = 6;
 
 const initialBookmarkedProductsState = {
     isLoading: false,
-    bookmarkedProductsError: false,
     skipBookmarkedProductsPageAmount,
     bookmarkedProductsList: [],
     displayedBookmarkedProducts: [],
@@ -23,12 +22,8 @@ const bookmarkedProductsSlice = createSlice({
             state.isLoading = true
 
             // update state
-            if(payload){
-                state.bookmarkedProductsList = payload
-                state.displayedBookmarkedProducts = payload?.length > skipBookmarkedProductsPageAmount ? payload.slice(0, skipBookmarkedProductsPageAmount) : payload
-            }else{
-                state.bookmarkedProductsError = true 
-            }            
+            state.bookmarkedProductsList = payload
+            state.displayedBookmarkedProducts = payload?.length > skipBookmarkedProductsPageAmount ? payload.slice(0, skipBookmarkedProductsPageAmount) : payload          
 
             // loading false
             state.isLoading = false

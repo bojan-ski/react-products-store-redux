@@ -23,6 +23,7 @@ export const getUserOrderHistory = createAsyncThunk('orderHistory/getUserOrderHi
     return userOrderHistory
 })
 
+// used in: OrderHistory, OrderHistoryContainer
 const orderHistorySlice = createSlice({
     name: 'orderHistory',
     initialState: initialOrderHistoryState,
@@ -93,9 +94,9 @@ const orderHistorySlice = createSlice({
 })
 
 export const {
-    updateOrderHistoryPageState, // OrderHistory
-    resetOrderHistoryPage, // OrderHistory
-    lastItemsOnOrderHistoryPage, // OrderHistory
-    turnOrderHistoryPage, // OrderHistory
+    updateOrderHistoryPageState, // OrderHistoryContainer
+    resetOrderHistoryPage, // OrderHistoryContainer
+    lastItemsOnOrderHistoryPage, // OrderHistoryContainer
+    turnOrderHistoryPage, // OrderHistoryContainer
 } = orderHistorySlice.actions
 export default orderHistorySlice.reducer

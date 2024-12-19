@@ -1,14 +1,14 @@
+import React from "react"
 import { useLoaderData } from "react-router-dom"
 // api func 
 import fetchDataFromDummyJSON from "../api/fetchDataFromDummyJSON"
 // components
-import BackButtons from "../components/BackButtons"
+import BackButton from "../components/BackButton"
 import PageHeader from "../components/PageHeader"
 import ImagesGalleryBox from "../components/selectedProductPage/ImagesGalleryBox"
 import ProductDataBox from "../components/selectedProductPage/ProductDataBox"
 import DescriptionBox from "../components/selectedProductPage/DescriptionBox"
 import ReviewsBox from "../components/selectedProductPage/ReviewsBox"
-
 
 
 // LOADER
@@ -19,43 +19,22 @@ export const loader = async ({ params }) => {
 }
 
 const SelectedProduct = () => {
-    const { availabilityStatus, brand, category, description, dimensions, discountPercentage, images, minimumOrderQuantity, price, rating, returnPolicy, reviews, shippingInformation, stock, tags, thumbnail, title, warrantyInformation, weight } = useLoaderData()
+    const { availabilityStatus, title } = useLoaderData()
 
-    // const urlBackPath = window.location.pathname.split('/').includes('compare')
-    // const urlBackPath = window.location.pathname.split('/')
-    // console.log(urlBackPath);
-
-    // let urlBackPath;
-
-    // if(window.location.pathname.split('/').includes('compare')){
-    //     urlBackPath = '/compare'
-    // }else if(window.location.pathname.split('/').includes('bookmarked-products')){
-    //     urlBackPath = '/profile/bookmarked-products'        
-    // }else{
-    //     urlBackPath = '/'
-    // }
-
-    let urlBackPath = window.location.pathname.split('/').includes('compare')
-        ? '/compare'
-        : window.location.pathname.split('/').includes('bookmarked-products')
-            ? '/profile/bookmarked-products'
-            : '/';
+    let urlBackPath = window.location.pathname.split('/')[3] ?
+        `${window.location.pathname.split('/')[1]}/${window.location.pathname.split('/')[2]}` :
+        window.location.pathname.split('/')[1]
 
     return (
         <div className="selected-product-page">
             <div className="container">
 
-                <section className="d-flex align-items-center justify-content-between">
-                    {/* <Link to={urlBackPath ? '/compare' : '/'} className="btn btn-warning"> */}
-                    {/* <Link to={urlBackPath} className="btn btn-warning">
-                        Back
-                    </Link> */}
+                <section className="d-flex align-items-center justify-content-between mb-5">
+                    <BackButton backPath={`/${urlBackPath}`} />
 
-                    <BackButtons backPath={urlBackPath} />
-
-                    <h5 className={`fw-bold mb-0 ${availabilityStatus == "In Stock" ? 'text-success' : 'text-danger'}`}>
+                    <h4 className={`fw-bold mb-0 ${availabilityStatus == "In Stock" ? 'text-success' : 'text-danger'}`}>
                         {availabilityStatus}
-                    </h5>
+                    </h4>
                 </section>
 
                 <PageHeader page={title} />
@@ -81,17 +60,6 @@ const SelectedProduct = () => {
                         {/* row item 4 */}
                         <div className="col-12 col-md-6 mb-4">
                             <ReviewsBox />
-                            {/* <h5 className="text-center">
-                                Reviews:
-                            </h5>
-                            {reviews.map(review => <ul className="list-unstyled">
-                                {Object.entries(review).map(([key, value]) => (
-                                    <li key={key}>
-                                        <span className="fw-bold">{key}</span>: {value}
-                                    </li>
-                                ))}
-                            </ul>
-                            )} */}
                         </div>
                     </div>
                 </section>

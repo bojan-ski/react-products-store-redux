@@ -1,10 +1,12 @@
+import React from "react"
 import { useLoaderData } from "react-router-dom"
 
+
 const ImagesGalleryBox = () => {
-    const {images, title} = useLoaderData()
+  const { images, title } = useLoaderData()
 
   return (
-    <img src={images[0]} alt={title} className="img-fluid"/>
+    <img src={images[0]} alt={title} className="img-fluid" />
   )
 }
 

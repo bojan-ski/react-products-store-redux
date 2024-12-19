@@ -8,6 +8,13 @@ import fetchUserStoreCreditFromFirebase from "../../api/fetchUserStoreCreditFrom
 import { toast } from "react-toastify";
 
 
+const initialUserState = {
+    isLoading: false,
+    userID: '',
+    userName: '',
+    userStoreCredit: 0,
+};
+
 // used in: AppLayout
 export const fetchUserDetails = createAsyncThunk("user/fetchUserDetails", async (_, { rejectWithValue }) => {
     return new Promise((resolve) => {
@@ -52,13 +59,6 @@ export const logOutUser = createAsyncThunk("user/logOutUser", async (_, { reject
         }
     }
 });
-
-const initialUserState = {
-    isLoading: false,
-    userID: '',
-    userName: '',
-    userStoreCredit: 0,
-};
 
 // used in: Onboarding, SignUp, Login, ForgotPassword, Profile, OrderCostDetails
 const userSlice = createSlice({

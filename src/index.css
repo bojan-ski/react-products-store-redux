@@ -88,7 +88,7 @@ main {
   box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.12);
 }
 
-/* Products page */
+/* PRODUCTS PAGE */
 .card-details {
   box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.12);
 }
@@ -97,12 +97,28 @@ main {
   box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.2);
 }
 
-/* Selected product page */
+/* SELECTED PRODUCT PAGE */
+/* ImagesGalleryBox component */
 .selected-product-page .product-details img {
   max-height: 500px;
 }
 
-/* Checkout page */
+/* ProductDataBox component */
+.selected-product-page .product-data{
+  box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.12);
+}
+
+/* DescriptionBox component */
+.selected-product-page .product-desc{
+  box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.12);
+}
+
+/* ReviewsBox component */
+.selected-product-page .product-reviews{
+  box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.12);
+}
+
+/* CHECKOUT PAGE */
 /* MODAL */
 .animation-modal {
   display: block;
