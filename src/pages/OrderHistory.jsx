@@ -8,6 +8,7 @@ import BackButton from "../components/BackButton"
 import PageHeader from "../components/PageHeader"
 import OrderHistoryList from "../components/orderHistoryPage/OrderHistoryList"
 import CustomPagination from "../components/CustomPagination"
+import PageMsg from "../components/PageMsg"
 
 
 const OrderHistory = () => {
@@ -18,9 +19,9 @@ const OrderHistory = () => {
         if (userOrderHistory.orderHistoryList.length == 0) dispatch(getUserOrderHistory())
     }, [])
 
-    if(userOrderHistory.orderHistoryError){
+    if (userOrderHistory.orderHistoryError) {
         return <PageErrorMsg />
-    }    
+    }
 
     return (
         <div className="order-history-page">
@@ -50,9 +51,7 @@ const OrderHistory = () => {
                             )}
                         </>
                     ) : (
-                        <h1 className="text-center fw-bold mt-5">
-                            You have no orders submitted
-                        </h1>
+                        <PageMsg text="You have no orders submitted" />
                     )}
                 </section>
             </div>

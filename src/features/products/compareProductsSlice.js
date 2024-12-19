@@ -6,6 +6,7 @@ const initialCompareProductsState = {
     isLoading: false
 }
 
+// used in: CompareProductsOption
 const compareProductsSlice = createSlice({
     name: 'compareProducts',
     initialState: initialCompareProductsState,
@@ -34,7 +35,7 @@ const compareProductsSlice = createSlice({
 })
 
 export const {
-    addProductToCompareProductsList,
-    removeProductFromCompareProductsList
+    addProductToCompareProductsList, // CompareProductsOption
+    removeProductFromCompareProductsList // CompareProductsOption
 } = compareProductsSlice.actions
 export default compareProductsSlice.reducer
