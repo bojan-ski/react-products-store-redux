@@ -10,7 +10,7 @@ const initialCartState = {
     isLoading: false
 }
 
-// used in: Cart, CartItemsList, CartItem, OrderCostDetails, CheckoutForm
+// used in: CartPageLink, Cart, CartItemsList, CartItem, OrderCostDetails, CheckoutForm
 const cartSlice = createSlice({
     name: 'cart',
     initialState: initialCartState,

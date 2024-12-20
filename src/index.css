@@ -77,6 +77,10 @@ header {
   }
 }
 
+.navbar .cart-page-link:hover{
+  border: 1px solid #fff;
+}
+
 /* ---------- MAIN ---------- */
 main {
   flex: 1;

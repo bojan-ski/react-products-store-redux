@@ -22,7 +22,7 @@ const CartCostDetails = () => {
             toast.success('Cart has been emptied.');
 
             // redirect user
-            navigate('/')
+            navigate('/products')
         }
     }    
 
