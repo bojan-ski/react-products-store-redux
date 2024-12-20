@@ -1,7 +1,10 @@
+import React from "react"
+
+
 const CheckoutSubheader = ({ textOne, textTwo }) => {
     return (
         <>
-            <h5 className="text-center mb-3">
+            <h5 className="text-center fw-bold mb-3">
                 {textOne}
             </h5>
             <h6 className="text-center mb-4">

@@ -39,6 +39,11 @@ a {
   color: black;
 }
 
+.box-shadow-custom{
+  box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.12);
+  border-radius: 20px;
+}
+
 /* ---------- HEADER ---------- */
 header {
   background-color: orangered;
@@ -133,8 +138,21 @@ main {
   box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.12);
 }
 
-
 /* CHECKOUT PAGE */
+.checkout-page .checkout-cost-details .col-12:first-of-type .row{
+  margin: 0 1px;
+}
+
+.checkout-page .checkout-cost-details .col-12:nth-child(3) p:nth-child(2){
+  border-bottom: 1px solid #dee2de;
+}
+
+@media (min-width: 768px) {
+  .checkout-page .checkout-cost-details .col-12:nth-child(3) p:nth-child(2){
+    border-bottom: none;
+  }
+}
+
 /* MODAL */
 .animation-modal {
   display: block;

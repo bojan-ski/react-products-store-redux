@@ -1,6 +1,6 @@
-import { useState } from "react"
+import React, { useState } from "react"
 // components
-import BackButtons from "../components/BackButtons"
+import BackButton from "../components/BackButton"
 import PageHeader from "../components/PageHeader"
 import OrderCostDetails from "../components/checkoutPage/OrderCostDetails"
 import CheckoutForm from "../components/checkoutPage/CheckoutForm"
@@ -15,7 +15,7 @@ const Checkout = () => {
     <div className="checkout-page">
       <div className="container">
 
-        <BackButtons backPath='/cart' />
+        <BackButton backPath='/cart' />
 
         <PageHeader page='Checkout' />
 
