@@ -60,7 +60,7 @@ export const logOutUser = createAsyncThunk("user/logOutUser", async (_, { reject
     }
 });
 
-// used in: Onboarding, SignUp, Login, ForgotPassword, Profile, OrderCostDetails
+// used in: Onboarding, SignUp, Login, ForgotPassword, Profile, OrderCostDetails, CheckoutForm
 const userSlice = createSlice({
     name: "user",
     initialState: initialUserState,

@@ -10,6 +10,7 @@ const initialCartState = {
     isLoading: false
 }
 
+// used in: Cart, CartItemsList, CartItem, OrderCostDetails, CheckoutForm
 const cartSlice = createSlice({
     name: 'cart',
     initialState: initialCartState,
@@ -81,9 +82,9 @@ const updateState = (state, updatedCartItemsList) => {
 
 export const {
     addProductToCart, // ProductDataBox
-    updateCart,
-    removeProductFromCart,
-    updateGrandTotal,
-    clearCart
+    updateCart, // CartItem
+    removeProductFromCart, // CartItem
+    updateGrandTotal, // OrderCostDetails
+    clearCart // CartCostDetails, CheckoutForm
 } = cartSlice.actions
 export default cartSlice.reducer

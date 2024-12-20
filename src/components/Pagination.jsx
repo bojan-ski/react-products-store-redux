@@ -1,8 +1,12 @@
+import React from "react";
 // redux
 import { useDispatch, useSelector } from "react-redux"
 import { getListOfProducts } from "../features/products/productsSlice"
 // utils func
 import scrollToTop from "../utils/scrollToTop"
+// icons
+import { GrCaretPrevious } from "react-icons/gr";
+import { GrCaretNext } from "react-icons/gr";
 
 
 let productsListSkipNumber = 0
@@ -56,7 +60,7 @@ const Pagination = ({ currentPageNumber, setCurrentPageNumber }) => {
     return (
         <section className="pagination d-flex justify-content-center">
             <div className="number-of-pages">
-                <button className="btn-info btn px-3 me-2" onClick={() => {
+                <button className="btn btn-orange-hover fw-bold px-3 me-2" onClick={() => {
                     productsListSkipNumber = 0
                     setCurrentPageNumber(1)
                     filterProductsList(productsListSkipNumber)
@@ -64,16 +68,16 @@ const Pagination = ({ currentPageNumber, setCurrentPageNumber }) => {
                 }}>
                     1
                 </button>
-                <button className="btn-primary btn px-3 me-2" onClick={() => paginationOption('minus')}>
-                    Prev
+                <button className="btn btn-orange-hover px-3 me-2" onClick={() => paginationOption('minus')}>
+                    <GrCaretPrevious />
                 </button>
-                <button className="btn border px-3 ">
+                <button className="btn border px-3">
                     {currentPageNumber}
                 </button>
-                <button className="btn-primary btn px-3 ms-2" onClick={() => paginationOption('plus')}>
-                    Next
+                <button className="btn btn-orange-hover px-3 ms-2" onClick={() => paginationOption('plus')}>
+                    <GrCaretNext />
                 </button>
-                <button className="btn-info btn px-3 ms-2" onClick={() => {
+                <button className="btn btn-orange-hover fw-bold px-3 ms-2" onClick={() => {
                     productsListSkipNumber = Math.floor(availableProducts / skipAmount) * skipAmount
                     setCurrentPageNumber(Math.ceil(availableProducts / skipAmount))
                     filterProductsList(productsListSkipNumber)
