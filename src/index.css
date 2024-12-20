@@ -118,6 +118,22 @@ main {
   box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.12);
 }
 
+/* CART PAGE */
+/* CartItem component */
+.cart-page .cart-item-details{
+  box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.12);
+}
+
+.cart-page .cart-item-details:hover{
+  box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.2);
+}
+
+/* CartCostDetails component */
+.cart-page .cart-cost-details{
+  box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.12);
+}
+
+
 /* CHECKOUT PAGE */
 /* MODAL */
 .animation-modal {

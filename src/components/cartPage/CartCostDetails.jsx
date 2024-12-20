@@ -1,3 +1,4 @@
+import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
@@ -26,24 +27,26 @@ const CartCostDetails = () => {
     }    
 
     return (
-        <div className='bg-info px-4 py-3 rounded rounded-4'>
-            <h4 className='text-center mb-3'>
-                Order Details
+        <div className='cart-cost-details px-4 py-3 rounded rounded-4'>
+            <h4 className='text-center fw-bold mb-3'>
+                Order cost
             </h4>
 
             <div className="row border-bottom pb-2 mb-3">
+
                 {/* row item 1 */}
-                <div className="col-12 col-md-6 text-center">
-                    <p className='mb-0'>
-                        Number of products:
+                <div className="col-12 col-md-6">
+                    <p className='mb-1 fw-bold'>
+                        Num of products:
                     </p>
                     <p className='fw-bold'>
                         {cartItemsList.length}
                     </p>
                 </div>
+
                 {/* row item 2 */}
-                <div className="col-12 col-md-6 text-center">
-                    <p className='mb-0'>
+                <div className="col-12 col-md-6">
+                    <p className='mb-1 fw-bold'>
                         Total Quantity:
                     </p>
                     <p className='fw-bold'>
@@ -51,8 +54,8 @@ const CartCostDetails = () => {
                     </p>
                 </div>
                 {/* row item 3 */}
-                <div className="col-12 col-md-6 text-center">
-                    <p className='mb-0'>
+                <div className="col-12 col-md-6">
+                    <p className='mb-1 fw-bold'>
                         Order Cost:
                     </p>
                     <p className='fw-bold'>
@@ -60,8 +63,8 @@ const CartCostDetails = () => {
                     </p>
                 </div>
                 {/* row item 4 */}
-                <div className="col-12 col-md-6 text-center">
-                    <p className='mb-0'>
+                <div className="col-12 col-md-6">
+                    <p className='mb-1 fw-bold'>
                         Shipping Cost:
                     </p>
                     <p className='fw-bold'>
@@ -70,26 +73,26 @@ const CartCostDetails = () => {
                 </div>
             </div>
 
-            <div className="grand-total text-center">
-                <h5>
+            <div className="grand-total text-center mb-4">
+                <h5 className='fw-bold'>
                     Grand Total:
                 </h5>
-                <p className='fw-bold'>
+                <h5 className='fw-bold'>
                     $ {gradTotal}
-                </p>
+                </h5>
             </div>
 
             <div className="cart-cost-btn-container d-flex justify-content-between">
                 {userName ? (
-                    <Link to='/checkout' className='btn btn-success px-3 py-2'>
+                    <Link to='/checkout' className='btn btn-success px-3 py-2 fw-bold'>
                         Checkout
                     </Link>
                 ) : (
-                    <Link to='/login' className='btn-success onboarding-btn btn me-3'>
+                    <Link to='/login' className='btn-success onboarding-btn btn me-3 fw-bold'>
                         Sign In
                     </Link>
                 )}
-                <button className='btn btn-danger px-3 py-2' onClick={handleClearCart} disabled={isLoading}>
+                <button className='btn btn-danger px-3 py-2 fw-bold' onClick={handleClearCart} disabled={isLoading}>
                     Cancel
                 </button>
             </div>

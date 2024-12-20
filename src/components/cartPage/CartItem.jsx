@@ -1,12 +1,15 @@
+import React from "react";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import { updateCart, removeProductFromCart } from "../../features/cart/cartSlice";
+// react-icons
+import { MdDeleteForever } from "react-icons/md";
 // toastify
 import { toast } from "react-toastify";
 
 
 const CartItem = ({ cartItem }) => {
-    const { id, thumbnail, title, category, price, quantity, totalPrice } = cartItem
+    const { id, thumbnail, title, category, price, quantity, totalPrice } = cartItem;
 
     const { isLoading } = useSelector(store => store.cart)
     const dispatch = useDispatch()
@@ -33,7 +36,7 @@ const CartItem = ({ cartItem }) => {
 
     return (
         <div className="col-12 mb-3">
-            <div className="bg-info cart-item-details rounded rounded-4 p-3">
+            <div className="cart-item-details rounded rounded-4 p-3">
                 <div className="row align-items-center">
 
                     {/* row item 1 */}
@@ -46,12 +49,12 @@ const CartItem = ({ cartItem }) => {
                         <p className="d-none d-md-block">
                             {category}
                         </p>
-                        <h6 className="fw-bold">
+                        <h6 className="fw-bold mb-3">
                             {title}
                         </h6>
-                        <h6 className="mb-0">
+                        <p className="fw-bold mb-0">
                             ${price}
-                        </h6>
+                        </p>
                     </div>
 
                     {/* row item 3 */}
@@ -77,9 +80,9 @@ const CartItem = ({ cartItem }) => {
                     </div>
 
                     {/* row item 5 */}
-                    <div className="col-2">
+                    <div className="col-2 text-center">
                         <button className="btn btn-danger" onClick={handleRemoveProduct} disabled={isLoading}>
-                            Remove
+                            <MdDeleteForever size={20}/>
                         </button>
                     </div>
                 </div>
