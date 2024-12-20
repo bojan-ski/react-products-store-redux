@@ -80,6 +80,7 @@ header {
 /* ---------- MAIN ---------- */
 main {
   flex: 1;
+  position: relative;
 }
 
 /* Login page / Sign Up page / Forgot password page */
@@ -100,6 +101,13 @@ main {
 
 .card-details:hover {
   box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.2);
+}
+
+/* COMPARE PAGE */
+/* ComparePageLink component */
+.compare-page-link{
+  position: fixed;
+  right: 50px;
 }
 
 /* SELECTED PRODUCT PAGE */

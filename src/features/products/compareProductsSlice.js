@@ -6,7 +6,7 @@ const initialCompareProductsState = {
     isLoading: false
 }
 
-// used in: CompareProductsOption
+// used in: AppLayout, GridViewListCard -> CompareProductsOption
 const compareProductsSlice = createSlice({
     name: 'compareProducts',
     initialState: initialCompareProductsState,
@@ -35,7 +35,7 @@ const compareProductsSlice = createSlice({
 })
 
 export const {
-    addProductToCompareProductsList, // CompareProductsOption
-    removeProductFromCompareProductsList // CompareProductsOption
+    addProductToCompareProductsList, // GridViewListCard -> CompareProductsOption
+    removeProductFromCompareProductsList // GridViewListCard -> CompareProductsOption
 } = compareProductsSlice.actions
 export default compareProductsSlice.reducer
