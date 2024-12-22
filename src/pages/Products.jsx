@@ -10,6 +10,7 @@ import PageHeader from "../components/PageHeader"
 import SearchAndFilter from "../components/productsPage/SearchAndFilter"
 import ProductsList from "../components/productsPage/ProductsList"
 import NoProductsAvailable from "../components/productsPage/NoProductsAvailable"
+import Categories from '../components/productsPage/Categories'
 
 
 // LOADER
@@ -37,7 +38,10 @@ export const loader = async () => {
 const Products = () => {
     const products = useSelector(state => state.products)
     const dispatch = useDispatch()
+
     const [currentPageNumber, setCurrentPageNumber] = useState(1)
+    const [disabledOption, setDisabledOption] = useState(false)
+    const [searchTerm, setSearchTerm] = useState('')
 
     useEffect(() => {
         const productsListParameters = {
@@ -48,17 +52,25 @@ const Products = () => {
     }, [])
 
     return (
-        <div className="dashboard-page">
+        <div className="products-page">
             <div className="container">
                 <PageHeader page='Products' />
 
-                <SearchAndFilter setCurrentPageNumber={setCurrentPageNumber} />
+                <div className="row">
+                    <div className="col-2">
+                        <Categories setCurrentPageNumber={setCurrentPageNumber} setDisabledOption={setDisabledOption} setSearchTerm={setSearchTerm} />
+                    </div>
 
-                {products && products?.productsList.length > 0 ? (
-                    <ProductsList currentPageNumber={currentPageNumber} setCurrentPageNumber={setCurrentPageNumber} />
-                ) : (
-                    <NoProductsAvailable />
-                )}
+                    <div className="col-10">
+                        <SearchAndFilter setCurrentPageNumber={setCurrentPageNumber} />
+
+                        {products && products?.productsList.length > 0 ? (
+                            <ProductsList currentPageNumber={currentPageNumber} setCurrentPageNumber={setCurrentPageNumber} />
+                        ) : (
+                            <NoProductsAvailable />
+                        )}
+                    </div>
+                </div>
             </div>
         </div>
     )

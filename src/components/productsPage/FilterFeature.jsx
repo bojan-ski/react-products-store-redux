@@ -30,7 +30,7 @@ const FilterFeature = ({ disabledOption, setDisabledOption, handleResetFilterOpt
                 <select className="form-select mb-3" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} disabled={disabledOption}>
                     {categories.map(category => {
                         // console.log(category);
-                        return <option key={category} value={category} className="capitalize">
+                        return <option key={category} value={category} className="text-capitalize">
                             {category}
                         </option>
                     })}
