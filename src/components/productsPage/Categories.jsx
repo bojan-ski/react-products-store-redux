@@ -1,43 +1,39 @@
 import React from 'react'
 import { useLoaderData } from 'react-router-dom'
 // redux
-import { useDispatch } from 'react-redux'
-import { getListOfProducts, updateProductsURL } from '../../features/products/productsSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { getListOfProducts, resetProductsPage, updateProductsURL } from '../../features/products/productsSlice'
 // utils
 import scrollToTop from '../../utils/scrollToTop'
 
 
-const Categories = ({ setCurrentPageNumber, setDisabledOption, setSearchTerm }) => {
-    const { categories } = useLoaderData()   
+const Categories = () => {
+    const { categories } = useLoaderData()
 
+    const { productsLimit } = useSelector(state => state.products)
     const dispatch = useDispatch()
-
-    const handleResetFilterOption = () => {
-        setSearchTerm('')
-        setCurrentPageNumber(1)
-        
-        const resetProductsListParameters = {
-            updatedUrlOne: '',
-            updatedUrlTwo: `?limit=${import.meta.env.VITE_DUMMYJSON_PRODUCTS_SKIP}&skip=0`
-        }
-        dispatch(getListOfProducts(resetProductsListParameters))
-        dispatch(updateProductsURL(''))
-
-        setDisabledOption(false)
-    }
 
     const handleApplySelectedFilterOption = async (selectedCategory) => {
         scrollToTop()
-        setDisabledOption(true)
-        setCurrentPageNumber(1)
 
         dispatch(updateProductsURL(`/category/${selectedCategory}`))
 
         const filterProductsListParameters = {
             updatedUrlOne: `/category/${selectedCategory}`,
+            updatedUrlTwo: `?limit=${productsLimit}&skip=0`
+        }
+
+        dispatch(getListOfProducts(filterProductsListParameters))
+    }
+
+    const handleResetFilterOption = () => {
+        const resetProductsListParameters = {
+            updatedUrlOne: '',
             updatedUrlTwo: `?limit=${import.meta.env.VITE_DUMMYJSON_PRODUCTS_SKIP}&skip=0`
         }
-        dispatch(getListOfProducts(filterProductsListParameters))
+
+        dispatch(getListOfProducts(resetProductsListParameters))
+        dispatch(resetProductsPage())
     }
 
     return (

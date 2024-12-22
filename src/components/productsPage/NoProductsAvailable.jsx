@@ -1,13 +1,16 @@
+import React from "react"
+
+
 const NoProductsAvailable = () => {
     return (
-        <section className="text-center my-5">
-            <h3>
+        <div className="text-center mt-5">
+            <h1 className="fw-bold mb-3">
                 No products listings available
-            </h3>
-            <h4>
+            </h1>
+            <h2 className="fw-bold">
                 Please, come back later
-            </h4>
-        </section>
+            </h2>
+        </div>
     )
 }
 

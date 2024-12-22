@@ -3,16 +3,22 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
 
 
-const url = `${import.meta.env.VITE_DUMMYJSON_PRODUCTS_API_URL}`
+const url = `${import.meta.env.VITE_DUMMYJSON_PRODUCTS_API_URL}`;
 
 const initialProductsState = {
     isLoading: false,
     productsList: {},
     availableProducts: 0,
-    updatedURL: ''
+    updatedURL: '',
+    selectedCategory: '',
+    searchTerm: '',
+    disabledOption: false,
+    productsLimit: 12,
+    productsSkipNumber: 0,
+    currentPageNumber: 1
 }
 
-// used in: Dashboard, FilterFeature, Pagination
+// used in: Products, Categories, Pagination
 export const getListOfProducts = createAsyncThunk('products/getListOfProducts', async (parameters) => {
     try {
         let response
@@ -28,7 +34,9 @@ export const getListOfProducts = createAsyncThunk('products/getListOfProducts', 
         return data
     } catch (error) {
         console.error(error);
-    }
+
+        return null;
+    };
 })
 
 // used in: SearchFeature
@@ -40,10 +48,12 @@ export const searchForProducts = createAsyncThunk('products/searchForProducts', 
         return data
     } catch (error) {
         console.error(error);
+
+        return null;
     }
 })
 
-// used in: Dashboard, ProductsList, Pagination
+// used in: Products, Categories, ProductsList
 const productsSlice = createSlice({
     name: 'products',
     initialState: initialProductsState,
@@ -54,6 +64,36 @@ const productsSlice = createSlice({
 
             // update state
             state.updatedURL = payload
+            state.selectedCategory = payload
+            state.currentPageNumber = 1
+            state.productsSkipNumber = 0
+            state.disabledOption = true
+
+            // loading false
+            state.isLoading = false
+        },
+        updateProductsCurrentPage: (state, { payload }) => {
+            // loading true
+            state.isLoading = true
+
+            // update state
+            state.productsSkipNumber = payload.productsSkipNumber
+            state.currentPageNumber = payload.currentPageNumber
+
+            // loading false
+            state.isLoading = false
+        },
+        resetProductsPage: (state) => {
+            // loading true
+            state.isLoading = true
+
+            // update state
+            state.updatedURL = ''
+            state.selectedCategory = ''
+            state.searchTerm = ''
+            state.currentPageNumber = 1
+            state.productsSkipNumber = 0
+            state.disabledOption = false
 
             // loading false
             state.isLoading = false
@@ -92,6 +132,8 @@ const productsSlice = createSlice({
 
 export const {
     updateProductsURL, // FilterFeature
+    updateProductsCurrentPage, // Pagination
+    resetProductsPage, // Categories
 } = productsSlice.actions
 
 export default productsSlice.reducer

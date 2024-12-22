@@ -1,3 +1,4 @@
+import React from "react";
 // redux
 import { useSelector } from "react-redux";
 // component
@@ -5,15 +6,15 @@ import GridViewListCard from "../GridViewListCard";
 import Pagination from "../Pagination";
 
 
-const ProductsList = ({ currentPageNumber, setCurrentPageNumber }) => {
-    const { productsList, availableProducts } = useSelector(state => state.products)
+const ProductsList = () => {
+    const { isLoading, productsList, availableProducts, updatedURL, productsLimit, productsSkipNumber, currentPageNumber } = useSelector(state => state.products)
 
     return (
         <>
             <section className="products-list mb-3">
-                <h2 className="text-center mb-4">
+                <h4 className="text-center fw-bold mb-4">
                     {availableProducts} products available
-                </h2>
+                </h4>
 
                 <div className="row">
                     {!productsList || productsList.length == 0 ? (
@@ -24,7 +25,14 @@ const ProductsList = ({ currentPageNumber, setCurrentPageNumber }) => {
                 </div>
             </section>
 
-            {availableProducts > 12 && <Pagination currentPageNumber={currentPageNumber} setCurrentPageNumber={setCurrentPageNumber} />}
+            {availableProducts > productsLimit && <Pagination
+                isLoading={isLoading}
+                availableProducts={availableProducts}
+                updatedURL={updatedURL}
+                productsLimit={productsLimit}
+                productsSkipNumber={productsSkipNumber}
+                currentPageNumber={currentPageNumber}
+            />}
         </>
     )
 }

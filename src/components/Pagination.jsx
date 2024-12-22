@@ -1,7 +1,7 @@
 import React from "react";
 // redux
-import { useDispatch, useSelector } from "react-redux"
-import { getListOfProducts } from "../features/products/productsSlice"
+import { useDispatch } from "react-redux"
+import { getListOfProducts, updateProductsCurrentPage } from "../features/products/productsSlice"
 // utils func
 import scrollToTop from "../utils/scrollToTop"
 // icons
@@ -9,81 +9,95 @@ import { GrCaretPrevious } from "react-icons/gr";
 import { GrCaretNext } from "react-icons/gr";
 
 
-let productsListSkipNumber = 0
-let skipAmount = +import.meta.env.VITE_DUMMYJSON_PRODUCTS_SKIP
-
-const Pagination = ({ currentPageNumber, setCurrentPageNumber }) => {   
-    const { availableProducts, updatedURL } = useSelector(state => state.products)
+const Pagination = ({ isLoading, availableProducts, updatedURL, productsLimit, productsSkipNumber, currentPageNumber }) => {
     const dispatch = useDispatch()
 
-    const filterProductsList = async (productsListSkipNumber) => {
+    const filterProductsList = async (skipAmount) => {
         const filterProductsListParameters = {
             updatedUrlOne: updatedURL,
-            updatedUrlTwo: `?limit=${import.meta.env.VITE_DUMMYJSON_PRODUCTS_SKIP}&skip=${productsListSkipNumber}`
+            updatedUrlTwo: `?limit=${productsLimit}&skip=${skipAmount}`
         }
 
         dispatch(getListOfProducts(filterProductsListParameters));
     }
 
     const paginationOption = (term) => {
+        scrollToTop()
+
         if (term === 'plus') {
-            productsListSkipNumber += skipAmount
-            setCurrentPageNumber(curState => curState + 1)
+            productsSkipNumber += productsLimit;
+            currentPageNumber += 1;
+
+            // update state
+            dispatch(updateProductsCurrentPage({ productsSkipNumber, currentPageNumber }))
         }
 
         if (term === 'minus') {
-            productsListSkipNumber -= skipAmount
-            setCurrentPageNumber(curState => curState - 1)
+            productsSkipNumber -= productsLimit;
+            currentPageNumber -= 1;
+
+            // update state
+            dispatch(updateProductsCurrentPage({ productsSkipNumber, currentPageNumber }))
         }
 
-        if (productsListSkipNumber <= 0) {
-            productsListSkipNumber = 0
-            setCurrentPageNumber(1)
+        if (productsSkipNumber < 0) {
+            // update state
+            dispatch(updateProductsCurrentPage({ productsSkipNumber: 0, currentPageNumber: 1 }))
 
             // call func
-            filterProductsList(productsListSkipNumber)
-        } else if (productsListSkipNumber > availableProducts) {
-            productsListSkipNumber = 0
-            setCurrentPageNumber(1)
+            filterProductsList(0)
+        } else if (productsSkipNumber > availableProducts) {
+            // update state
+            dispatch(updateProductsCurrentPage({ productsSkipNumber: 0, currentPageNumber: 1 }))
 
             // call func
-            filterProductsList(productsListSkipNumber)
+            filterProductsList(0)
         } else {
-            filterProductsList(productsListSkipNumber)
+            //cal func
+            filterProductsList(productsSkipNumber)
         }
-
-        scrollToTop()
     }
 
-    if (currentPageNumber == 1) productsListSkipNumber = 0
+    const goToFirstPage = async () => {
+        scrollToTop()
+
+        // update state
+        dispatch(updateProductsCurrentPage({ productsSkipNumber: 0, currentPageNumber: 1 }))
+
+        // call func
+        filterProductsList(0)
+    }
+
+    const goToLastPage = () => {
+        scrollToTop()
+
+        let productsListSkipNumber = Math.floor(availableProducts / productsLimit) * productsLimit
+        let lastPage = (Math.ceil(availableProducts / productsLimit))
+
+        // update state
+        dispatch(updateProductsCurrentPage({ productsSkipNumber: productsListSkipNumber, currentPageNumber: lastPage }))
+
+        // call func
+        filterProductsList(productsListSkipNumber)
+    }
 
     return (
         <section className="pagination d-flex justify-content-center">
             <div className="number-of-pages">
-                <button className="btn btn-orange-hover fw-bold px-3 me-2" onClick={() => {
-                    productsListSkipNumber = 0
-                    setCurrentPageNumber(1)
-                    filterProductsList(productsListSkipNumber)
-                    scrollToTop()
-                }}>
+                <button className="btn btn-orange-hover fw-bold px-3 me-2" onClick={() => goToFirstPage()} disabled={isLoading}>
                     1
                 </button>
-                <button className="btn btn-orange-hover px-3 me-2" onClick={() => paginationOption('minus')}>
+                <button className="btn btn-orange-hover px-3 me-2" onClick={() => paginationOption('minus')} disabled={isLoading}>
                     <GrCaretPrevious />
                 </button>
                 <button className="btn border px-3">
                     {currentPageNumber}
                 </button>
-                <button className="btn btn-orange-hover px-3 ms-2" onClick={() => paginationOption('plus')}>
+                <button className="btn btn-orange-hover px-3 ms-2" onClick={() => paginationOption('plus')} disabled={isLoading}>
                     <GrCaretNext />
                 </button>
-                <button className="btn btn-orange-hover fw-bold px-3 ms-2" onClick={() => {
-                    productsListSkipNumber = Math.floor(availableProducts / skipAmount) * skipAmount
-                    setCurrentPageNumber(Math.ceil(availableProducts / skipAmount))
-                    filterProductsList(productsListSkipNumber)
-                    scrollToTop()
-                }}>
-                    {Math.ceil(availableProducts / skipAmount)}
+                <button className="btn btn-orange-hover fw-bold px-3 ms-2" onClick={() => goToLastPage()} disabled={isLoading}>
+                    {Math.ceil(availableProducts / productsLimit)}
                 </button>
             </div>
         </section>
