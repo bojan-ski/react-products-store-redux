@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useLoaderData } from 'react-router-dom'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,6 +12,8 @@ const Categories = ({ setSearchTerm, handleResetFilterOption }) => {
 
     const { productsLimit } = useSelector(state => state.products)
     const dispatch = useDispatch()
+
+    const [selectedCategory, setSelectedCategory] = useState('all')
 
     const handleApplySelectedFilterOption = async (selectedCategory) => {
         scrollToTop()
@@ -27,13 +29,22 @@ const Categories = ({ setSearchTerm, handleResetFilterOption }) => {
         dispatch(getListOfProducts(filterProductsListParameters))
     }
 
+    console.log(selectedCategory);
+    
+
     return (
         <section className='categories'>
-            <button className='btn btn-orange-hover text-start text-capitalize w-100 mb-1' value={'all'} onClick={() => handleResetFilterOption()}>
+            <button className={`btn btn-orange-hover text-start text-capitalize w-100 mb-1 ${selectedCategory == 'all' && 'selected-category'}`} value={'all'} onClick={() => {
+                setSelectedCategory('all')
+                handleResetFilterOption()
+            }}>
                 All
             </button>
             {categories.map(category => {
-                return <button className='btn btn-orange-hover text-start text-capitalize w-100 mb-1' value={category} key={category} onClick={() => handleApplySelectedFilterOption(category)}>
+                return <button className={`btn btn-orange-hover text-start text-capitalize w-100 mb-1 ${selectedCategory == category && 'selected-category'}`} value={category} key={category} onClick={() => {
+                    setSelectedCategory(category)
+                    handleApplySelectedFilterOption(category)
+                }}>
                     {category}
                 </button>
             })}

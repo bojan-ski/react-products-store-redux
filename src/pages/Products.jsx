@@ -49,10 +49,7 @@ const Products = () => {
         setSearchTerm('')
         dispatch(getListOfProducts(resetProductsListParameters))
         dispatch(resetProductsPage())
-    }
-
-    console.log(products);
-    
+    }    
 
     return (
         <div className="products-page">

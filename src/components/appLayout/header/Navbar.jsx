@@ -31,7 +31,7 @@ const Navbar = () => {
                         <ul className="navbar-nav ms-auto mb-lg-0 text-center">
                             {navigationLinks.map(navigationLink => {
                                 return <li key={navigationLink.label} className="nav-item">
-                                    <NavLink to={navigationLink.href} className='nav-link text-capitalize fw-bold text-white' onClick={closeNavbar}>
+                                    <NavLink to={navigationLink.href} className='nav-link text-capitalize fw-bold text-white mx-4' onClick={closeNavbar}>
                                         {navigationLink.label}
                                     </NavLink>
                                 </li>

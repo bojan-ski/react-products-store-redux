@@ -107,6 +107,11 @@ main {
   box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.2);
 }
 
+/* Categories component */
+.categories .selected-category{
+  border: 2px solid #000;
+}
+
 /* COMPARE PAGE */
 /* ComparePageLink component */
 .compare-page-link{
