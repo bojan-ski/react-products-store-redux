@@ -33,8 +33,6 @@ export const getListOfProducts = createAsyncThunk('products/getListOfProducts', 
 
         return data
     } catch (error) {
-        console.error(error);
-
         return null;
     };
 })
@@ -47,8 +45,6 @@ export const searchForProducts = createAsyncThunk('products/searchForProducts', 
 
         return data
     } catch (error) {
-        console.error(error);
-
         return null;
     }
 })
@@ -58,6 +54,17 @@ const productsSlice = createSlice({
     name: 'products',
     initialState: initialProductsState,
     reducers: {
+        updateSearchTerm: (state, { payload }) => {
+            // loading true
+            state.isLoading = true
+
+            // update state
+            state.searchTerm = payload
+            state.disabledOption = true
+
+            // loading false
+            state.isLoading = false
+        },
         updateProductsURL: (state, { payload }) => {
             // loading true
             state.isLoading = true
@@ -65,9 +72,10 @@ const productsSlice = createSlice({
             // update state
             state.updatedURL = payload
             state.selectedCategory = payload
+            state.searchTerm = ''
+            state.disabledOption = false
             state.currentPageNumber = 1
             state.productsSkipNumber = 0
-            state.disabledOption = true
 
             // loading false
             state.isLoading = false
@@ -118,8 +126,9 @@ const productsSlice = createSlice({
             .addCase(searchForProducts.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(searchForProducts.fulfilled, (state, { payload }) => {
+            .addCase(searchForProducts.fulfilled, (state, { payload }) => {                
                 state.isLoading = false;
+
                 payload.products.length > 12 ? state.productsList = payload.products.slice(0, 12) : state.productsList = payload.products;
                 payload.products.length > 12 ? state.availableProducts = 12 : state.availableProducts = payload.total;
             })
@@ -131,9 +140,10 @@ const productsSlice = createSlice({
 })
 
 export const {
-    updateProductsURL, // FilterFeature
+    updateSearchTerm, // SearchFeature
+    updateProductsURL, // Categories, Pagination
     updateProductsCurrentPage, // Pagination
-    resetProductsPage, // Categories
+    resetProductsPage, // Products
 } = productsSlice.actions
 
 export default productsSlice.reducer

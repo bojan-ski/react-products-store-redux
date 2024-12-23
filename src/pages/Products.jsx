@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 // api func
 import fetchBookmarkedProductsToFirebase from "../api/fetchBookmarkedProductsToFirebase"
 import fetchDataFromDummyJSON from "../api/fetchDataFromDummyJSON"
 // redux
 import { useDispatch, useSelector } from 'react-redux'
-import { getListOfProducts } from '../features/products/productsSlice'
+import { getListOfProducts, resetProductsPage } from '../features/products/productsSlice'
 // components
 import PageHeader from "../components/PageHeader"
-import SearchAndFilter from "../components/productsPage/SearchAndFilter"
+import PageMsg from '../components/PageMsg'
+import SearchFeature from '../components/productsPage/SearchFeature'
 import ProductsList from "../components/productsPage/ProductsList"
-import NoProductsAvailable from "../components/productsPage/NoProductsAvailable"
 import Categories from '../components/productsPage/Categories'
 
 
@@ -35,31 +35,46 @@ const Products = () => {
         }
 
         dispatch(getListOfProducts(productsListParameters));
-    }, [])  
+    }, [])
+
+    // search & filter (select category) feature
+    const [searchTerm, setSearchTerm] = useState('')
+
+    const handleResetFilterOption = () => {
+        const resetProductsListParameters = {
+            updatedUrlOne: '',
+            updatedUrlTwo: `?limit=${products.productsLimit}&skip=0`
+        }
+
+        setSearchTerm('')
+        dispatch(getListOfProducts(resetProductsListParameters))
+        dispatch(resetProductsPage())
+    }
+
+    console.log(products);
+    
 
     return (
         <div className="products-page">
             <div className="container">
 
-                {products && products?.productsList.length > 0 ? (
-                    <>
-                    <PageHeader page='Products List' />
+                <PageHeader page='All Products' />
 
-                        <div className="row">
-                            <div className="col-3 col-md-2">
-                                <Categories />
-                            </div>
+                <div className="row">
+                    <div className="col-3 col-md-2">
+                        <Categories setSearchTerm={setSearchTerm} handleResetFilterOption={handleResetFilterOption} />
+                    </div>
 
-                            <div className="col-9 col-md-10">
-                                {/* <SearchAndFilter setCurrentPageNumber={setCurrentPageNumber} /> */}
+                    <div className="col-9 col-md-10">
+                        <SearchFeature searchTerm={searchTerm} setSearchTerm={setSearchTerm} handleResetFilterOption={handleResetFilterOption} />
 
-                                <ProductsList />
-                            </div>
-                        </div>
-                    </>
-                ) : (
-                    <NoProductsAvailable />
-                )}
+                        {products && products.productsList.length > 0 ? (
+                            <ProductsList />
+                        ) : (
+                            <PageMsg text="No products available" />
+                        )}
+                    </div>
+                </div>
             </div>
         </div>
     )

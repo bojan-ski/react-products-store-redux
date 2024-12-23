@@ -17,11 +17,7 @@ const ProductsList = () => {
                 </h4>
 
                 <div className="row">
-                    {!productsList || productsList.length == 0 ? (
-                        <h1>No products available</h1>
-                    ) : (
-                        productsList?.map(product => <GridViewListCard key={product.id} product={product} />)
-                    )}
+                    {productsList?.map(product => <GridViewListCard key={product.id} product={product} />)}
                 </div>
             </section>
 

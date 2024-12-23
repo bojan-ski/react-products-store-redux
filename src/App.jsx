@@ -25,7 +25,7 @@ import ErrorPage from "./pages/ErrorPage"
 import PrivateRoute from "./private/PrivateRoute"
 
 // LOADERS
-import { loader as userBookmarkedProductsLoader } from "./pages/Dashboard"
+import { loader as userBookmarkedProductsAndCategoriesLoader } from "./pages/Products"
 import { loader as selectedProductLoader } from "./pages/SelectedProduct"
 import { loader as userShippingDetailsLoader } from "./pages/Profile"
 import { loader as selectedOrderLoader } from "./pages/SelectedOrder"
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Dashboard />,
-        loader: userBookmarkedProductsLoader
+        loader: userBookmarkedProductsAndCategoriesLoader
       },
       {
         path: '/:id',
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
       {
         path: '/products',
         element: <Products />,
-        loader: userBookmarkedProductsLoader
+        loader: userBookmarkedProductsAndCategoriesLoader
       },
       {
         path: '/products/:id',
@@ -115,7 +115,7 @@ const router = createBrowserRouter([
           {
             path: 'bookmarked-products',
             element: <PrivateRoute><BookmarkedProducts /></PrivateRoute>,
-            loader: userBookmarkedProductsLoader
+            loader: userBookmarkedProductsAndCategoriesLoader
           },
           {
             path: 'bookmarked-products/:id',
