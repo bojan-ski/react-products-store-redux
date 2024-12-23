@@ -1,6 +1,8 @@
-import { Navigate } from "react-router-dom"
+import React from "react";
+import { Navigate } from "react-router-dom";
 // redux
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
+
 
 const PrivateRoute = ({ children }) => {
     const { userName, userID } = useSelector(state => state.user)

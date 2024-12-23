@@ -1,5 +1,6 @@
+import React from "react";
 // components
-import BackButtons from "../components/BackButtons"
+import BackButton from "../components/BackButton";
 import PageHeader from "../components/PageHeader"
 // data
 import privacyPolicy from "../data/privacyPolicyContent"
@@ -10,7 +11,7 @@ const PrivacyPolicy = () => {
         <div className='privacy-policy-page'>
             <div className="container">
 
-                <BackButtons backPath='/sign-up' />
+                <BackButton backPath='/sign-up' />
 
                 <PageHeader page='Privacy Policy' />
 

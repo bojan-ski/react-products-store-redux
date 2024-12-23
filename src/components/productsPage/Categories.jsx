@@ -27,10 +27,7 @@ const Categories = ({ setSearchTerm, handleResetFilterOption }) => {
         }
 
         dispatch(getListOfProducts(filterProductsListParameters))
-    }
-
-    console.log(selectedCategory);
-    
+    }    
 
     return (
         <section className='categories'>

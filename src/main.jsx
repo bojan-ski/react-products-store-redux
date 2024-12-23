@@ -2,8 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 // bootstrap css
 import "/node_modules/bootstrap/dist/js/bootstrap.bundle.js";
-// Import Swiper styles
+// swiper styles
 import 'swiper/css';
+import 'swiper/css/pagination';
 // toastify css
 import '/node_modules/react-toastify/dist/ReactToastify.css';
 // custom css
@@ -13,6 +14,7 @@ import App from './App.jsx'
 // redux
 import { Provider } from 'react-redux';
 import { store } from './store.js';
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

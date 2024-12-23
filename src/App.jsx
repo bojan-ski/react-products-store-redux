@@ -25,6 +25,7 @@ import ErrorPage from "./pages/ErrorPage"
 import PrivateRoute from "./private/PrivateRoute"
 
 // LOADERS
+import { loader as carsLoader } from "./pages/Dashboard"
 import { loader as userBookmarkedProductsAndCategoriesLoader } from "./pages/Products"
 import { loader as selectedProductLoader } from "./pages/SelectedProduct"
 import { loader as userShippingDetailsLoader } from "./pages/Profile"
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Dashboard />,
-        loader: userBookmarkedProductsAndCategoriesLoader
+        loader: carsLoader
       },
       {
         path: '/:id',

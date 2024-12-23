@@ -14,7 +14,7 @@ import { toast } from "react-toastify"
 const ForgotPassword = () => {
     const { userID } = useSelector(state => state.user)
 
-    const navigate = useNavigate()    
+    const navigate = useNavigate()
 
     const [isLoading, setIsLoading] = useState(false);
 

@@ -1,44 +1,41 @@
-import { useEffect, useState } from "react"
-// api func
-import fetchBookmarkedProductsToFirebase from "../api/fetchBookmarkedProductsToFirebase"
-import fetchDataFromDummyJSON from "../api/fetchDataFromDummyJSON"
-// redux
-import { useSelector, useDispatch } from "react-redux"
-import { getListOfProducts } from "../features/products/productsSlice"
+import React from "react"
+import { useLoaderData } from "react-router-dom";
+// axios
+import axios from "axios"
 // components
 import PageHeader from "../components/PageHeader"
+import Contact from "../components/dashboardPage/Contact";
+import SpecialOfferMotorcycle from "../components/dashboardPage/SpecialOfferMotorcycle";
+import SpecialOfferVehicle from "../components/dashboardPage/SpecialOfferVehicle";
 
 
 // LOADER
 export const loader = async () => {
-  // dummyjson func
-  const categories = await fetchDataFromDummyJSON('', '/category-list')
+  const url = `${import.meta.env.VITE_DUMMYJSON_PRODUCTS_API_URL}`;
+  const apiCallVehicle = await axios.get(`${url}/category/vehicle?limit=12&skip=0`)
+  const apiCallMotorcycle = await axios.get(`${url}/category/motorcycle?limit=12&skip=0`)
 
-  // firebase func
-  const bookmarkedProducts = await fetchBookmarkedProductsToFirebase()
+  const vehicle = await apiCallVehicle.data
+  const motorcycle = await apiCallMotorcycle.data
 
-  return { categories, bookmarkedProducts }
+  return { vehicle, motorcycle }
 }
 
 const Dashboard = () => {
-  const products = useSelector(state => state.products)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    const productsListParameters = {
-      updatedUrlOne: '',
-      updatedUrlTwo: `?limit=${import.meta.env.VITE_DUMMYJSON_PRODUCTS_SKIP}&skip=0`
-    }
-    dispatch(getListOfProducts(productsListParameters));
-  }, [])
-  console.log(products); // 194 products
+  // const { vehicle, motorcycle } = useLoaderData()
+  // console.log(vehicle);
+  // console.log(motorcycle);
 
   return (
     <div className="dashboard-page">
-      <div className="container">
-        <PageHeader page='Dashboard' />
 
-      </div>
+      <PageHeader page='Dashboard' />
+
+      <SpecialOfferVehicle/>
+      
+      <SpecialOfferMotorcycle/>
+
+      <Contact />
     </div>
   )
 }

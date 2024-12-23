@@ -1,5 +1,6 @@
+import React from "react";
 // components
-import BackButtons from "../components/BackButtons"
+import BackButton from "../components/BackButton";
 import PageHeader from "../components/PageHeader"
 // data 
 import termsAndConditions from '../data/termsAndConditions'
@@ -10,7 +11,7 @@ const TermsAndConditions = () => {
         <div className='t&c-page'>
             <div className="container">
 
-                <BackButtons backPath='/sign-up' />
+                <BackButton backPath='/sign-up' />
 
                 <PageHeader page='Terms And Conditions' />
 

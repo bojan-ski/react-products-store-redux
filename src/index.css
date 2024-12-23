@@ -98,6 +98,22 @@ main {
   box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.12);
 }
 
+/* DASHBOARD/HOME PAGE */
+/* SpecialOfferVehicle & SpecialOfferMotorcycle components */
+.dashboard-page .images-gallery {
+  height: 500px;
+  width: 100%;
+}
+
+.dashboard-page .swiper-slide {
+  background-position: center;
+  background-size: cover;
+}
+
+.dashboard-page .swiper-pagination-bullet.swiper-pagination-bullet-active.swiper-pagination-bullet-active-main {
+  background-color: orangered;
+}
+
 /* PRODUCTS PAGE */
 .card-details {
   box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.12);

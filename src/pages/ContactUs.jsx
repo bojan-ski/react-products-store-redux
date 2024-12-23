@@ -8,10 +8,10 @@ import ContactForm from "../components/contactPage/ContactForm";
 const ContactUs = () => {
   return (
     <div className="contact-us-page">
+
       <PageHeader page='Contact Us' />
 
       <div className="container">
-
         <div className="row">
 
           {/* row item one */}
@@ -21,7 +21,7 @@ const ContactUs = () => {
 
           {/* row item two */}
           <div className="col-12 col-md-7">
-              <ContactForm />
+            <ContactForm />
           </div>
         </div>
       </div>
