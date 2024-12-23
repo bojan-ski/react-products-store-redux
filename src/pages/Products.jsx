@@ -61,11 +61,11 @@ const Products = () => {
                 <PageHeader page='All Products' />
 
                 <div className="row">
-                    <div className="col-3 col-md-2">
+                    <div className="col-3 col-lg-2">
                         <Categories setSearchTerm={setSearchTerm} handleResetFilterOption={handleResetFilterOption} />
                     </div>
 
-                    <div className="col-9 col-md-10">
+                    <div className="col-9 col-lg-10">
                         <SearchFeature searchTerm={searchTerm} setSearchTerm={setSearchTerm} handleResetFilterOption={handleResetFilterOption} />
 
                         {products && products.productsList.length > 0 ? (

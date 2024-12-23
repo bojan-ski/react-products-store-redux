@@ -11,7 +11,7 @@ const GridViewListCard = ({ product }) => {
     const { id, brand, category, price, rating, thumbnail, title } = product
 
     return (
-        <div className="col-12 col-md-6 col-lg-4 mb-4">
+        <div className="col-12 col-lg-6 col-xl-4 mb-4">
             <div className="card-details rounded rounded-4 p-3">
 
                 <div className="card-details-btn-container mb-3 pb-2 border-bottom d-flex align-items-center justify-content-between">
