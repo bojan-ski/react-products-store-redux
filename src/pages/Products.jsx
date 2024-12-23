@@ -52,7 +52,7 @@ const Products = () => {
     }    
 
     return (
-        <div className="products-page">
+        <div className="products-page my-5">
             <div className="container">
 
                 <PageHeader page='All Products' />

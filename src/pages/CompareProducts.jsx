@@ -11,7 +11,7 @@ const CompareProducts = () => {
     const { compareProductsList } = useSelector(store => store.compareProducts)
 
     return (
-        <div className="compare-products-page">
+        <div className="compare-products-page my-5">
             <div className="container">
                 <div className="row">
 

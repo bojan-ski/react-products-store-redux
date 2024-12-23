@@ -32,7 +32,7 @@ const SelectedOrder = () => {
     const { cardDetails, orderDetails, shippingDetails, orderStatus } = selectedOrderDetails
 
     return (
-        <div className="selected-order-page">
+        <div className="selected-order-page my-5">
             <div className="container">
 
                 <section className="d-flex align-items-center justify-content-between mb-4">

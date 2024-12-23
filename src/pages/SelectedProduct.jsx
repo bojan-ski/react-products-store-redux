@@ -26,7 +26,7 @@ const SelectedProduct = () => {
         window.location.pathname.split('/')[1]
 
     return (
-        <div className="selected-product-page">
+        <div className="selected-product-page my-5">
             <div className="container">
 
                 <section className="d-flex align-items-center justify-content-between mb-5">

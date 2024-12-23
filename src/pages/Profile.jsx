@@ -20,7 +20,7 @@ const Profile = () => {
   const { userName } = useSelector(state => state.user)
 
   return (
-    <div className="profile-page">
+    <div className="profile-page my-5">
       <div className="container">
 
         {userName ? (

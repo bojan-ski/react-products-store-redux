@@ -10,7 +10,7 @@ const BookmarkedProducts = () => {
   const { bookmarkedProducts } = useLoaderData()
 
   return (
-    <div className="bookmarked-products-page">
+    <div className="bookmarked-products-page my-5">
       <div className="container">
 
         <BackButton backPath='/profile' />

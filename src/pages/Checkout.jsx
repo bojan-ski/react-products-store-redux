@@ -12,7 +12,7 @@ const Checkout = () => {
   const [togglePaymentModalAnimation, setTogglePaymentModalAnimation] = useState('none')
 
   return (
-    <div className="checkout-page">
+    <div className="checkout-page my-5">
       <div className="container">
 
         <BackButton backPath='/cart' />

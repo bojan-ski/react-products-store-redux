@@ -8,7 +8,7 @@ import termsAndConditions from '../data/termsAndConditions'
 
 const TermsAndConditions = () => {
     return (
-        <div className='t&c-page'>
+        <div className='t&c-page my-5'>
             <div className="container">
 
                 <BackButton backPath='/sign-up' />

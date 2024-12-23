@@ -8,7 +8,7 @@ import privacyPolicy from "../data/privacyPolicyContent"
 
 const PrivacyPolicy = () => {
     return (
-        <div className='privacy-policy-page'>
+        <div className='privacy-policy-page my-5'>
             <div className="container">
 
                 <BackButton backPath='/sign-up' />

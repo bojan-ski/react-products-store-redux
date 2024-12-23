@@ -7,7 +7,7 @@ import ContactForm from "../components/contactPage/ContactForm";
 
 const ContactUs = () => {
   return (
-    <div className="contact-us-page">
+    <div className="contact-us-page my-5">
 
       <PageHeader page='Contact Us' />
 

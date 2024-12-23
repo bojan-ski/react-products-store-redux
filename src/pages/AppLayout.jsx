@@ -30,7 +30,7 @@ const AppLayout = () => {
         <>
             <Header />
 
-            <main className="my-5">
+            <main>
                 {compareProducts.compareProductsList.length > 0 && <ComparePageLink />}                
 
                 {isPageLoading ? <Loading /> : <Outlet />}

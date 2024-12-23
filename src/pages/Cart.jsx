@@ -12,7 +12,7 @@ const Cart = () => {
     const { cartItemsList } = useSelector(state => state.cart)
 
     return (
-        <div className="cart-page">
+        <div className="cart-page my-5">
 
             <PageHeader page='Cart' />
 
