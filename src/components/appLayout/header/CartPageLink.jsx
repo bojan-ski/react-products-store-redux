@@ -11,7 +11,7 @@ const CartPageLink = () => {
     const cart = useSelector(store => store.cart) 
 
     return (
-        <Link to='/cart' className='btn text-white fw-bold mx-5 px-4 cart-page-link'>
+        <Link to='/cart' className='cart-page-link btn text-white fw-bold mx-5 px-4'>
             {cart.cartItemsList.length > 0 ? <IoCart size={40}/> : <IoCartOutline size={40}/>}           
         </Link>
     )

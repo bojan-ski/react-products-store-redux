@@ -19,31 +19,31 @@ const HeaderNavbar = () => {
                 {/* home btn - link - Logo */}
                 <Logo />
 
-                {/* navigation */}
-                <div className="navigation">
-                    {/* collapse btn */}
-                    <button className="navbar-toggler bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#storeNavbar" aria-controls="storeNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-
-                    {/* collapse - navigation links */}
-                    <div className="collapse navbar-collapse" id="storeNavbar">
-                        <ul className="navbar-nav ms-auto mb-lg-0 text-center">
-                            {navigationLinks.map(navigationLink => {
-                                return <li key={navigationLink.label} className="nav-item">
-                                    <NavLink to={navigationLink.href} className='nav-link text-capitalize fw-bold text-white mx-4' onClick={closeNavbar}>
-                                        {navigationLink.label}
-                                    </NavLink>
-                                </li>
-                            })}
-                        </ul>
-                    </div>
+                {/* Cart page - link */}
+                <div className='cart-option order-1 order-lg-2'>
+                    <CartPageLink />
                 </div>
 
-                {/* Cart page - link */}
-                <CartPageLink />
+                {/* navigation */}
+                {/* collapse btn */}
+                <button className="navbar-toggler bg-white order-2 order-lg-1" type="button" data-bs-toggle="collapse" data-bs-target="#storeNavbar" aria-controls="storeNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+
+                {/* collapse - navigation links */}
+                <div className="collapse navbar-collapse order-3 order-lg-1" id="storeNavbar">
+                    <ul className="navbar-nav mx-auto mb-lg-0 text-center">
+                        {navigationLinks.map(navigationLink => {
+                            return <li key={navigationLink.label} className="nav-item">
+                                <NavLink to={navigationLink.href} className='nav-link text-capitalize fw-bold text-white mx-4 mt-1 mt-lg-0' onClick={closeNavbar}>
+                                    {navigationLink.label}
+                                </NavLink>
+                            </li>
+                        })}
+                    </ul>
+                </div>
             </div>
-        </nav>
+        </nav >
     )
 }
 
