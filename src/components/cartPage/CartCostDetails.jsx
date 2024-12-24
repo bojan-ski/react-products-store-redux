@@ -88,7 +88,7 @@ const CartCostDetails = () => {
                         Checkout
                     </Link>
                 ) : (
-                    <Link to='/login' className='btn-success onboarding-btn btn me-3 fw-bold'>
+                    <Link to='/login' className='btn btn-success px-3 py-2 fw-bold'>
                         Sign In
                     </Link>
                 )}

@@ -14,26 +14,28 @@ const Cart = () => {
     return (
         <div className="cart-page my-5">
 
-            <PageHeader page='Cart' />
-
             <div className="container">
 
                 {cartItemsList && cartItemsList.length > 0 ? (
-                    <div className="row">
+                    <>
+                        <PageHeader page='Cart' />
+                        
+                        <div className="row">
 
-                        {/* row item 1 */}
-                        <section className="col-12 col-lg-8 ">
-                            <CartItemsList />
-                        </section>
+                            {/* row item 1 */}
+                            <section className="col-12 col-lg-8 ">
+                                <CartItemsList />
+                            </section>
 
-                        {/* row item 2 */}
-                        <section className="col-12 col-lg-4">
-                            <CartCostDetails />
-                        </section>
+                            {/* row item 2 */}
+                            <section className="col-12 col-lg-4">
+                                <CartCostDetails />
+                            </section>
 
-                    </div>
+                        </div>
+                    </>
                 ) : (
-                    <PageMsg text='Your cart is empty'/>
+                    <PageMsg text='Your cart is empty' />
                 )}
             </div>
         </div>

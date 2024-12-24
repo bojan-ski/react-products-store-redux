@@ -11,9 +11,9 @@ const Testimonials = () => {
         <section className='testimonials bg-light py-4'>
             <div className="container">
 
-                <h2 className="fs-1 fw-bold text-center mb-3">
-                    Testimonials
-                </h2>
+                <h3 className="fw-bold text-center mb-3">
+                    What our customers say
+                </h3>
 
                 <div className="testimonials-carousel">
                     <Swiper
@@ -21,7 +21,7 @@ const Testimonials = () => {
                         slidesPerView={1}
                         loop={true}
                         autoplay={{
-                            delay: 2500,
+                            delay: 3000,
                             disableOnInteraction: true,
                             pauseOnMouseEnter: true
                         }}

@@ -98,6 +98,15 @@ main {
 }
 
 /* DASHBOARD/HOME PAGE */
+/* Hero component */
+.dashboard-page .hero-section{
+  height: 70vh;
+  background-image: url('./assets/hero_two.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 /* SpecialOfferVehicle & SpecialOfferMotorcycle components */
 .dashboard-page .images-gallery {
   height: 500px;
@@ -132,7 +141,8 @@ main {
 /* ComparePageLink component */
 .compare-page-link {
   position: fixed;
-  right: 50px;
+  top: 200px;
+  right: 30px;
 }
 
 /* SELECTED PRODUCT PAGE */

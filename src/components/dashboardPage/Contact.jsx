@@ -7,19 +7,19 @@ import { FaPhoneAlt } from "react-icons/fa";
 
 const Contact = () => {
     return (
-        <section className='contact-section bg-dark text-white py-4 border-bottom'>
+        <section className='contact-section bg-dark text-white py-5 border-bottom'>
             <div className="container">
                 <div className="row">
 
                     {/* row item 1 */}
-                    <div className="col-6 mb-3">
+                    <div className="col-12 col-sm-6 mb-1 mb-sm-3">
                         <p>
                             We’d love to hear from you! Whether you have a question about our products, an issue with your order, or just want to share your thoughts, we’re here to help.
                         </p>
                     </div>
 
                     {/* row item 2 */}
-                    <div className="col-6 mb-3">
+                    <div className="col-12 col-sm-6 col-lg-4 mb-4 ms-0 ms-lg-5">
                         <p className="fw-bold">
                             <MdEmail />
                             <span className="ms-2">

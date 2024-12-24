@@ -23,13 +23,23 @@ const LimitedOfferSlider = ({ limitedOfferProducts }) => {
                 pagination={{
                     dynamicBullets: true,
                 }}
+                breakpoints={{
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 20,
+                    },
+                }}
 
                 className='images-gallery'
             >
                 {limitedOfferProducts.map(product => {
                     const { id, brand, price, thumbnail, title } = product
 
-                    return <SwiperSlide key={id}>
+                    return <SwiperSlide key={id} className='text-center bg-light rounded-4'>
                         <div className='py-3'>
                             <div>
                                 <img src={thumbnail} alt={title} className="img-fluid" />

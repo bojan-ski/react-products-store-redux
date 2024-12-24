@@ -1,13 +1,12 @@
 import React from "react"
-import { useLoaderData } from "react-router-dom";
 // axios
 import axios from "axios"
 // components
-import PageHeader from "../components/PageHeader"
 import Contact from "../components/dashboardPage/Contact";
 import SpecialOfferMotorcycle from "../components/dashboardPage/SpecialOfferMotorcycle";
 import SpecialOfferVehicle from "../components/dashboardPage/SpecialOfferVehicle";
 import Testimonials from "../components/dashboardPage/Testimonials";
+import Hero from "../components/dashboardPage/Hero";
 
 
 // LOADER
@@ -24,9 +23,8 @@ export const loader = async () => {
 
 const Dashboard = () => {
   return (
-    <div className="dashboard-page mt-5">
-
-      <PageHeader page='Dashboard' />
+    <div className="dashboard-page">
+      <Hero />
 
       <SpecialOfferVehicle />
 
