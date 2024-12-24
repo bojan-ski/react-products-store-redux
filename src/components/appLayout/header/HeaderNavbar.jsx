@@ -1,13 +1,13 @@
-import React from "react"
-import { NavLink } from "react-router-dom"
+import React from 'react'
+import { NavLink } from 'react-router-dom'
 // data
-import navigationLinks from "../../../data/navigationLinks"
+import navigationLinks from '../../../data/navigationLinks'
 // components
-import CartPageLink from "./CartPageLink"
-import HeaderLogo from "./HeaderLogo"
+import Logo from '../Logo'
+import CartPageLink from './CartPageLink'
 
 
-const Navbar = () => {
+const HeaderNavbar = () => {
     const closeNavbar = () => {
         document.querySelector('.navbar-collapse').classList.remove('show')
     }
@@ -17,7 +17,7 @@ const Navbar = () => {
             <div className="container-fluid navbar-container">
 
                 {/* home btn - link - Logo */}
-                <HeaderLogo />
+                <Logo />
 
                 {/* navigation */}
                 <div className="navigation">
@@ -47,4 +47,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar
+export default HeaderNavbar

@@ -7,7 +7,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 
 const Contact = () => {
     return (
-        <section className='contact-section bg-dark text-white py-4  border-bottom'>
+        <section className='contact-section bg-dark text-white py-4 border-bottom'>
             <div className="container">
                 <div className="row">
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 
-const HeaderLogo = () => {
+const Logo = () => {
     return (
         <Link className="text-dark fs-1 text-white" to="/">
             <span className="fw-bold text-uppercase">
@@ -15,4 +15,4 @@ const HeaderLogo = () => {
     )
 }
 
-export default HeaderLogo
+export default Logo
