@@ -2,8 +2,9 @@
 import { collection, doc, getDocs } from "firebase/firestore"
 import { auth, db } from "../firebase.config";
 
+
 const fetchUserShippingDetailsFromFirebase = async () => {
-    if (!auth.currentUser) return null
+    if (!auth?.currentUser) return null
 
     try {
         const userDocRef = doc(db, `users/${auth?.currentUser?.uid}`);
@@ -14,16 +15,13 @@ const fetchUserShippingDetailsFromFirebase = async () => {
         if(!querySnapshot.docs[0]) return null        
 
         const userShippingDetails = {
-            ShippingDetailsDocID: querySnapshot.docs[0].id,
-            ShippingDetailsData: querySnapshot.docs[0].data()
-        };        
-        
-        // console.log(userShippingDetails);       
+            shippingDetailsDocID: querySnapshot.docs[0].id,
+            shippingDetailsData: querySnapshot.docs[0].data()
+        };       
+
+             
         return userShippingDetails;
     } catch (error) {
-        // error message
-        console.log(error);
-
         return null
     }
 }

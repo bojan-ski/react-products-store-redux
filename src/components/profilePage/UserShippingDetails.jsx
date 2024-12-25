@@ -16,10 +16,10 @@ const UserShippingDetails = () => {
 
   const [isEdit, setIsEdit] = useState(userShippingDetails ? false : true)
   const [userShippingDetailsFormData, setUserShippingDetailsFormData] = useState({
-    streetAddress: userShippingDetails ? userShippingDetails.ShippingDetailsData.streetAddress : '',
-    city: userShippingDetails ? userShippingDetails.ShippingDetailsData.city : '',
-    zip: userShippingDetails ? userShippingDetails.ShippingDetailsData.zip : '',
-    state: userShippingDetails ? userShippingDetails.ShippingDetailsData.state : '',
+    streetAddress: userShippingDetails ? userShippingDetails.shippingDetailsData.streetAddress : '',
+    city: userShippingDetails ? userShippingDetails.shippingDetailsData.city : '',
+    zip: userShippingDetails ? userShippingDetails.shippingDetailsData.zip : '',
+    state: userShippingDetails ? userShippingDetails.shippingDetailsData.state : '',
   })
 
   const onInputData = (e) => {
@@ -33,7 +33,7 @@ const UserShippingDetails = () => {
     e.preventDefault()
 
     if (userShippingDetails) {
-      await editUserShippingDetailsFromFirebase(userID, userShippingDetails.ShippingDetailsDocID, userShippingDetailsFormData)
+      await editUserShippingDetailsFromFirebase(userID, userShippingDetails.shippingDetailsDocID, userShippingDetailsFormData)
     } else {
       await saveUserShippingDetailsToFirebase(userID, userShippingDetailsFormData)
     }
@@ -44,10 +44,10 @@ const UserShippingDetails = () => {
   const handleClearUserShippingDetailsFormData = () => {
     setUserShippingDetailsFormData(
       {
-        streetAddress: userShippingDetails ? userShippingDetails.ShippingDetailsData.streetAddress : '',
-        city: userShippingDetails ? userShippingDetails.ShippingDetailsData.city : '',
-        zip: userShippingDetails ? userShippingDetails.ShippingDetailsData.zip : '',
-        state: userShippingDetails ? userShippingDetails.ShippingDetailsData.state : '',
+        streetAddress: userShippingDetails ? userShippingDetails.shippingDetailsData.streetAddress : '',
+        city: userShippingDetails ? userShippingDetails.shippingDetailsData.city : '',
+        zip: userShippingDetails ? userShippingDetails.shippingDetailsData.zip : '',
+        state: userShippingDetails ? userShippingDetails.shippingDetailsData.state : '',
       }
     )
   }
@@ -56,8 +56,8 @@ const UserShippingDetails = () => {
 
   return (
     <section className="profile-page-shipping-details-form">
-      <h2 className="text-center fw-bold mb-4">
-        User shipping details
+      <h2 className="text-center fw-bold mb-3">
+        Shipping details
       </h2>
 
       <h6 className="text-center mb-4">

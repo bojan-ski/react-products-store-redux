@@ -17,7 +17,10 @@ const Login = () => {
     const dispatch = useDispatch()
 
     const navigate = useNavigate()
-    
+
+    // redirect user if logged in
+    if (userID) navigate('/profile')
+
     const [isLoading, setIsLoading] = useState(false);
 
     const handleLoginUserSubmit = async e => {
@@ -38,7 +41,7 @@ const Login = () => {
             toast.success('You have logged in');
 
             // fetch user details form db
-            dispatch(fetchUserDetails())         
+            dispatch(fetchUserDetails())
 
             // navigate user
             setTimeout(() => navigate('/profile'), 1500)

@@ -1,12 +1,11 @@
 // firebase/firestore funcs
 import { addDoc, doc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase.config";
+// toastify
+import { toast } from "react-toastify";
 
 
 const saveUserShippingDetailsToFirebase = async (userID, userShippingDetailsFormData) => {
-  // console.log(userID);
-    // console.log(userShippingDetails);
-    
     try {
         const userShippingDetails = {
             ...userShippingDetailsFormData,
@@ -14,18 +13,19 @@ const saveUserShippingDetailsToFirebase = async (userID, userShippingDetailsForm
         }
 
         const userDocRef = doc(db, `users/${userID}`);
-    
+
         // Reference to the bookmarkedProducts subcollection
         const userShippingDetailsRef = collection(userDocRef, 'shippingDetails');
-        
-        // Add a new document to the bookmarkedProducts subcollection
-       await addDoc(userShippingDetailsRef, userShippingDetails);
 
-       // success message
-       alert('Shipping Details saved')
+        // Add a new document to the bookmarkedProducts subcollection
+        await addDoc(userShippingDetailsRef, userShippingDetails);
+
+        // success message
+        toast.success('Shipping details saved')
     } catch (error) {
-        console.error(error);        
-    }  
+        // error message
+        toast.error('There was an error while saving Your shipping details')
+    }
 }
 
 export default saveUserShippingDetailsToFirebase

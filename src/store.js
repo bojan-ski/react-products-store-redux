@@ -6,6 +6,7 @@ import cartSlice from './features/cart/cartSlice';
 import orderHistorySlice from './features/user/orderHistorySlice';
 import bookmarkedProductsSlice from './features/user/bookmarkedProductsSlice';
 
+
 export const store = configureStore({
     reducer: {
         user: userSlice,

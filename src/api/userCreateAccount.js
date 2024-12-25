@@ -18,7 +18,7 @@ const userCreateAccount = async (username, email, password) => {
         const userCredentialsCopy = {
             username, 
             email,
-            storeCredit: 300, // store credit - default
+            storeCredit: 100, // store credit - default
             timestamp: serverTimestamp(),
             accountCreated: getCurrentTimeAndDate()
         }

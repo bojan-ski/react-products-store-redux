@@ -17,12 +17,12 @@ const PrivacyPolicy = () => {
 
                 <section className='privacy-policy-page-content'>
                     <div className="disclaimer text-center mb-5">
-                        <h3>
+                        <h5>
                             Privacy Policy - content has been generate using AI
-                        </h3>
-                        <h4>
+                        </h5>
+                        <h5>
                             This is just for development purposes
-                        </h4>
+                        </h5>
                     </div>
 
                     <ul>
