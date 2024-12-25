@@ -26,15 +26,17 @@ export const loader = async () => {
 
 const Products = () => {
     const products = useSelector(state => state.products)
-    const dispatch = useDispatch()
+    const dispatch = useDispatch()    
 
-    useEffect(() => {
-        const productsListParameters = {
-            updatedUrlOne: '',
-            updatedUrlTwo: `?limit=${products.productsLimit}&skip=0`
+    useEffect(() => {        
+        if (!products.productsList.length) {            
+            const productsListParameters = {
+                updatedUrlOne: '',
+                updatedUrlTwo: `?limit=${products.productsLimit}&skip=0`
+            }
+
+            dispatch(getListOfProducts(productsListParameters));
         }
-
-        dispatch(getListOfProducts(productsListParameters));
     }, [])
 
     // search & filter (select category) feature
@@ -49,7 +51,7 @@ const Products = () => {
         setSearchTerm('')
         dispatch(getListOfProducts(resetProductsListParameters))
         dispatch(resetProductsPage())
-    }    
+    }
 
     return (
         <div className="products-page my-5">

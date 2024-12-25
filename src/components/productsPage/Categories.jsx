@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useLoaderData } from 'react-router-dom'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,10 +10,8 @@ import scrollToTop from '../../utils/scrollToTop'
 const Categories = ({ setSearchTerm, handleResetFilterOption }) => {
     const { categories } = useLoaderData()
 
-    const { productsLimit } = useSelector(state => state.products)
-    const dispatch = useDispatch()
-
-    const [selectedCategory, setSelectedCategory] = useState('all')
+    const { productsLimit, selectedCategory } = useSelector(state => state.products)
+    const dispatch = useDispatch()    
 
     const handleApplySelectedFilterOption = async (selectedCategory) => {
         scrollToTop()
@@ -31,17 +29,11 @@ const Categories = ({ setSearchTerm, handleResetFilterOption }) => {
 
     return (
         <section className='categories'>
-            <button className={`btn btn-orange-hover text-start text-capitalize w-100 mb-1 ${selectedCategory == 'all' && 'selected-category'}`} value={'all'} onClick={() => {
-                setSelectedCategory('all')
-                handleResetFilterOption()
-            }}>
+            <button className={`btn btn-orange-hover text-start text-capitalize w-100 mb-1 ${selectedCategory == 'all' && 'selected-category'}`} value={'all'} onClick={() => handleResetFilterOption()}>
                 All
             </button>
             {categories.map(category => {
-                return <button className={`btn btn-orange-hover text-start text-capitalize w-100 mb-1 ${selectedCategory == category && 'selected-category'}`} value={category} key={category} onClick={() => {
-                    setSelectedCategory(category)
-                    handleApplySelectedFilterOption(category)
-                }}>
+                return <button className={`btn btn-orange-hover text-start text-capitalize w-100 mb-1 ${selectedCategory == category && 'selected-category'}`} value={category} key={category} onClick={() => handleApplySelectedFilterOption(category)}>
                     {category}
                 </button>
             })}

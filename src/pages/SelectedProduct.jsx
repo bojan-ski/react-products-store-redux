@@ -1,14 +1,15 @@
 import React from "react"
-import { useLoaderData } from "react-router-dom"
+import { useLoaderData, useNavigate } from "react-router-dom"
 // api func 
 import fetchDataFromDummyJSON from "../api/fetchDataFromDummyJSON"
 // components
-import BackButton from "../components/BackButton"
 import PageHeader from "../components/PageHeader"
 import ImagesGalleryBox from "../components/selectedProductPage/ImagesGalleryBox"
 import ProductDataBox from "../components/selectedProductPage/ProductDataBox"
 import DescriptionBox from "../components/selectedProductPage/DescriptionBox"
 import ReviewsBox from "../components/selectedProductPage/ReviewsBox"
+// react-icons
+import { IoIosArrowBack } from "react-icons/io";
 
 
 // LOADER
@@ -21,16 +22,16 @@ export const loader = async ({ params }) => {
 const SelectedProduct = () => {
     const { availabilityStatus, title } = useLoaderData()
 
-    let urlBackPath = window.location.pathname.split('/')[3] ?
-        `${window.location.pathname.split('/')[1]}/${window.location.pathname.split('/')[2]}` :
-        window.location.pathname.split('/')[1]
+    let navigate = useNavigate();
 
     return (
         <div className="selected-product-page my-5">
             <div className="container">
 
                 <section className="d-flex align-items-center justify-content-between mb-5">
-                    <BackButton backPath={`/${urlBackPath}`} />
+                    <button onClick={() => navigate(-1)} className="btn btn-orange-hover">
+                        <IoIosArrowBack size={20} />
+                    </button>
 
                     <h4 className={`fw-bold mb-0 ${availabilityStatus == "In Stock" ? 'text-success' : 'text-danger'}`}>
                         {availabilityStatus}

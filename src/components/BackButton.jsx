@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-// icons
+// react-icons
 import { IoIosArrowBack } from "react-icons/io";
 
 

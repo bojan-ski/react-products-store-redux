@@ -10,7 +10,7 @@ const initialProductsState = {
     productsList: {},
     availableProducts: 0,
     updatedURL: '',
-    selectedCategory: '',
+    selectedCategory: 'all',
     searchTerm: '',
     disabledOption: false,
     productsLimit: 12,
@@ -66,12 +66,14 @@ const productsSlice = createSlice({
             state.isLoading = false
         },
         updateProductsURL: (state, { payload }) => {
+            const selectedCategory = payload.split("/").filter(Boolean)[1];
+                        
             // loading true
             state.isLoading = true
 
             // update state
             state.updatedURL = payload
-            state.selectedCategory = payload
+            state.selectedCategory = selectedCategory
             state.searchTerm = ''
             state.disabledOption = false
             state.currentPageNumber = 1
