@@ -5,7 +5,7 @@ import { lastItemsOnOrderHistoryPage, resetOrderHistoryPage, turnOrderHistoryPag
 // components
 import PageHeader from '../PageHeader'
 import OrderHistoryList from './OrderHistoryList'
-import CustomPagination from '../CustomPagination'
+import PaginationCustom from '../PaginationCustom'
 
 
 const OrderHistoryContainer = () => {
@@ -18,7 +18,7 @@ const OrderHistoryContainer = () => {
             <OrderHistoryList orderHistory={userOrderHistory.displayedOrderHistory} />
 
             {userOrderHistory.orderHistoryList.length > userOrderHistory.skipOrderHistoryPageAmount && (
-                <CustomPagination
+                <PaginationCustom
                     dataFromDB={userOrderHistory.orderHistoryList}
                     updatePageState={updateOrderHistoryPageState}
                     resetPage={resetOrderHistoryPage}

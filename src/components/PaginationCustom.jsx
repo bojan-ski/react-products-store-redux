@@ -8,7 +8,7 @@ import { GrCaretPrevious } from "react-icons/gr";
 import { GrCaretNext } from "react-icons/gr";
 
 
-const CustomPagination = ({ dataFromDB, updatePageState, resetPage, lastItemsOnPage, turnPage, pointA, pointB, currentPage, skipAmount }) => {
+const PaginationCustom = ({ dataFromDB, updatePageState, resetPage, lastItemsOnPage, turnPage, pointA, pointB, currentPage, skipAmount }) => {
     const dispatch = useDispatch()
 
     const paginationOption = (term) => {
@@ -71,4 +71,4 @@ const CustomPagination = ({ dataFromDB, updatePageState, resetPage, lastItemsOnP
     )
 }
 
-export default CustomPagination
+export default PaginationCustom

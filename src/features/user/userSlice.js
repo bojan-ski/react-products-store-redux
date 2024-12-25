@@ -39,7 +39,7 @@ export const fetchUserDetails = createAsyncThunk("user/fetchUserDetails", async 
 });
 
 // used in: Onboarding
-export const logOutUser = createAsyncThunk("user/logOutUser", async (_, { rejectWithValue }) => {
+export const logOutUser = createAsyncThunk("user/logOutUser", async () => {
     if (window.confirm("Are you sure you want to log out")) {
         try {
             await signOut(auth);
@@ -54,8 +54,6 @@ export const logOutUser = createAsyncThunk("user/logOutUser", async (_, { reject
         } catch (error) {
             // error message
             toast.error("There was an error, please try again");
-
-            return rejectWithValue(error.message);
         }
     }
 });

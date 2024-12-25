@@ -1,5 +1,7 @@
+// firebase/firestore funcs
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase.config';
+
 
 const fetchUserStoreCreditFromFirebase = async (userEmail) => {
     const q = query(collection(db, 'users'), where('email', '==', userEmail));

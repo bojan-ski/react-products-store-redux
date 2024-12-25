@@ -21,7 +21,7 @@ const AppLayout = () => {
     const dispatch = useDispatch()    
 
     useEffect(() => {
-        console.log('useEffect - fetchUserDetails()');
+        // console.log('useEffect - fetchUserDetails()');
 
         dispatch(fetchUserDetails())
     }, [])

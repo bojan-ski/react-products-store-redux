@@ -19,7 +19,6 @@ const ReviewsBox = () => {
                 slidesPerView={1}
                 loop={true}
                 autoplay={{
-                    // delay: 1000,
                     disableOnInteraction: true,
                     pauseOnMouseEnter: true
                 }}

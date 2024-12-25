@@ -5,7 +5,7 @@ import { getBookmarkedProductsPageState, lastItemsOnBookmarkedProductsPage, rese
 // components
 import PageHeader from '../PageHeader'
 import BookmarkedProductsList from './BookmarkedProductsList'
-import CustomPagination from '../CustomPagination'
+import PaginationCustom from '../PaginationCustom'
 
 
 const BookmarkedProductsContainer = ({ bookmarkedProducts }) => {
@@ -23,7 +23,7 @@ const BookmarkedProductsContainer = ({ bookmarkedProducts }) => {
             <BookmarkedProductsList bookmarkedProduct={userBookmarkedProducts.displayedBookmarkedProducts}/>
 
             {userBookmarkedProducts.bookmarkedProductsList.length > userBookmarkedProducts.skipBookmarkedProductsPageAmount && (
-                <CustomPagination
+                <PaginationCustom
                     dataFromDB={userBookmarkedProducts.bookmarkedProductsList}
                     updatePageState={updateBookmarkedProductsPageState}
                     resetPage={resetBookmarkedProductsPage}

@@ -2,7 +2,7 @@ import React from "react"
 
 
 const OrderTotal = ({ selectedOrderDetails }) => {
-    const shippingFee = (selectedOrderDetails?.grandTotal - selectedOrderDetails?.orderDetails?.orderCost) > 0 ?  (selectedOrderDetails?.grandTotal - selectedOrderDetails?.orderDetails?.orderCost).toFixed(2) : 0
+    const shippingFee = (selectedOrderDetails?.grandTotal - selectedOrderDetails?.orderDetails?.orderCost) > 0 ? (selectedOrderDetails?.grandTotal - selectedOrderDetails?.orderDetails?.orderCost).toFixed(2) : 0
 
     return (
         <>
