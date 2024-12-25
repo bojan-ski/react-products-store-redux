@@ -14,7 +14,7 @@ const Contact = () => {
                     {/* row item 1 */}
                     <div className="col-12 col-sm-6 mb-1 mb-sm-3">
                         <p>
-                            We’d love to hear from you! Whether you have a question about our products, an issue with your order, or just want to share your thoughts, we’re here to help.
+                            We&apos;d love to hear from you! Whether you have a question about our products, an issue with your order, or just want to share your thoughts, we&apos;re here to help.
                         </p>
                     </div>
 

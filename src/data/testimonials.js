@@ -3,19 +3,19 @@ const testimonials = [
         userID: 1,
         userName: 'John Smith',
         userProfession: 'Software Engineer',
-        userTestimonial: '“This store is fantastic! The product quality is top-notch, and the delivery was incredibly fast. I’ve already recommended it to all my friends.”'
+        userTestimonial: '“This store is fantastic! The product quality is top-notch, and the delivery was incredibly fast. I have already recommended it to all my friends.”'
     },
     {
         userID: 2,
         userName: 'Emily Johnson',
         userProfession: 'Graphic Designer',
-        userTestimonial: '“I was skeptical at first, but the customer support team was so helpful and friendly. My shopping experience was flawless, and I’ll definitely shop here again.”'
+        userTestimonial: '“I was skeptical at first, but the customer support team was so helpful and friendly. My shopping experience was flawless, and I will definitely shop here again.”'
     },
     {
         userID: 3,
         userName: 'Michael Brown',
         userProfession: 'Entrepreneur',
-        userTestimonial: '“I’ve been shopping online for years, and this is by far one of the best stores I’ve come across. Great prices, excellent variety, and reliable service.”'
+        userTestimonial: '“I have been shopping online for years, and this is by far one of the best stores I have come across. Great prices, excellent variety, and reliable service.”'
     },
     {
         userID: 4,
@@ -33,7 +33,7 @@ const testimonials = [
         userID: 6,
         userName: 'Sophia Taylor',
         userProfession: 'Student',
-        userTestimonial: '“As a student, I’m always looking for affordable options, and this store delivered! Great discounts and a wide selection of products. I’m very happy with my purchases.”'
+        userTestimonial: '“As a student, I am always looking for affordable options, and this store delivered! Great discounts and a wide selection of products. I am very happy with my purchases.”'
     }
 ];
 
