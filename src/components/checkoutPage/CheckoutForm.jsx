@@ -36,10 +36,10 @@ const CheckoutForm = ({ setTogglePaymentModalAnimation }) => {
 
     const handleSetShippingDetails = () => {
         setShippingDetails({
-            streetAddress: userShippingDetails ? userShippingDetails.ShippingDetailsData.streetAddress : '',
-            city: userShippingDetails ? userShippingDetails.ShippingDetailsData.city : '',
-            zip: userShippingDetails ? userShippingDetails.ShippingDetailsData.zip : '',
-            state: userShippingDetails ? userShippingDetails.ShippingDetailsData.state : '',
+            streetAddress: userShippingDetails ? userShippingDetails.shippingDetailsData.streetAddress : '',
+            city: userShippingDetails ? userShippingDetails.shippingDetailsData.city : '',
+            zip: userShippingDetails ? userShippingDetails.shippingDetailsData.zip : '',
+            state: userShippingDetails ? userShippingDetails.shippingDetailsData.state : '',
         })
     }
 
