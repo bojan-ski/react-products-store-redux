@@ -21,10 +21,14 @@ const ForgotPassword = () => {
     const handleResetPassword = async e => {
         e.preventDefault()
 
+        const enteredEmail = e.target.elements[0].value.trim()
+
+        // check input field
+        if (!enteredEmail) return toast.warning('Please enter email address.')
+
+        // run func
         if (window.confirm('Are you sure you want to reset Your password?')) {
             setIsLoading(true);
-
-            const enteredEmail = e.target.elements[0].value.trim()
 
             const response = await userResetPassword(enteredEmail)
 

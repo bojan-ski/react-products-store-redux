@@ -1,13 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 // api
 import fetchUserOrderHistoryFromFirebase from "../../api/fetchUserOrderHistoryFromFirebase"
+// toastify
+import { toast } from "react-toastify";
 
 
 const skipOrderHistoryPageAmount = 10;
 
 const initialOrderHistoryState = {
     isLoading: false,
-    orderHistoryError: false,
     skipOrderHistoryPageAmount,
     orderHistoryList: [],
     displayedOrderHistory: [],
@@ -28,7 +29,7 @@ const orderHistorySlice = createSlice({
     name: 'orderHistory',
     initialState: initialOrderHistoryState,
     reducers: {
-        updateOrderHistoryPageState: (state, { payload }) => {       
+        updateOrderHistoryPageState: (state, { payload }) => {
             // loading true
             state.isLoading = true
 
@@ -86,9 +87,11 @@ const orderHistorySlice = createSlice({
                 state.orderHistoryList = payload
                 state.displayedOrderHistory = payload?.length > skipOrderHistoryPageAmount ? payload.slice(0, skipOrderHistoryPageAmount) : payload
             })
-            .addCase(getUserOrderHistory.rejected, (state) => {
+            .addCase(getUserOrderHistory.rejected, (state, action) => {
                 state.isLoading = false;
-                state.orderHistoryError = true                
+
+                // error message
+                toast.error('There was an error while fetching User order history, please try again')
             })
     }
 })

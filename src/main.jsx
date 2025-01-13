@@ -9,11 +9,11 @@ import 'swiper/css/pagination';
 import '/node_modules/react-toastify/dist/ReactToastify.css';
 // custom css
 import './index.css'
-// app
-import App from './App.jsx'
 // redux
 import { Provider } from 'react-redux';
 import { store } from './store.js';
+// app
+import App from './App.jsx'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(

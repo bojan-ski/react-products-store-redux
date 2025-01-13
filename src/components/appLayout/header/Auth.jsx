@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { logOutUser } from "../../../features/user/userSlice"
 
 
-const Onboarding = () => {
+const Auth = () => {
   const { userName, userStoreCredit } = useSelector(state => state.user)
   const dispatch = useDispatch()
 
@@ -45,4 +45,4 @@ const Onboarding = () => {
   )
 }
 
-export default Onboarding
+export default Auth

@@ -3,7 +3,7 @@ import { Outlet, useNavigation } from "react-router-dom"
 // redux
 import { useDispatch, useSelector } from "react-redux"
 import { fetchUserDetails } from "../features/user/userSlice"
-// pages
+// pages - loading
 import Loading from "./Loading"
 // components
 import Header from "../components/appLayout/header/Header"
@@ -21,8 +21,6 @@ const AppLayout = () => {
     const dispatch = useDispatch()    
 
     useEffect(() => {
-        // console.log('useEffect - fetchUserDetails()');
-
         dispatch(fetchUserDetails())
     }, [])
 
@@ -37,6 +35,7 @@ const AppLayout = () => {
             </main>
 
             <Footer />
+            
             <ToastContainer
                 position="top-center"
                 autoClose={2500}

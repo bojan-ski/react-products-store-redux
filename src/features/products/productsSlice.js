@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 // axios
 import axios from "axios"
+// toastify
+import { toast } from "react-toastify";
 
 
 const url = `${import.meta.env.VITE_DUMMYJSON_PRODUCTS_API_URL}`;
@@ -67,7 +69,7 @@ const productsSlice = createSlice({
         },
         updateProductsURL: (state, { payload }) => {
             const selectedCategory = payload.split("/").filter(Boolean)[1];
-                        
+
             // loading true
             state.isLoading = true
 
@@ -121,22 +123,26 @@ const productsSlice = createSlice({
                 state.availableProducts = payload.total;
             })
             .addCase(getListOfProducts.rejected, (state, action) => {
-                console.log(action);
                 state.isLoading = false;
+
+                // error message
+                toast.error('There was an error while fetching products list, please try again')
             })
             // searchForProducts
             .addCase(searchForProducts.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(searchForProducts.fulfilled, (state, { payload }) => {                
+            .addCase(searchForProducts.fulfilled, (state, { payload }) => {
                 state.isLoading = false;
 
                 payload.products.length > 12 ? state.productsList = payload.products.slice(0, 12) : state.productsList = payload.products;
                 payload.products.length > 12 ? state.availableProducts = 12 : state.availableProducts = payload.total;
             })
             .addCase(searchForProducts.rejected, (state, action) => {
-                console.log(action);
                 state.isLoading = false;
+
+                // error message
+                toast.error('There is a error with the search feature, please try again')
             })
     }
 })

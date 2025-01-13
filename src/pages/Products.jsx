@@ -26,10 +26,11 @@ export const loader = async () => {
 
 const Products = () => {
     const products = useSelector(state => state.products)
-    const dispatch = useDispatch()    
+    const dispatch = useDispatch()
 
-    useEffect(() => {        
-        if (!products.productsList.length) {            
+    // Fetch the first page on mount
+    useEffect(() => {
+        if (!products.productsList.length) {
             const productsListParameters = {
                 updatedUrlOne: '',
                 updatedUrlTwo: `?limit=${products.productsLimit}&skip=0`

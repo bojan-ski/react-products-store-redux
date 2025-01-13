@@ -11,7 +11,7 @@ import FormSubmitBtn from "../components/FormSubmitBtn"
 import { toast } from "react-toastify"
 
 
-const SignUp = () => {    
+const SignUp = () => {
     const { userID } = useSelector(state => state.user)
 
     const [isLoading, setIsLoading] = useState(false);
@@ -19,11 +19,16 @@ const SignUp = () => {
     const handleSignUpUserSubmit = async e => {
         e.preventDefault();
 
-        setIsLoading(true);
-
         const enteredUsername = e.target.elements[0].value.trim();
         const enteredEmail = e.target.elements[1].value.trim();
         const enteredPassword = e.target.elements[2].value;
+
+        // check all fields & checkboxes
+        if (!enteredUsername || !enteredEmail || !enteredPassword) return toast.warning('All input fields required.')
+        if (!e.target.elements[3].checked || !e.target.elements[4].checked) return toast.warning('Checkboxes are required')
+
+        // run func
+        setIsLoading(true);
 
         const response = await userCreateAccount(enteredUsername, enteredEmail, enteredPassword);
 

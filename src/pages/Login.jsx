@@ -18,18 +18,19 @@ const Login = () => {
 
     const navigate = useNavigate()
 
-    // redirect user if logged in
-    if (userID) navigate('/profile')
-
     const [isLoading, setIsLoading] = useState(false);
 
     const handleLoginUserSubmit = async e => {
         e.preventDefault()
 
-        setIsLoading(true);
-
         const enteredEmail = e.target.elements[0].value.trim()
         const enteredPassword = e.target.elements[1].value
+
+        // check all fields
+        if (!enteredEmail || !enteredPassword) return toast.warning('All input fields required.')
+
+        // run func
+        setIsLoading(true);
 
         const response = await userLogin(enteredEmail, enteredPassword)
 

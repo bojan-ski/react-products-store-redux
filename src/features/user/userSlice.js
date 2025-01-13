@@ -15,7 +15,7 @@ const initialUserState = {
     userStoreCredit: 0,
 };
 
-// used in: AppLayout
+// used in: AppLayout, Login
 export const fetchUserDetails = createAsyncThunk("user/fetchUserDetails", async (_, { rejectWithValue }) => {
     return new Promise((resolve) => {
         onAuthStateChanged(auth, async (user) => {
@@ -32,13 +32,17 @@ export const fetchUserDetails = createAsyncThunk("user/fetchUserDetails", async 
                     rejectWithValue("Failed to fetch store credit");
                 }
             } else {
-                resolve({ userID: '', userName: '', userStoreCredit: 0 });
+                resolve({
+                    userID: '',
+                    userName: '',
+                    userStoreCredit: 0
+                });
             }
         });
     });
 });
 
-// used in: Onboarding
+// used in: Auth
 export const logOutUser = createAsyncThunk("user/logOutUser", async () => {
     if (window.confirm("Are you sure you want to log out")) {
         try {
@@ -53,19 +57,17 @@ export const logOutUser = createAsyncThunk("user/logOutUser", async () => {
             return { userID: '', userName: '', userStoreCredit: 0 };
         } catch (error) {
             // error message
-            toast.error("There was an error, please try again");
+            toast.error("There was an error with the log out feature, please try again");
         }
     }
 });
 
-// used in: Onboarding, SignUp, Login, ForgotPassword, Profile, OrderCostDetails, CheckoutForm
+// used in: PrivateRoutes, Auth, SignUp, Login, ForgotPassword, Profile, OrderCostDetails, CheckoutForm
 const userSlice = createSlice({
     name: "user",
     initialState: initialUserState,
-    reducers:{
+    reducers: {
         updateUserStoreCredit: (state, { payload }) => {
-            // console.log(payload);
-            
             // loading true
             state.isLoading = true
 
@@ -88,8 +90,10 @@ const userSlice = createSlice({
                 state.userStoreCredit = payload.userStoreCredit;
             })
             .addCase(fetchUserDetails.rejected, (state, action) => {
-                console.log(action);
                 state.isLoading = false;
+
+                // error message
+                toast.error('There was an error with the auth feature, please try again')
             })
             .addCase(logOutUser.pending, (state) => {
                 state.isLoading = true;
@@ -101,7 +105,6 @@ const userSlice = createSlice({
                 state.userStoreCredit = payload.userStoreCredit;
             })
             .addCase(logOutUser.rejected, (state, action) => {
-                console.log(action);
                 state.isLoading = false;
             });
     }

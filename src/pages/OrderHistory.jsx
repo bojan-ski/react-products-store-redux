@@ -13,6 +13,7 @@ const OrderHistory = () => {
     const userOrderHistory = useSelector(state => state.orderHistory)
     const dispatch = useDispatch()
 
+    // Fetch the first page on mount
     useEffect(() => {
         if (userOrderHistory.orderHistoryList.length == 0) dispatch(getUserOrderHistory())
     }, [])

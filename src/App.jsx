@@ -22,10 +22,11 @@ import ContactUs from "./pages/ContactUs"
 import ErrorPage from "./pages/ErrorPage"
 
 // PRIVATE ROUTE
-import PrivateRoute from "./private/PrivateRoute"
+import AuthPrivateRoute from "./private/AuthPrivateRoute"
+import ProfilePrivateRoute from "./private/ProfilePrivateRoute"
 
 // LOADERS
-import { loader as carsLoader } from "./pages/Dashboard"
+import { loader as promoLoader } from "./pages/Dashboard"
 import { loader as userBookmarkedProductsAndCategoriesLoader } from "./pages/Products"
 import { loader as selectedProductLoader } from "./pages/SelectedProduct"
 import { loader as userShippingDetailsLoader } from "./pages/Profile"
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Dashboard />,
-        loader: carsLoader
+        loader: promoLoader
       },
       {
         path: '/:id',
@@ -60,7 +61,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/sign-up',
-        element: <SignUp />,
+        element: <AuthPrivateRoute><SignUp /></AuthPrivateRoute>,
       },
       {
         path: '/terms-and-conditions',
@@ -72,11 +73,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/login',
-        element: <Login />,
+        element: <AuthPrivateRoute><Login /></AuthPrivateRoute>,
       },
       {
         path: '/forgot-password',
-        element: <ForgotPassword />,
+        element: <AuthPrivateRoute><ForgotPassword /></AuthPrivateRoute>,
       },
       {
         path: '/compare',
@@ -93,7 +94,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/checkout',
-        element: <PrivateRoute><Checkout /></PrivateRoute>,
+        element: <ProfilePrivateRoute><Checkout /></ProfilePrivateRoute>,
         loader: userShippingDetailsLoader
       },
       {
@@ -106,21 +107,21 @@ const router = createBrowserRouter([
           },
           {
             path: 'order-history',
-            element: <PrivateRoute><OrderHistory /></PrivateRoute>,
+            element: <ProfilePrivateRoute><OrderHistory /></ProfilePrivateRoute>,
           },
           {
             path: 'order-history/:id',
-            element: <PrivateRoute><SelectedOrder/></PrivateRoute>,
+            element: <ProfilePrivateRoute><SelectedOrder/></ProfilePrivateRoute>,
             loader: selectedOrderLoader
           },
           {
             path: 'bookmarked-products',
-            element: <PrivateRoute><BookmarkedProducts /></PrivateRoute>,
+            element: <ProfilePrivateRoute><BookmarkedProducts /></ProfilePrivateRoute>,
             loader: userBookmarkedProductsAndCategoriesLoader
           },
           {
             path: 'bookmarked-products/:id',
-            element: <PrivateRoute><SelectedProduct /></PrivateRoute>,
+            element: <ProfilePrivateRoute><SelectedProduct /></ProfilePrivateRoute>,
             loader: selectedProductLoader
           },
         ]
